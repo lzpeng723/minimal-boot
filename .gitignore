@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 排除其他文件 ###
+/log/
+/.mvn/
