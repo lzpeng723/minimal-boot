@@ -694,6 +694,7 @@
 		"component": "@/layout/index",
 		"orderNum": 4,
 		"type": 1,
+		"hidden": true,
 		"frame": true,
 		"title": "若依官网",
 		"icon": "guide"

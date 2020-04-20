@@ -13,17 +13,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>lzpeng</name>
     <description>极简台管理系统</description>
-	<!-- TODO
-		轻量后台管理框架
-        仿照 http://ruoyi.vip/
-        待加入
-        lincense 加密解密 自定义类加载器
-        Valid注解转 el-from 校验规则
-        导入(json,xml,excel),导出(json,xml,excel)
-        DEP,Rhino,动态编译java(类加载器)
-        报表功能
-        审批流功能
-	-->
 
     <properties>
         <java.version>1.8</java.version>
@@ -284,7 +273,7 @@
     <repositories>
         <repository>
             <id>maven-ali</id>
-            <url>http://maven.aliyun.com/nexus/content/groups/public//</url>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -315,7 +304,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>maven-ali</id>
-            <url>http://maven.aliyun.com/nexus/content/groups/public//</url>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
