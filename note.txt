@@ -1,0 +1,56 @@
+重命名项目
+修改文件夹名称
+修改package.json中的name属性与文件夹名称相同
+删除node_modules文件夹
+重新cnpm i -S
+// 更新element-ui版本
+// cnpm i element-ui@2.7.0  -S
+cnpm i element-ui@2.13.1  -S
+// 核心js
+cnpm i core-js@2  -S
+// Base 64 编解码
+cnpm i -S js-base64
+// 树形下拉选择框 https://www.vue-treeselect.cn/
+cnpm i -S @riophae/vue-treeselect
+// qs 处理 GET 请求参数(body -> query)
+cnpm i -S qs
+// 文件名称注入器
+cnpm i -S @d2-projects/vue-filename-injector
+// 树形穿梭框
+cnpm i el-tree-transfer -S
+// 代码编辑器 https://github.com/surmon-china/vue-codemirror
+cnpm i codemirror  -S
+cnpm i vue-codemirror -S
+// 多行字符串
+cnpm i dedent -S
+npm run dev
+
+
+先把表单构建跑通，然后仿照其写一个实体构建
+
+牛逼的Vue-Element代码生成器 https://gitee.com/mrhj/form-generator
+牛逼的Vue-Element代码生成器 https://mrhj.gitee.io/form-generator/#/
+vue使用axios使用二进制流下载文件 https://www.jianshu.com/p/a377af113338?tdsourcetag=s_pcqq_aiomsg
+Vue.nextTick 的原理和用途 https://segmentfault.com/a/1190000012861862?utm_medium=referral&utm_source=tuicool
+
+// vue子组件修改父组件传递过来的值 https://www.cnblogs.com/Sky-Ice/p/10456533.html
+// this.open = false // 此句错误
+// 不要去改变父组件传递过来的值，会发生意想不到的问题
+// 应使用$emit由父组件来改变值
+// this.$emit('closed')
+// 或者父传递对象或数组，不要传递基本数据类型
+js文件在线编辑运行: https://github.com/zycfj/JsBox
+vue-codemirror组件: https://github.com/surmon-china/vue-codemirror
+https://blog.csdn.net/mySpringandhibernate/article/details/84105095
+vue-ele-form-codemirror | vue-ele-form 的代码编辑器: https://github.com/dream2023/vue-ele-form-codemirror
+vue-router踩坑：History模式下，打包后页面访问404 https://blog.csdn.net/bxl0218/article/details/80974811
+//
+单表
+树表
+左树右表
+F7 dialog
+rhino富文本编辑器
+
+bpmn官网 https://bpmn.io/toolkit/bpmn-js/
+教程(详细): https://blog.csdn.net/haoyanyu_/article/details/100702315
+教程(简单): https://www.jianshu.com/p/5ff652279a8d
