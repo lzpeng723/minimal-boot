@@ -1,0 +1,26 @@
+[
+  {
+    "number": "Job-Java",
+    "name": "Java测试",
+    "group": "测试",
+    "type": 0,
+    "clazz": "com.lzpeng.framework.quartz.SampleJavaJob",
+    "cron": "0 * * * * ?"
+  },
+  {
+    "number": "Job-Rhino",
+    "name": "Rhino脚本测试",
+    "group": "测试",
+    "type": 1,
+    "script": "static/rhino.js",
+    "cron": "20 * * * * ?"
+  },
+  {
+    "number": "Job-Nashorn",
+    "name": "Nashorn脚本测试",
+    "group": "测试",
+    "type": 2,
+    "script": "static/nashorn.js",
+    "cron": "40 * * * * ?"
+  }
+]

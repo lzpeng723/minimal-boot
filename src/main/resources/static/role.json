@@ -1,0 +1,22 @@
+[
+  {
+    "name": "超级管理员",
+    "number": "ADMIN"
+  },
+  {
+    "name": "预设用户",
+    "number": "USER"
+  },
+  {
+    "name": "匿名用户",
+    "number": "ANONYMOUS"
+  },
+  {
+    "name": "ACTIVITI管理员",
+    "number": "ACTIVITI_ADMIN"
+  },
+  {
+    "name": "ACTIVITI用户",
+    "number": "ACTIVITI_USER"
+  }
+]

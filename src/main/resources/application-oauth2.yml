@@ -1,0 +1,11 @@
+security:
+  oauth2:
+    client:
+      client-id: lzpeng
+      client-secret: 123456
+      registered-redirect-uri: http://localhost:${server.port}
+      grant-type: authorization_code, password, refresh_token
+      scopes: all, read, write
+      access-token-validity-seconds: 3600
+      refresh-token-validity-seconds: 86400
+      permitAllUrls: /tool/gen/gen/**, /monitor/serverLog/download/*, /tool/classLoader/download/*, /*/*/export

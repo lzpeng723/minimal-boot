@@ -1,0 +1,17 @@
+project:
+  manifest:
+    file:
+      path: classpath:/activiti.json
+# https://www.xugj520.cn/archives/activiti_issues.html
+spring:
+  activiti:
+    database-schema-update: true
+    check-process-definitions: true
+    process-definition-location-prefix: classpath:/processes/
+    history-level: full
+    db-history-used: true
+    db-identity-used: true
+#  datasource:
+#     schema:
+#       - classpath:org/activiti/db/create/activiti.mysql55.create.engine.sql
+#       - classpath:org/activiti/db/create/activiti.mysql55.create.history.sql

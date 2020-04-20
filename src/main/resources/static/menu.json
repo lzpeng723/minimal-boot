@@ -1,0 +1,701 @@
+[
+	{
+		"name": "Sys",
+		"path": "/sys",
+		"redirect": "noRedirect",
+		"component": "@/layout/index",
+		"alwaysShow": true,
+		"orderNum": 1,
+		"type": 0,
+		"title": "系统管理",
+		"icon": "system",
+		"children": [
+			{
+				"name": "User",
+				"path": "user",
+				"component": "@/views/sys/user/index",
+				"orderNum": 1,
+				"number": "sys:user:list",
+				"type": 1,
+				"title": "用户管理",
+				"icon": "user",
+				"children": [
+					{
+						"name": "UserQuery",
+						"orderNum": 1,
+						"number": "sys:user:query",
+						"type": 2,
+						"title": "用户查询"
+					},
+					{
+						"name": "UserAdd",
+						"orderNum": 2,
+						"number": "sys:user:add",
+						"type": 2,
+						"title": "用户新增"
+					},
+					{
+						"name": "UserEdit",
+						"orderNum": 3,
+						"number": "sys:user:edit",
+						"type": 2,
+						"title": "用户修改"
+					},
+					{
+						"name": "UserDelete",
+						"orderNum": 4,
+						"number": "sys:user:delete",
+						"type": 2,
+						"title": "用户删除"
+					},
+					{
+						"name": "UserImport",
+						"orderNum": 5,
+						"number": "sys:user:import",
+						"type": 2,
+						"title": "用户导入"
+					},
+					{
+						"name": "UserExport",
+						"orderNum": 6,
+						"number": "sys:user:export",
+						"type": 2,
+						"title": "用户导出"
+					}
+				]
+			},
+			{
+				"name": "Role",
+				"path": "role",
+				"component": "@/views/sys/role/index",
+				"orderNum": 2,
+				"number": "sys:role:list",
+				"type": 1,
+				"title": "角色管理",
+				"icon": "peoples",
+				"children": [
+					{
+						"name": "RoleQuery",
+						"orderNum": 1,
+						"number": "sys:role:query",
+						"type": 2,
+						"title": "角色查询"
+					},
+					{
+						"name": "RoleAdd",
+						"orderNum": 2,
+						"number": "sys:role:add",
+						"type": 2,
+						"title": "角色新增"
+					},
+					{
+						"name": "RoleEdit",
+						"orderNum": 3,
+						"number": "sys:role:edit",
+						"type": 2,
+						"title": "角色修改"
+					},
+					{
+						"name": "RoleDelete",
+						"orderNum": 4,
+						"number": "sys:role:delete",
+						"type": 2,
+						"title": "角色删除"
+					},
+					{
+						"name": "RoleImport",
+						"orderNum": 5,
+						"number": "sys:role:import",
+						"type": 2,
+						"title": "角色导入"
+					},
+					{
+						"name": "RoleExport",
+						"orderNum": 6,
+						"number": "sys:role:export",
+						"type": 2,
+						"title": "角色导出"
+					}
+				]
+			},
+			{
+				"name": "Menu",
+				"path": "menu",
+				"component": "@/views/sys/menu/index",
+				"orderNum": 3,
+				"number": "sys:menu:list",
+				"type": 1,
+				"title": "菜单管理",
+				"icon": "tree-table",
+				"children": [
+					{
+						"name": "MenuQuery",
+						"orderNum": 1,
+						"number": "sys:menu:query",
+						"type": 2,
+						"title": "菜单查询"
+					},
+					{
+						"name": "MenuAdd",
+						"orderNum": 2,
+						"number": "sys:menu:add",
+						"type": 2,
+						"title": "菜单新增"
+					},
+					{
+						"name": "MenuEdit",
+						"orderNum": 3,
+						"number": "sys:menu:edit",
+						"type": 2,
+						"title": "菜单修改"
+					},
+					{
+						"name": "MenuDelete",
+						"orderNum": 4,
+						"number": "sys:menu:delete",
+						"type": 2,
+						"title": "菜单删除"
+					},
+					{
+						"name": "MenuImport",
+						"orderNum": 5,
+						"number": "sys:menu:import",
+						"type": 2,
+						"title": "菜单导入"
+					},
+					{
+						"name": "MenuExport",
+						"orderNum": 6,
+						"number": "sys:menu:export",
+						"type": 2,
+						"title": "菜单导出"
+					}
+				]
+			},
+			{
+				"name": "Department",
+				"path": "department",
+				"component": "@/views/sys/department/index",
+				"orderNum": 4,
+				"number": "sys:department:list",
+				"type": 1,
+				"title": "部门管理",
+				"icon": "tree",
+				"children": [
+					{
+						"name": "DepartmentQuery",
+						"orderNum": 1,
+						"number": "sys:department:query",
+						"type": 2,
+						"title": "部门查询"
+					},
+					{
+						"name": "DepartmentAdd",
+						"orderNum": 2,
+						"number": "sys:department:add",
+						"type": 2,
+						"title": "部门新增"
+					},
+					{
+						"name": "DepartmentEdit",
+						"orderNum": 3,
+						"number": "sys:department:edit",
+						"type": 2,
+						"title": "部门修改"
+					},
+					{
+						"name": "DepartmentDelete",
+						"orderNum": 4,
+						"number": "sys:department:delete",
+						"type": 2,
+						"title": "部门删除"
+					},
+					{
+						"name": "DepartmentImport",
+						"orderNum": 5,
+						"number": "sys:department:import",
+						"type": 2,
+						"title": "部门导入"
+					},
+					{
+						"name": "DepartmentExport",
+						"orderNum": 6,
+						"number": "sys:department:export",
+						"type": 2,
+						"title": "部门导出"
+					}
+				]
+			},
+			{
+				"name": "Position",
+				"path": "position",
+				"component": "@/views/sys/position/index",
+				"orderNum": 5,
+				"number": "sys:position:list",
+				"type": 1,
+				"title": "岗位管理",
+				"icon": "position",
+				"children": [
+					{
+						"name": "PositionQuery",
+						"orderNum": 1,
+						"number": "sys:position:query",
+						"type": 2,
+						"title": "岗位查询"
+					},
+					{
+						"name": "PositionAdd",
+						"orderNum": 2,
+						"number": "sys:position:add",
+						"type": 2,
+						"title": "岗位新增"
+					},
+					{
+						"name": "PositionEdit",
+						"orderNum": 3,
+						"number": "sys:position:edit",
+						"type": 2,
+						"title": "岗位修改"
+					},
+					{
+						"name": "PositionDelete",
+						"orderNum": 4,
+						"number": "sys:position:delete",
+						"type": 2,
+						"title": "岗位删除"
+					},
+					{
+						"name": "PositionImport",
+						"orderNum": 5,
+						"number": "sys:position:import",
+						"type": 2,
+						"title": "岗位导入"
+					},
+					{
+						"name": "PositionExport",
+						"orderNum": 6,
+						"number": "sys:position:export",
+						"type": 2,
+						"title": "岗位导出"
+					}
+				]
+			},
+			{
+				"name": "Config",
+				"path": "config",
+				"component": "@/views/sys/config/index",
+				"orderNum": 6,
+				"number": "sys:config:list",
+				"type": 1,
+				"title": "参数设置",
+				"icon": "edit"
+			},
+			{
+				"name": "Notice",
+				"path": "notice",
+				"component": "@/views/sys/notice/index",
+				"orderNum": 7,
+				"number": "sys:notice:list",
+				"type": 1,
+				"title": "通知公告",
+				"icon": "message"
+			}
+		]
+	},
+	{
+		"name": "Monitor",
+		"path": "/monitor",
+		"redirect": "noRedirect",
+		"component": "@/layout/index",
+		"alwaysShow": true,
+		"orderNum": 2,
+		"type": 0,
+		"title": "系统监控",
+		"icon": "monitor",
+		"children": [
+			{
+				"name": "Online",
+				"path": "online",
+				"component": "@/views/monitor/online/index",
+				"orderNum": 1,
+				"number": "monitor:online:list",
+				"type": 1,
+				"title": "在线用户",
+				"icon": "online"
+			},
+			{
+				"name": "Job",
+				"path": "job",
+				"component": "@/views/monitor/job/index",
+				"orderNum": 2,
+				"number": "monitor:job:list",
+				"type": 1,
+				"title": "定时任务",
+				"icon": "job",
+				"children": [
+					{
+						"name": "JobQuery",
+						"orderNum": 1,
+						"number": "monitor:job:query",
+						"type": 2,
+						"title": "定时任务查询"
+					},
+					{
+						"name": "JobAdd",
+						"orderNum": 2,
+						"number": "monitor:job:add",
+						"type": 2,
+						"title": "定时任务新增"
+					},
+					{
+						"name": "JobEdit",
+						"orderNum": 3,
+						"number": "monitor:job:edit",
+						"type": 2,
+						"title": "定时任务修改"
+					},
+					{
+						"name": "JobDelete",
+						"orderNum": 4,
+						"number": "monitor:job:delete",
+						"type": 2,
+						"title": "定时任务删除"
+					},
+					{
+						"name": "JobImport",
+						"orderNum": 5,
+						"number": "monitor:job:import",
+						"type": 2,
+						"title": "定时任务导入"
+					},
+					{
+						"name": "JobExport",
+						"orderNum": 6,
+						"number": "monitor:job:export",
+						"type": 2,
+						"title": "定时任务导出"
+					}
+				]
+			},
+			{
+				"name": "JobDetail",
+				"path": "/monitor/job/:id",
+				"component": "@/views/monitor/job/JobDetail",
+				"orderNum": 3,
+				"number": "monitor:job:detail",
+				"type": 1,
+				"title": "定时任务详情",
+				"icon": "job",
+				"activeMenu": "/monitor/job",
+				"hidden": true
+			},
+			{
+				"name": "Druid",
+				"path": "druid",
+				"component": "@/views/monitor/druid/index",
+				"orderNum": 4,
+				"number": "monitor:druid:list",
+				"type": 1,
+				"title": "数据监控",
+				"icon": "druid"
+			},
+			{
+				"name": "Server",
+				"path": "server",
+				"component": "@/views/monitor/server/index",
+				"orderNum": 5,
+				"number": "monitor:server:list",
+				"type": 1,
+				"title": "服务监控",
+				"icon": "server"
+			},
+			{
+				"name": "Log",
+				"path": "log",
+				"redirect": "noRedirect",
+				"component": "@/views/monitor/log/index",
+				"alwaysShow": true,
+				"orderNum": 6,
+				"type": 0,
+				"title": "日志管理",
+				"icon": "log",
+				"children": [
+					{
+						"name": "RequestLog",
+						"path": "requestLog",
+						"component": "@/views/monitor/requestLog/index",
+						"orderNum": 1,
+						"number": "monitor:requestLog:list",
+						"type": 1,
+						"title": "请求日志",
+						"icon": "form",
+						"children": [
+							{
+								"name": "RequestLogQuery",
+								"orderNum": 1,
+								"number": "monitor:requestLog:query",
+								"type": 2,
+								"title": "请求日志查询"
+							},
+							{
+								"name": "RequestLogExport",
+								"orderNum": 2,
+								"number": "monitor:requestLog:export",
+								"type": 2,
+								"title": "请求日志导出"
+							}
+						]
+					},
+					{
+						"name": "MethodLog",
+						"path": "methodLog",
+						"component": "@/views/monitor/methodLog/index",
+						"orderNum": 2,
+						"number": "monitor:methodLog:list",
+						"type": 1,
+						"title": "方法日志",
+						"icon": "logininfor",
+						"children": [
+							{
+								"name": "MethodLogQuery",
+								"orderNum": 1,
+								"number": "monitor:methodLog:query",
+								"type": 2,
+								"title": "请求日志查询"
+							},
+							{
+								"name": "MethodLogExport",
+								"orderNum": 2,
+								"number": "monitor:methodLog:export",
+								"type": 2,
+								"title": "请求日志导出"
+							}
+						]
+					},
+					{
+						"name": "ServerLog",
+						"path": "serverLog",
+						"component": "@/views/monitor/serverLog/index",
+						"orderNum": 2,
+						"number": "monitor:serverLog:list",
+						"type": 1,
+						"title": "后台日志",
+						"icon": "logininfor",
+						"children": [
+							{
+								"name": "ServerLogQuery",
+								"orderNum": 1,
+								"number": "monitor:serverLog:query",
+								"type": 2,
+								"title": "后台日志查询"
+							},
+							{
+								"name": "ServerLogExport",
+								"orderNum": 2,
+								"number": "monitor:serverLog:export",
+								"type": 2,
+								"title": "后台日志导出"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "Tool",
+		"path": "/tool",
+		"redirect": "noRedirect",
+		"component": "@/layout/index",
+		"alwaysShow": true,
+		"orderNum": 3,
+		"type": 0,
+		"title": "系统工具",
+		"icon": "tool",
+		"children": [
+			{
+				"name": "Component",
+				"path": "component",
+				"component": "@/views/tool/componentView/index",
+				"orderNum": 1,
+				"number": "tool:build:component",
+				"type": 1,
+				"title": "组件查看",
+				"icon": "component"
+			},
+			{
+				"name": "Icon",
+				"path": "icon",
+				"component": "@/views/tool/icon/index",
+				"orderNum": 2,
+				"number": "tool:build:icon",
+				"type": 1,
+				"title": "图标查看",
+				"icon": "icon"
+			},
+			{
+				"name": "Build",
+				"path": "build",
+				"component": "@/views/tool/build/index",
+				"orderNum": 3,
+				"number": "tool:build:list",
+				"type": 1,
+				"title": "表单构建",
+				"icon": "build"
+			},
+			{
+				"name": "Gen_abc",
+				"path": "gen_abc",
+				"component": "@/views/tool/gen_abc/index",
+				"orderNum": 4,
+				"number": "tool:gen_abc:list",
+				"type": 1,
+				"title": "单据构建",
+				"icon": "code"
+			},
+			{
+				"name": "TableInfo",
+				"path": "tableInfo",
+				"component": "@/views/tool/tableInfo/index",
+				"orderNum": 5,
+				"number": "tool:tableInfo:list",
+				"type": 1,
+				"title": "数据字典",
+				"icon": "dict",
+				"children": [
+					{
+						"name": "TableInfoQuery",
+						"orderNum": 1,
+						"number": "tool:tableInfo:query",
+						"type": 2,
+						"title": "数据字典查询"
+					}
+				]
+			},
+			{
+				"name": "TableInfoDetail",
+				"path": "/tool/tableInfo/:id",
+				"component": "@/views/tool/tableInfo/TableInfoDetail",
+				"orderNum": 6,
+				"number": "tool:tableInfo:detail",
+				"type": 1,
+				"title": "数据字典详情",
+				"icon": "dict",
+				"activeMenu": "/tool/tableInfo",
+				"hidden": true
+			},
+			{
+				"name": "Gen",
+				"path": "gen",
+				"component": "@/views/tool/gen/index",
+				"orderNum": 7,
+				"number": "tool:gen:list",
+				"type": 1,
+				"title": "代码生成配置",
+				"icon": "code",
+				"children": [
+					{
+						"name": "GenQuery",
+						"orderNum": 1,
+						"number": "tool:gen:query",
+						"type": 2,
+						"title": "代码生成配置查询"
+					},
+					{
+						"name": "GenAdd",
+						"orderNum": 2,
+						"number": "tool:gen:add",
+						"type": 2,
+						"title": "代码生成配置新增"
+					},
+					{
+						"name": "GenEdit",
+						"orderNum": 3,
+						"number": "tool:gen:edit",
+						"type": 2,
+						"title": "代码生成配置修改"
+					},
+					{
+						"name": "GenDelete",
+						"orderNum": 4,
+						"number": "tool:gen:delete",
+						"type": 2,
+						"title": "代码生成配置删除"
+					},
+					{
+						"name": "GenImport",
+						"orderNum": 5,
+						"number": "tool:gen:import",
+						"type": 2,
+						"title": "代码生成配置导入"
+					},
+					{
+						"name": "GenExport",
+						"orderNum": 6,
+						"number": "tool:gen:export",
+						"type": 2,
+						"title": "代码生成配置导出"
+					},
+					{
+						"name": "GenCode",
+						"orderNum": 6,
+						"number": "tool:gen:gen",
+						"type": 2,
+						"title": "代码生成"
+					}
+				]
+			},
+			{
+				"name": "GenDetail",
+				"path": "/tool/gen/:id",
+				"component": "@/views/tool/gen/GenDetail",
+				"orderNum": 8,
+				"number": "tool:gen:detail",
+				"type": 1,
+				"title": "代码配置详情",
+				"icon": "code",
+				"activeMenu": "/tool/gen",
+				"hidden": true
+			},
+			{
+				"name": "ClassLoader",
+				"path": "classLoader",
+				"component": "@/views/tool/classLoader/index",
+				"orderNum": 9,
+				"number": "tool:classLoader:list",
+				"type": 1,
+				"title": "类加载信息",
+				"icon": "dict",
+				"children": [
+					{
+						"name": "ClassLoaderQuery",
+						"orderNum": 1,
+						"number": "tool:classLoader:query",
+						"type": 2,
+						"title": "类加载信息查询"
+					}
+				]
+			},
+			{
+				"name": "Swagger",
+				"path": "swagger",
+				"component": "@/views/tool/swagger/index",
+				"orderNum": 10,
+				"number": "tool:swagger:list",
+				"type": 1,
+				"title": "系统接口",
+				"icon": "swagger"
+			}
+		]
+	},
+	{
+		"name": "Http://ruoyi.vip",
+		"path": "http://ruoyi.vip",
+		"component": "@/layout/index",
+		"orderNum": 4,
+		"type": 1,
+		"frame": true,
+		"title": "若依官网",
+		"icon": "guide"
+	}
+]

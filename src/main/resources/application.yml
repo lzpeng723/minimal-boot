@@ -1,0 +1,10 @@
+server:
+  port: 8888
+spring:
+  profiles:
+    active: actuator, mysql, nginx, logging, oauth2, quartz, activiti
+  application:
+    name: main # 主模块 必须写横杠,不能写下划线
+#  main:
+#    allow-bean-definition-overriding: true
+

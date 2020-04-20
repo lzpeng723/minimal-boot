@@ -1,0 +1,4 @@
+logging:
+  file:
+    name: ./log/lzpeng-boot.log
+    max-size: 10MB

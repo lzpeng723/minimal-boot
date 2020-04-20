@@ -1,0 +1,79 @@
+[
+  {
+    "number": "Controller",
+    "name": "控制层",
+    "path": "src/main/java/com/lzpeng/project/${moduleName}/controller/${simpleClassName}Controller.java",
+    "template": "template/Controller.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "Service",
+    "name": "业务层",
+    "path": "src/main/java/com/lzpeng/project/${moduleName}/service/${simpleClassName}Service.java",
+    "template": "template/Service.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "Repository",
+    "name": "数据层",
+    "path": "src/main/java/com/lzpeng/project/${moduleName}/repository/${simpleClassName}Repository.java",
+    "template": "template/Repository.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "AbstractService",
+    "name": "抽象业务层",
+    "path": "src/main/java/com/lzpeng/project/${moduleName}/service/Abstract${simpleClassName}Service.java",
+    "template": "template/AbstractService.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "ControllerTest",
+    "name": "控制层测试",
+    "path": "src/test/java/com/lzpeng/project/${moduleName}/controller/${simpleClassName}ControllerTest.java",
+    "template": "template/ControllerTest.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "ServiceTest",
+    "name": "业务层测试",
+    "path": "src/test/java/com/lzpeng/project/${moduleName}/service/${simpleClassName}ServiceTest.java",
+    "template": "template/ServiceTest.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "RepositoryTest",
+    "name": "数据层测试",
+    "path": "src/test/java/com/lzpeng/project/${moduleName}/repository/${simpleClassName}RepositoryTest.java",
+    "template": "template/RepositoryTest.java.ftl",
+    "type": 0
+  },
+  {
+    "number": "List",
+    "name": "列表页面",
+    "path": "src/vue/src/views/${moduleName}/${simpleClassName?uncap_first}/index.vue",
+    "template": "template/index.vue.ftl",
+    "type": 2
+  },
+  {
+    "number": "Detail",
+    "name": "详情界面",
+    "path": "src/vue/src/views/${moduleName}/${simpleClassName?uncap_first}/${simpleClassName}Detail.vue",
+    "template": "template/detail.vue.ftl",
+    "type": 2
+  },
+  {
+    "number": "Dialog",
+    "name": "弹出框",
+    "path": "src/vue/src/views/${moduleName}/${simpleClassName?uncap_first}/components/${simpleClassName}Dialog.vue",
+    "template": "template/dialog.vue.ftl",
+    "type": 2
+  },
+  {
+    "number": "APIConfig",
+    "name": "API配置",
+    "path": "src/vue/src/api/${moduleName}/${simpleClassName?uncap_first}.js",
+    "template": "template/api.js.ftl",
+    "type": 1
+  }
+]

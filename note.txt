@@ -1,0 +1,31 @@
+Swagger数字类型必须有example: https://blog.csdn.net/ling1234ling1234/article/details/94635464
+springfox-swagger 参数是对象无限递归解决方案 https://hacpai.com/article/1525674135818
+swagger-bootstarp https://gitee.com/xiaoym/
+knife4j https://doc.xiaominfo.com/
+swagger多分组api https://blog.csdn.net/shipeng22022/article/details/79984139
+Druid SQL监控空: 设置JVM启动参数 -Ddruid.filters=mergeStat -Ddruid.useGlobalDataSourceStat=true
+CascadeType: https://www.jianshu.com/p/e8caafce5445
+springboot示例: https://gitee.com/hengboy/spring-boot-chapter
+写DEP脚本执行器,SPEL脚本执行器 https://github.com/mozilla/rhino
+自定义 Banner: https://www.jianshu.com/p/a53f324c92f2
+@ConditionalOnMissingBean失效问题追踪 https://blog.csdn.net/it_freshman/article/details/100031510
+两个Bean的名称必须不同,必须加在其中一个上加@ConditionalOnMissingBean,另一个上加@Primary
+ThreadLocal内存泄露问题 https://zhuanlan.zhihu.com/p/58636499 使用完后需要remove
+
+RESTful风格下批量删除都有哪些实现方式？https://www.zhihu.com/question/65356825
+Activiti https://www.xugj520.cn/tag/Activiti/
+Activiti7视频 https://www.bilibili.com/video/BV1HJ411C7uJ
+Activiti7文档 https://activiti.gitbook.io/activiti-7-developers-guide/
+SpringBoot 整合Activiti 启动后不自动创建表 https://blog.csdn.net/chen649053473/article/details/104793352/
+
+类相同,类加载器不同,通过BeanUtils.copy转换
+
+单表
+树表
+左树右表
+F7 dialog
+rhino富文本编辑器
+
+java.lang.instrument ASSERTION FAILED
+
+导入导出默认excel json xml, 可以v-slot扩展

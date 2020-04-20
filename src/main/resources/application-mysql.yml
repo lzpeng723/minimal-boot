@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/lzpeng?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    username: root
+    password: 123456
+    # 使用阿里的 Druid 数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect # 如不设置默认使用MyISAM引擎，将不能创建外键
+    generate-ddl: true
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: com.lzpeng.framework.domain.LzpengPhysicalNamingStrategy
+    properties:
+      hibernate:
+        format_sql: false
+        use_sql_comments: true

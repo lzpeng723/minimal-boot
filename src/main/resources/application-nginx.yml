@@ -1,0 +1,9 @@
+lzpeng:
+  boot:
+    nginx:
+      listen: 8089
+      server-name: localhost
+      root: ../upload
+      home: ./nginx
+    upload:
+      path: ./uplaod
