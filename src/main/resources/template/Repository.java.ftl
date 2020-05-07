@@ -1,7 +1,8 @@
 package com.lzpeng.project.${moduleName}.repository;
 
 import com.lzpeng.framework.web.repository.${entityType}Repository;
-import ${fullClassName};
+import ${fullClassName};<#if entityType=="LeftTreeRightTable">
+import ${leftTree.fullClassName};</#if>
 import io.swagger.annotations.Api;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ import org.springframework.data.repository.query.Param;
  * @author : 李志鹏
  */
 @Api(tags = "${chineseClassName} Entity")
-public interface ${simpleClassName}Repository extends ${entityType}Repository<${simpleClassName}> {
+public interface ${simpleClassName}Repository extends ${entityType}Repository<<#if entityType=="LeftTreeRightTable">${leftTree.simpleClassName}, </#if>${simpleClassName}> {
 
     /**
     * 更新${chineseClassName}状态

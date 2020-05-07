@@ -1,12 +1,16 @@
 package com.lzpeng.project.tool.utils;
 
+import cn.hutool.core.util.TypeUtil;
 import com.lzpeng.framework.annotation.GenerateCode;
+import com.lzpeng.framework.domain.LeftTreeRightTableEntity;
+import com.lzpeng.framework.domain.TreeEntity;
 import com.squareup.javapoet.AnnotationSpec;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,5 +130,21 @@ public class EntityClassUtil {
         GenerateCode generateCode = clazz.getAnnotation(GenerateCode.class);
         GenerateCode.PageType editPage = generateCode != null ? generateCode.editPage() : (GenerateCode.PageType) AnnotationUtils.getDefaultValue(GenerateCode.class, "editPage");
         return editPage.name().toLowerCase();
+    }
+
+    /**
+     * 如果是左树右表实体则返回左树类型,否则返回空
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> Class<? extends TreeEntity> getLeftTreeType(Class<T> clazz) {
+        if (LeftTreeRightTableEntity.class.isAssignableFrom(clazz)) {
+            Type type = TypeUtil.getTypeArgument(clazz);
+            if (type != null && type instanceof Class) {
+                return (Class) type;
+            }
+        }
+        return null;
     }
 }

@@ -6,7 +6,8 @@ import com.lzpeng.framework.model.BatchModel;
 import com.lzpeng.framework.web.controller.${entityType}ControllerImpl;
 import com.lzpeng.project.tool.domain.TableInfo;
 import ${fullClassName};
-import com.lzpeng.project.${moduleName}.service.${simpleClassName}Service;
+import com.lzpeng.project.${moduleName}.service.${simpleClassName}Service;<#if entityType=="LeftTreeRightTable">
+import ${leftTree.fullClassName};</#if>
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/${moduleName}/${simpleClassName?uncap_first}")
 @Api(tags = "${chineseClassName}管理接口", value = "${chineseClassName}管理，提供${chineseClassName}的增、删、改、查")
-public class ${simpleClassName}Controller extends ${entityType}ControllerImpl<${simpleClassName}> {
+public class ${simpleClassName}Controller extends ${entityType}ControllerImpl<<#if entityType=="LeftTreeRightTable">${leftTree.simpleClassName}, </#if>${simpleClassName}> {
 
     /**
     * 模块名称
@@ -70,7 +71,10 @@ public class ${simpleClassName}Controller extends ${entityType}ControllerImpl<${
     */
     private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import";
 
-    protected ${simpleClassName}Service ${simpleClassName?uncap_first}Service;
+    /**
+    * ${chineseClassName}Service
+    */
+    private ${simpleClassName}Service ${simpleClassName?uncap_first}Service;
 
     @Autowired
     public void set${simpleClassName}Service(${simpleClassName}Service ${simpleClassName?uncap_first}Service) {
@@ -162,6 +166,7 @@ public class ${simpleClassName}Controller extends ${entityType}ControllerImpl<${
     <#if entityType=="Tree">
     /**
      * 获取树形结构的${chineseClassName}
+     * @param model 查询条件
      * @return
      */
     @Override
@@ -172,4 +177,19 @@ public class ${simpleClassName}Controller extends ${entityType}ControllerImpl<${
         return super.treeData(model);
     }
     </#if>
+
+    <#if entityType=="LeftTreeRightTable">
+    /**
+    * 获取左树数据
+    * @return
+    */
+    @Override
+    @GetMapping("/leftTree")
+    @ApiOperation("获取左树数据")
+    @PreAuthorize("hasAnyAuthority('" + QUERY_PERM + "')")
+    public Result<List<${leftTree.simpleClassName}>> leftTreeData() {
+        return super.leftTreeData();
+    }
+    </#if>
+
 }

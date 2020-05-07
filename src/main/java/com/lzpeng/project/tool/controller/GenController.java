@@ -38,14 +38,38 @@ public class GenController extends BaseControllerImpl<Gen> {
 
     private static final String MODULE_NAME = "tool";
     private static final String CLASS_NAME = "gen";
-    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list"; // 代码生成模板列表权限
-    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query"; // 代码生成模板查询权限
-    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add"; // 代码生成模板新增权限
-    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete"; // 代码生成模板删除权限
-    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit"; // 代码生成模板修改权限
-    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export"; // 代码生成模板导出权限
-    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import"; // 代码生成模板导入权限    private static final String genPerm = MODULE_NAME + ":" +  CLASS_NAME + ":gen"; // 代码生成权限
-    private static final String GEN_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":gen"; // 代码生成权限
+    /**
+     * 代码生成模板列表权限
+     */
+    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list";
+    /**
+     * 代码生成模板查询权限
+     */
+    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query";
+    /**
+     * 代码生成模板新增权限
+     */
+    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add";
+    /**
+     * 代码生成模板删除权限
+     */
+    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete";
+    /**
+     * 代码生成模板修改权限
+     */
+    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit";
+    /**
+     * 代码生成模板导出权限
+     */
+    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export";
+    /**
+     * 代码生成模板导入权限
+     */
+    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import";
+    /**
+     * 代码生成权限
+     */
+    private static final String GEN_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":gen";
 
 
 
@@ -125,21 +149,21 @@ public class GenController extends BaseControllerImpl<Gen> {
     @GetMapping("/gen/{id:^[a-zA-Z0-9]+_[a-zA-Z0-9]+_[a-zA-Z0-9]+$}")
     @ApiOperation("根据实体类生成文件")
     @PreAuthorize("permitAll()")
-    public <T> void gen(@ApiParam(value = "主键id", required = true) @PathVariable("id") String id, @RequestParam("CLASS_NAME") Class<T> clazz, HttpServletResponse response) throws IOException {
+    public <T> void gen(@ApiParam(value = "主键id", required = true) @PathVariable("id") String id, @RequestParam("className") Class<T> clazz, HttpServletResponse response) throws IOException {
         genService.downloadCode(clazz, id, response);
     }
 
     @GetMapping("/gen")
     @ApiOperation("根据实体类生成所有文件")
     @PreAuthorize("permitAll()")
-    public <T> void gen(@RequestParam("CLASS_NAME") Class<T> clazz, HttpServletResponse response) throws IOException {
+    public <T> void gen(@RequestParam("className") Class<T> clazz, HttpServletResponse response) throws IOException {
         genService.downloadCode(clazz, response);
     }
 
     @GetMapping("/preview/{id:^[a-zA-Z0-9]+_[a-zA-Z0-9]+_[a-zA-Z0-9]+$}")
     @ApiOperation("预览实体类生成的文件")
     @PreAuthorize("hasAnyAuthority('" + GEN_PERM +"')")
-    public <T> Result<Map<String, String>> preview(@ApiParam(value = "主键id", required = true) @PathVariable("id") String id, @RequestParam("CLASS_NAME") Class<T> clazz) {
+    public <T> Result<Map<String, String>> preview(@ApiParam(value = "主键id", required = true) @PathVariable("id") String id, @RequestParam("className") Class<T> clazz) {
         Map<String, String> map = genService.preview(clazz, id);
         return ResultUtil.success(map);
     }
@@ -147,7 +171,7 @@ public class GenController extends BaseControllerImpl<Gen> {
     @GetMapping("/genInfo")
     @ApiOperation("查询实体类代码生成信息")
     @PreAuthorize("hasAnyAuthority('" + GEN_PERM +"')")
-    public <T> Result<List<GenInfo>> genning(@RequestParam("CLASS_NAME") Class<T> clazz) {
+    public <T> Result<List<GenInfo>> genning(@RequestParam("className") Class<T> clazz) {
         List<GenInfo> genInfoList = genService.genningCode(clazz);
         return ResultUtil.success(genInfoList);
     }

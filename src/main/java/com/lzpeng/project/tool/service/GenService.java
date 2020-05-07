@@ -9,6 +9,7 @@ import cn.hutool.core.util.ZipUtil;
 import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
+import com.lzpeng.framework.domain.TreeEntity;
 import com.lzpeng.project.base.service.FileInfoService;
 import com.lzpeng.project.tool.domain.Gen;
 import com.lzpeng.project.tool.utils.EntityClassUtil;
@@ -35,6 +36,7 @@ import java.util.*;
  * @date: 2020-4-16
  * @time: 11:47:29
  * @author: 李志鹏
+ * TODO 生成权限菜单
  */
 @Slf4j
 @Service
@@ -217,6 +219,11 @@ public class GenService extends AbstractGenService {
         map.put("moduleName", EntityClassUtil.getModuleName(clazz));
         map.put("chineseClassName", EntityClassUtil.getChineseClassName(clazz));
         map.put("editPageType", EntityClassUtil.getEditPageType(clazz));
+        Class<? extends TreeEntity> leftTreeType = EntityClassUtil.getLeftTreeType(clazz);
+        if (leftTreeType != null) {
+            map.put("leftTreeType", leftTreeType);
+            map.put("leftTree", buildEntityTemplateMap(leftTreeType));
+        }
         ArrayList<Object> columnList = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
             Map<String, Object> columnMap = buildFieldTemplateMap(field);

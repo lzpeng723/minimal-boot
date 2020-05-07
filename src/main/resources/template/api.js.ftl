@@ -101,6 +101,7 @@ export function batchOperation(model) {
   })
 }
 <#if entityType=="Tree">
+
 /**
 * 查询${chineseClassName}, 返回树形结构
 * @param model 查询条件
@@ -110,6 +111,18 @@ export function get${simpleClassName}Tree(model) {
     url: `${r'${baseUrl}'}/tree`,
     method: 'get',
     params: model
+  })
+}
+</#if>
+<#if entityType=="LeftTreeRightTable">
+
+/**
+* 获取${chineseClassName}的左树数据
+*/
+export function leftTreeData() {
+  return request({
+    url: `${r'${baseUrl}'}/leftTree`,
+    method: 'get'
   })
 }
 </#if>

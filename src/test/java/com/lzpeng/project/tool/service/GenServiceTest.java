@@ -89,6 +89,7 @@ public class GenServiceTest {
 
     @Test
     public void testGenCodeToUserDir() throws IOException {
+        //genService.genCodeToUserDir(ReportTree.class);
     }
 
 }
