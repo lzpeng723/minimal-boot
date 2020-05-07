@@ -89,3 +89,12 @@ export function batchOperation(model) {
   })
 }
 
+/**
+ * 获取岗位的左树数据
+ */
+export function leftTreeData() {
+  return request({
+    url: `${baseUrl}/leftTree`,
+    method: 'get'
+  })
+}

@@ -113,3 +113,12 @@ export function noPermissions(roleId) {
   })
 }
 
+/**
+ * 获取角色的左树数据
+ */
+export function leftTreeData() {
+  return request({
+    url: `${baseUrl}/leftTree`,
+    method: 'get'
+  })
+}

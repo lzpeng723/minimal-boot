@@ -33,10 +33,10 @@
           />
         </el-select>
       </el-form-item>
-      <!--搜索和新增按钮-->
+      <!--搜索和重置按钮-->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAdd(null)">新增</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="model = {}">重置</el-button>
       </el-form-item>
     </el-form>
     <el-row :gutter="10" class="mb8">
@@ -146,6 +146,14 @@ export default {
     return {
       // 表格加载遮罩
       loading: true,
+      // 当前第几页
+      page: 1,
+      // 每页多少条数据
+      size: 20,
+      // 一共多少条数据
+      total: 0,
+      // 查询条件
+      model: {},
       // 部门数据
       departmentList: [],
       // 所有节点的父子关系
@@ -156,8 +164,6 @@ export default {
       columnInfo: {},
       // 缓存每列的数据字典 {fieldName:dictValues}
       dictValues: {},
-      // 查询条件
-      model: {},
       // 部门新增编辑页面 参数
       dialog: {
         // 默认不显示 dialog 新增或编辑时显示

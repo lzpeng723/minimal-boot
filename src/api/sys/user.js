@@ -90,6 +90,16 @@ export function batchOperation(model) {
 }
 
 /**
+ * 获取用户的左树数据
+ */
+export function leftTreeData() {
+  return request({
+    url: `${baseUrl}/leftTree`,
+    method: 'get'
+  })
+}
+
+/**
  * 分配角色
  * @param userId 用户id
  * @param model 角色 id 数组

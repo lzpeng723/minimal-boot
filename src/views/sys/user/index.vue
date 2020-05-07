@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <!--查询条件-->
     <el-form ref="queryForm" :model="model" :inline="true" label-width="68px">
       <el-form-item label="用户名" prop="username">
         <el-input
@@ -34,112 +35,144 @@
         <el-button icon="el-icon-refresh" size="mini" @click="model = {}">重置</el-button>
       </el-form-item>
     </el-form>
-
-    <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          icon="el-icon-plus"
-          size="mini"
-          @click="handleAdd(null)"
-        >新增
-        </el-button>
+    <el-row :gutter="20">
+      <!--左树数据-->
+      <el-col :span="4" :xs="24">
+        <div class="head-container">
+          <el-input
+            v-model="leftTreeSearch"
+            placeholder="请输入部门名称"
+            clearable
+            size="small"
+            prefix-icon="el-icon-search"
+            style="margin-bottom: 20px"
+          />
+        </div>
+        <div class="head-container">
+          <el-tree
+            ref="leftTree"
+            :data="leftTreeData"
+            :props="leftTreeProps"
+            :expand-on-click-node="false"
+            :filter-node-method="filterLeftTreeNode"
+            default-expand-all
+            @node-click="handleLeftTreeNodeClick"
+          />
+        </div>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-        >修改
-        </el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleBatchDelete"
-        >删除
-        </el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          icon="el-icon-upload"
-          size="mini"
-          @click="handleImport"
-        >导入
-        </el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-        >导出
-        </el-button>
+      <!--右表数据-->
+      <el-col :span="20" :xs="24">
+        <!--工具栏按钮-->
+        <el-row :gutter="10" class="mb8">
+          <el-col :span="1.5">
+            <el-button
+              type="primary"
+              icon="el-icon-plus"
+              size="mini"
+              @click="handleAdd(null)"
+            >新增
+            </el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button
+              type="success"
+              icon="el-icon-edit"
+              size="mini"
+              :disabled="single"
+              @click="handleUpdate"
+            >修改
+            </el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              :disabled="multiple"
+              @click="handleBatchDelete"
+            >删除
+            </el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button
+              type="warning"
+              icon="el-icon-upload"
+              size="mini"
+              @click="handleImport"
+            >导入
+            </el-button>
+          </el-col>
+          <el-col :span="1.5">
+            <el-button
+              type="warning"
+              icon="el-icon-download"
+              size="mini"
+              @click="handleExport"
+            >导出
+            </el-button>
+          </el-col>
+        </el-row>
+        <!--用户数据列表-->
+        <el-table
+          v-loading="loading"
+          :data="userList"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column type="selection" width="55" align="center" />
+          <el-table-column label="用户名" align="center" prop="username" />
+          <el-table-column label="用户真实姓名" align="center" prop="name" />
+          <el-table-column label="是否删除" align="center" prop="enabled" :formatter="columnFormat" />
+          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+            <template slot-scope="{row}">
+              <span>{{ parseTime(row.createTime) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+            <template slot-scope="{row}">
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-edit"
+                @click="handleUpdate(row)"
+              >修改
+              </el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-circle-check-outline"
+                @click="handleRole(row)"
+              >分配角色</el-button>
+              <el-button
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleDelete(row)"
+              >删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--分页组件-->
+        <pagination
+          v-show="total>0"
+          :total="total"
+          :page.sync="page"
+          :limit.sync="size"
+          @pagination="handleQuery"
+        />
       </el-col>
     </el-row>
-
-    <el-table
-      v-loading="loading"
-      :data="userList"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户名" align="center" prop="username" />
-      <el-table-column label="用户真实姓名" align="center" prop="name" />
-      <el-table-column label="是否删除" align="center" prop="enabled" :formatter="columnFormat" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
-        <template slot-scope="{row}">
-          <span>{{ parseTime(row.createTime) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="{row}">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(row)"
-          >修改
-          </el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-circle-check-outline"
-            @click="handleRole(row)"
-          >分配角色</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(row)"
-          >删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="page"
-      :limit.sync="size"
-      @pagination="handleQuery"
-    />
+    <!--用户新增编辑弹出框-->
     <user-dialog :dialog="dialog" @refresh="handleQuery" />
+    <!--选择角色对话框-->
     <select-role-dialog :dialog="roleDialog" @refresh="handleQuery" />
+    <!--用户导入弹出框-->
     <import-dialog :dialog="importDialog" @onSuccess="importSuccess" />
   </div>
 </template>
 
 <script>
-import { getUserPage, getUserDict, deleteUser, batchOperation } from '@/api/sys/user' // 用户api
+import { getUserPage, getUserDict, deleteUser, batchOperation, leftTreeData } from '@/api/sys/user' // 用户api
 import UserDialog from './components/UserDialog'
 import SelectRoleDialog from './components/SelectRoleDialog'
 import ImportDialog from '@/components/ImportDialog' // 导入文件弹出框
@@ -149,6 +182,15 @@ export default {
   components: { ImportDialog, SelectRoleDialog, UserDialog },
   data() {
     return {
+      // 左树搜索条件
+      leftTreeSearch: '',
+      // 左树数据
+      leftTreeData: undefined,
+      // 左树属性
+      leftTreeProps: {
+        children: 'children',
+        label: 'name'
+      },
       // 当前选中行id
       ids: [],
       // 当前选中是否是单行
@@ -205,11 +247,44 @@ export default {
       }
     }
   },
+  watch: {
+    /**
+     * 根据输入的值过滤左树列表
+     */
+    leftTreeSearch(value) {
+      this.$refs.leftTree.filter(value)
+    }
+  },
   created() {
+    this.getLeftTreeData() // 获取左树数据
     this.handleQuery() // 获得表格数据
     this.handleDict() // 获得数据字典
   },
   methods: {
+    /**
+     * 获得左树数据
+     */
+    getLeftTreeData() {
+      leftTreeData().then(res => {
+        this.leftTreeData = res
+      })
+    },
+    /**
+     * 过滤左树节点
+     */
+    filterLeftTreeNode(value, data) {
+      if (!value) return true
+      return data.name.indexOf(value) !== -1
+    },
+    /**
+     * 左树节点单击事件
+     */
+    handleLeftTreeNodeClick(data) {
+      // 增加搜索条件
+      this.model.treeId = data && data.id
+      // 刷新表格数据
+      this.handleQuery()
+    },
     /**
      * 获得表格数据
      */

@@ -23,10 +23,10 @@
           />
         </el-select>
       </el-form-item>
-      <!--搜索和新增按钮-->
+      <!--搜索和重置按钮-->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAdd(null)">新增</el-button>
+        <el-button icon="el-icon-refresh" size="mini" @click="model = {}">重置</el-button>
       </el-form-item>
     </el-form>
     <el-row :gutter="10" class="mb8">
