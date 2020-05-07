@@ -2,7 +2,8 @@ package com.lzpeng.project.sys.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.lzpeng.framework.web.service.BaseServiceImpl;
+import com.lzpeng.framework.web.service.LeftTreeRightTableServiceImpl;
+import com.lzpeng.project.sys.domain.Department;
 import com.lzpeng.project.sys.domain.Position;
 import com.lzpeng.project.sys.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,25 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackOn = Exception.class)
-public abstract class AbstractPositionService extends BaseServiceImpl<Position> {
+public abstract class AbstractPositionService extends LeftTreeRightTableServiceImpl<Department, Position> {
 
-    protected static final String ENTITY_NAME = "com.lzpeng.model.domain.sys.Position";
+    protected static final String ENTITY_NAME = "com.lzpeng.project.sys.domain.Position";
 
     protected PositionRepository positionRepository;
+
+    protected DepartmentService departmentService;
 
     @Autowired
     public void setPositionRepository(PositionRepository positionRepository) {
         this.baseRepository = positionRepository;
-        this.baseRepository = positionRepository;
+        this.leftTreeRightTableRepository = positionRepository;
         this.positionRepository = positionRepository;
+    }
+
+    @Autowired
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.treeService = departmentService;
+        this.departmentService = departmentService;
     }
 
     @Override
@@ -61,6 +70,7 @@ public abstract class AbstractPositionService extends BaseServiceImpl<Position> 
 
     /**
      * 从 json 读取数据
+     * 必须重写此方法否则,TypeReference获取不到泛型参数
      * @param json
      * @return
      * @throws JsonProcessingException

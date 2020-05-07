@@ -3,7 +3,7 @@ package com.lzpeng.project.sys.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lzpeng.common.annotation.Excel;
 import com.lzpeng.framework.annotation.GenerateCode;
-import com.lzpeng.framework.domain.BaseEntity;
+import com.lzpeng.framework.domain.LeftTreeRightTableEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,6 +15,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 角色
@@ -30,7 +31,7 @@ import java.util.Collection;
 @EqualsAndHashCode(callSuper = true, exclude={"users", "menus"})
 @ToString(callSuper = true, exclude={"users", "menus"})
 @GenerateCode(editPage = GenerateCode.PageType.DIALOG)
-public class Role extends BaseEntity {
+public class Role extends LeftTreeRightTableEntity<Department> {
 
     /**
      * 角色名称
@@ -75,5 +76,23 @@ public class Role extends BaseEntity {
     @ManyToMany(targetEntity = Menu.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "role_menu", joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", columnDefinition = "varchar(255) COMMENT '角色id'")},
             inverseJoinColumns = {@JoinColumn(name = "menu_id", referencedColumnName = "id", columnDefinition = "varchar(255) COMMENT '权限菜单id'")})
-    private Collection<Menu> menus = new ArrayList<>();
+    private List<Menu> menus = new ArrayList<>();
+
+    /**
+     * 一个岗位一定对应一个角色
+     * 但是一个角色不一定对应一个岗位,可能属于某用户组
+     */
+    @JsonIgnore
+    @ApiModelProperty("岗位")
+    @OneToOne(mappedBy = "role", fetch = FetchType.LAZY)
+    private Position position;
+
+    /**
+     * 一个岗位一定对应一个角色
+     * 但是一个角色不一定对应一个岗位,可能属于某用户组
+     */
+//    @JsonIgnore
+//    @ApiModelProperty("用户组")
+//    @ManyToOne(targetEntity = UserGroup.class, fetch = FetchType.EAGER)
+//    private UserGroup userGroup;
 }

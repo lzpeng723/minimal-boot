@@ -3,7 +3,8 @@ package com.lzpeng.project.sys.controller;
 import com.lzpeng.common.response.QueryResult;
 import com.lzpeng.common.response.Result;
 import com.lzpeng.framework.model.BatchModel;
-import com.lzpeng.framework.web.controller.BaseControllerImpl;
+import com.lzpeng.framework.web.controller.LeftTreeRightTableControllerImpl;
+import com.lzpeng.project.sys.domain.Department;
 import com.lzpeng.project.sys.domain.Position;
 import com.lzpeng.project.sys.service.PositionService;
 import com.lzpeng.project.tool.domain.TableInfo;
@@ -31,22 +32,54 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/position")
 @Api(tags = "岗位管理接口", value = "岗位管理，提供岗位的增、删、改、查")
-public class PositionController extends BaseControllerImpl<Position> {
+public class PositionController extends LeftTreeRightTableControllerImpl<Department, Position> {
 
+    /**
+     * 模块名称
+     */
     private static final String MODULE_NAME = "sys";
+    /**
+     * 类名称
+     */
     private static final String CLASS_NAME = "position";
-    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list"; // 岗位列表权限
-    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query"; // 岗位查询权限
-    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add"; // 岗位新增权限
-    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete"; // 岗位删除权限
-    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit"; // 岗位修改权限
-    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export"; // 岗位导出权限
-    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import"; // 岗位导入权限
-    protected PositionService positionService;
+    /**
+     * 岗位列表权限
+     */
+    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list";
+    /**
+     * 岗位查询权限
+     */
+    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query";
+    /**
+     * 岗位新增权限
+     */
+    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add";
+    /**
+     * 岗位删除权限
+     */
+    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete";
+    /**
+     * 岗位修改权限
+     */
+    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit";
+    /**
+     * 岗位导出权限
+     */
+    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export";
+    /**
+     * 岗位导入权限
+     */
+    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import";
+
+    /**
+     * 岗位Service
+     */
+    private PositionService positionService;
 
     @Autowired
     public void setPositionService(PositionService positionService) {
         this.baseService = positionService;
+        this.leftTreeRightTableService = positionService;
         this.positionService = positionService;
     }
 
@@ -130,4 +163,17 @@ public class PositionController extends BaseControllerImpl<Position> {
     public void exportData(@RequestBody(required = false) List<String> ids, HttpServletResponse response) throws IOException {
         super.exportData(ids, response);
     }
+
+    /**
+     * 获取左树数据
+     * @return
+     */
+    @Override
+    @GetMapping("/leftTree")
+    @ApiOperation("获取左树数据")
+    @PreAuthorize("hasAnyAuthority('" + QUERY_PERM + "')")
+    public Result<List<Department>> leftTreeData() {
+        return super.leftTreeData();
+    }
+
 }

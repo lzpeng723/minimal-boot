@@ -4,7 +4,8 @@ import com.lzpeng.common.response.QueryResult;
 import com.lzpeng.common.response.Result;
 import com.lzpeng.common.response.ResultUtil;
 import com.lzpeng.framework.model.BatchModel;
-import com.lzpeng.framework.web.controller.BaseControllerImpl;
+import com.lzpeng.framework.web.controller.LeftTreeRightTableControllerImpl;
+import com.lzpeng.project.sys.domain.Department;
 import com.lzpeng.project.sys.domain.Menu;
 import com.lzpeng.project.sys.domain.Role;
 import com.lzpeng.project.sys.service.RoleService;
@@ -31,24 +32,57 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/role")
 @Api(tags = "角色管理接口", value = "角色管理，提供角色的增、删、改、查")
-public class RoleController extends BaseControllerImpl<Role>  {
-    
+public class RoleController extends LeftTreeRightTableControllerImpl<Department, Role> {
+
+    /**
+     * 模块名称
+     */
     private static final String MODULE_NAME = "sys";
+    /**
+     * 类名称
+     */
     private static final String CLASS_NAME = "role";
-    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list"; // 角色列表权限
-    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query"; // 角色查询权限
-    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add"; // 角色新增权限
-    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete"; // 角色删除权限
-    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit"; // 角色修改权限
-    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export"; // 角色导出权限
-    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import"; // 角色导入权限
+    /**
+     * 角色列表权限
+     */
+    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list";
+    /**
+     * 角色查询权限
+     */
+    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query";
+    /**
+     * 角色新增权限
+     */
+    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add";
+    /**
+     * 角色删除权限
+     */
+    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete";
+    /**
+     * 角色修改权限
+     */
+    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit";
+    /**
+     * 角色导出权限
+     */
+    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export";
+    /**
+     * 角色导入权限
+     */
+    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import";
+
+    /**
+     * 角色Service
+     */
     private RoleService roleService;
 
     @Autowired
     public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
         this.baseService = roleService;
+        this.leftTreeRightTableService = roleService;
+        this.roleService = roleService;
     }
+
     @Override
     @GetMapping("/dict")
     @ApiOperation("获取角色的数据字典")
@@ -145,5 +179,16 @@ public class RoleController extends BaseControllerImpl<Role>  {
     @PreAuthorize("permitAll()")
     public void exportData(@RequestBody(required = false) List<String> ids, HttpServletResponse response) throws IOException {
         super.exportData(ids, response);
+    }
+    /**
+     * 获取左树数据
+     * @return
+     */
+    @Override
+    @GetMapping("/leftTree")
+    @ApiOperation("获取左树数据")
+    @PreAuthorize("hasAnyAuthority('" + QUERY_PERM + "')")
+    public Result<List<Department>> leftTreeData() {
+        return super.leftTreeData();
     }
 }

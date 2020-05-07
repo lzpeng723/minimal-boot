@@ -2,7 +2,8 @@ package com.lzpeng.project.sys.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.lzpeng.framework.web.service.BaseServiceImpl;
+import com.lzpeng.framework.web.service.LeftTreeRightTableServiceImpl;
+import com.lzpeng.project.sys.domain.Department;
 import com.lzpeng.project.sys.domain.Role;
 import com.lzpeng.project.sys.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,25 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackOn = Exception.class)
-public abstract class AbstractRoleService extends BaseServiceImpl<Role> {
+public abstract class AbstractRoleService extends LeftTreeRightTableServiceImpl<Department, Role> {
 
     protected static final String ENTITY_NAME = "com.lzpeng.model.domain.sys.Role";
 
     protected RoleRepository roleRepository;
 
+    protected DepartmentService departmentService;
+
     @Autowired
     public void setRoleRepository(RoleRepository roleRepository) {
         this.baseRepository = roleRepository;
-        this.baseRepository = roleRepository;
+        this.leftTreeRightTableRepository = roleRepository;
         this.roleRepository = roleRepository;
+    }
+
+    @Autowired
+    public void setDepartmentService(DepartmentService departmentService) {
+        this.treeService = departmentService;
+        this.departmentService = departmentService;
     }
 
     @Override

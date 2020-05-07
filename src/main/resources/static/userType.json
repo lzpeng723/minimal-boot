@@ -1,0 +1,14 @@
+[
+  {
+    "name": "内部用户",
+    "number": "INNER_USER"
+  },
+  {
+    "name": "商家",
+    "number": "SUPPLIER"
+  },
+  {
+    "name": "顾客",
+    "number": "CUSTOMER"
+  }
+]

@@ -1,8 +1,12 @@
 package com.lzpeng.project.sys.repository;
 
+import com.lzpeng.framework.web.repository.LeftTreeRightTableRepository;
+import com.lzpeng.project.sys.domain.Department;
 import com.lzpeng.project.sys.domain.User;
-import com.lzpeng.framework.web.repository.BaseRepository;
 import io.swagger.annotations.Api;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * 用户 数据层
@@ -11,9 +15,18 @@ import io.swagger.annotations.Api;
  * @author: 李志鹏
  */
 @Api(tags = "用户 Entity")
-//@RepositoryRestResource
-//@Repository
-public interface UserRepository extends BaseRepository<User> {
+public interface UserRepository extends LeftTreeRightTableRepository<Department, User> {
+
+    /**
+     * 更新用户状态
+     * @param id 用户id
+     * @param enabled 用户状态
+     * @return
+     */
+    @Override
+    @Modifying
+    @Query("UPDATE User t SET t.enabled = :enabled WHERE t.id = :id")
+    int updateEnabled(@Param("id") String id, @Param("enabled") Boolean enabled);
 
 
     /**

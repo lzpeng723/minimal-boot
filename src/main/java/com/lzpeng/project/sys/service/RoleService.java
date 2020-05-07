@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ public class RoleService extends AbstractRoleService {
      */
     @Override
     protected boolean beforeSave(Role role) {
-        Collection<Menu> menus = role.getMenus();
+        List<Menu> menus = role.getMenus();
         menus = TreeEntityUtil.flatData(menus);
         role.setMenus(menus);
         return true;
@@ -58,7 +57,7 @@ public class RoleService extends AbstractRoleService {
     public QueryResult<Role> query(int page, int size, Role model) {
         QueryResult<Role> result = super.query(page, size, model);
         for (Role role : result.getList()) {
-            Collection<Menu> menus = role.getMenus();
+            List<Menu> menus = role.getMenus();
             menus = TreeEntityUtil.flatData(menus);
             role.setMenus(menus);
         }

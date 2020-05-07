@@ -44,4 +44,14 @@ public class Department extends TreeEntity<Department> {
     @ApiModelProperty("部门编码")
     @Column(columnDefinition="varchar(255) COMMENT '部门编码'", unique = true)
     private String number;
+
+//    @ApiModelProperty("用户信息")
+//    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "department_id", columnDefinition = "varchar(255) COMMENT '部门id'")
+//    private Set<User> users = new HashSet<>();
+
+//    @ApiModelProperty("岗位信息")
+//    @OneToMany(targetEntity = Position.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "department_id", columnDefinition = "varchar(255) COMMENT '部门id'")
+//    private Set<Position> positions = new HashSet<>();
 }

@@ -5,7 +5,8 @@ import com.lzpeng.common.response.Result;
 import com.lzpeng.common.response.ResultUtil;
 import com.lzpeng.framework.model.BatchModel;
 import com.lzpeng.framework.web.config.UserAuditor;
-import com.lzpeng.framework.web.controller.BaseControllerImpl;
+import com.lzpeng.framework.web.controller.LeftTreeRightTableControllerImpl;
+import com.lzpeng.project.sys.domain.Department;
 import com.lzpeng.project.sys.domain.User;
 import com.lzpeng.project.sys.service.UserService;
 import com.lzpeng.project.tool.domain.TableInfo;
@@ -39,27 +40,49 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/sys/user")
 @Api(tags = "用户管理接口", value = "用户管理，提供用户的增、删、改、查")
-public class UserController extends BaseControllerImpl<User>  {
+public class UserController  extends LeftTreeRightTableControllerImpl<Department, User> {
 
     private static final String MODULE_NAME = "sys";
     private static final String CLASS_NAME = "user";
-    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list"; // 用户列表权限
-    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query"; // 用户查询权限
-    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add"; // 用户新增权限
-    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete"; // 用户删除权限
-    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit"; // 用户修改权限
-    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export"; // 用户导出权限
-    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import"; // 用户导入权限
+    /**
+     * 用户列表权限
+     */
+    private static final String LIST_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":list";
+    /**
+     * 用户查询权限
+     */
+    private static final String QUERY_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":query";
+    /**
+     * 用户新增权限
+     */
+    private static final String ADD_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":add";
+    /**
+     * 用户删除权限
+     */
+    private static final String DELETE_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":delete";
+    /**
+     * 用户修改权限
+     */
+    private static final String EDIT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":edit";
+    /**
+     * 用户导出权限
+     */
+    private static final String EXPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":export";
+    /**
+     * 用户导入权限
+     */
+    private static final String IMPORT_PERM = MODULE_NAME + ":" +  CLASS_NAME + ":import";
 
-    private UserService userService;
     @Autowired
     private UserAuditor userAuditor;
 
+    private UserService userService;
 
     @Autowired
     public void setUserService(UserService userService) {
-        this.userService = userService;
         this.baseService = userService;
+        this.leftTreeRightTableService = userService;
+        this.userService = userService;
     }
 
     @Override
@@ -166,5 +189,17 @@ public class UserController extends BaseControllerImpl<User>  {
     @PreAuthorize("permitAll()")
     public void exportData(@RequestBody(required = false) List<String> ids, HttpServletResponse response) throws IOException {
         super.exportData(ids, response);
+    }
+
+    /**
+     * 获取左树数据
+     * @return
+     */
+    @Override
+    @GetMapping("/leftTree")
+    @ApiOperation("获取左树数据")
+    @PreAuthorize("hasAnyAuthority('" + QUERY_PERM + "')")
+    public Result<List<Department>> leftTreeData() {
+        return super.leftTreeData();
     }
 }

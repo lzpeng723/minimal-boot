@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lzpeng.common.annotation.Excel;
 import com.lzpeng.framework.annotation.BooleanValue;
 import com.lzpeng.framework.annotation.GenerateCode;
-import com.lzpeng.framework.domain.BaseEntity;
+import com.lzpeng.framework.domain.LeftTreeRightTableEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,6 +26,7 @@ import java.util.*;
 
 /**
  * 用户
+ * 用户分为好几类(内部用户:由管理员添加; 商家: 自己注册; 消费者: 自己注册)
  * 用户不能直接和部门关联,有些用户在组织架构里,有些不在(比如供应商)
  * 需要加员工信息表,供应商表一对一关联用户
  * 用户表只做登录使用
@@ -41,7 +42,7 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = true, exclude={"roles"})
 @ToString(callSuper = true)
 @GenerateCode(editPage = GenerateCode.PageType.DIALOG)
-public class User extends BaseEntity implements UserDetails {
+public class User extends LeftTreeRightTableEntity<Department> implements UserDetails {
     /**
      * 用户名 账号
      */
@@ -103,36 +104,6 @@ public class User extends BaseEntity implements UserDetails {
     private Date lastLoginTime;
 
     /**
-     * 角色
-     */
-    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @ApiModelProperty(value = "角色", hidden = true)
-    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id", columnDefinition = "varchar(255) COMMENT '用户id'")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", columnDefinition = "varchar(255) COMMENT '角色id'")})
-    private List<Role> roles = new ArrayList<>();
-
-
-    @Override
-    @ApiModelProperty(value = "权限列表", hidden = true)
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 1. commaSeparatedStringToAuthorityList放入角色时需要加前缀ROLE_，而在controller使用时不需要加ROLE_前缀
-        // 2. 放入的是权限时，不能加ROLE_前缀，hasAuthority与放入的权限名称对应即可
-        Set<String> authoritySet = new HashSet<>();
-        if (roles != null) {
-            for (Role role : roles) {
-                authoritySet.add("ROLE_".concat(role.getNumber()));
-                Collection<Menu> menus = role.getMenus();
-                for (Menu menu : menus) {
-                    if (!StrUtil.isBlankOrUndefined(menu.getNumber())) {
-                        authoritySet.add(menu.getNumber());
-                    }
-                }
-            }
-        }
-        return AuthorityUtils.createAuthorityList(authoritySet.toArray(new String[authoritySet.size()]));
-    }
-
-    /**
      * 账户是否未过期
      */
     @Column(columnDefinition="bit DEFAULT b'1' COMMENT '账户是否未过期'")
@@ -165,5 +136,58 @@ public class User extends BaseEntity implements UserDetails {
     @BooleanValue(trueValue = "未删除", falseValue = "已删除")
     private boolean enabled = true;
 
+    /**
+     * 角色
+     */
+    @ManyToMany(targetEntity = Role.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ApiModelProperty(value = "角色", hidden = true)
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id", columnDefinition = "varchar(255) COMMENT '用户id'")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", columnDefinition = "varchar(255) COMMENT '角色id'")})
+    private List<Role> roles = new ArrayList<>();
+
+//    @JsonIgnore
+//    @ApiModelProperty("所在岗位")
+//    @ManyToOne(targetEntity = Position.class, fetch = FetchType.LAZY)
+//    private Position position;
+
+//    /**
+//     * 用户组
+//     */
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+//    @ApiModelProperty(value= "用户组", hidden=true)
+//    private Collection<UserGroup> userGroups = new ArrayList<>();
+
+
+    @Override
+    @ApiModelProperty(value = "权限列表", hidden = true)
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<String> authoritySet = new HashSet<>();
+        Set<Role> roleSet = new HashSet<>();
+        // 手工分配的角色
+        if (roles != null) {
+            roleSet.addAll(roles);
+        }
+        // 用户组角色
+//        Set<Role> userGroupRoles = userGroups.stream().flatMap(userGroup -> userGroup.getRoles().stream()).collect(Collectors.toSet());
+//        roleSet.addAll(userGroupRoles);
+        // 岗位对应角色
+//        if (position != null && position.getRole() != null) {
+//            roleSet.add(position.getRole());
+//        }
+        // 遍历所有角色
+        for (Role role : roleSet) {
+            // 1. commaSeparatedStringToAuthorityList放入角色时需要加前缀ROLE_，而在controller使用时不需要加ROLE_前缀
+            // 2. 放入的是权限时，不能加ROLE_前缀，hasAuthority与放入的权限名称对应即可
+            authoritySet.add("ROLE_".concat(role.getNumber()));
+            Collection<Menu> menus = role.getMenus();
+            for (Menu menu : menus) {
+                if (!StrUtil.isBlankOrUndefined(menu.getNumber())) {
+                    authoritySet.add(menu.getNumber());
+                }
+            }
+        }
+        return AuthorityUtils.createAuthorityList(authoritySet.toArray(new String[authoritySet.size()]));
+    }
 
 }

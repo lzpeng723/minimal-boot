@@ -677,10 +677,50 @@
 				]
 			},
 			{
+				"name": "QueryAnalyzer",
+				"path": "queryAnalyzer",
+				"component": "@/views/tool/queryAnalyzer/index",
+				"orderNum": 10,
+				"number": "tool:queryAnalyzer:list",
+				"type": 1,
+				"title": "查询分析器",
+				"icon": "number",
+				"children": [
+					{
+						"name": "QueryAnalyzerQuery",
+						"orderNum": 1,
+						"number": "tool:queryAnalyzer:query",
+						"type": 2,
+						"title": "查询操作"
+					},
+					{
+						"name": "QueryAnalyzerUpdate",
+						"orderNum": 2,
+						"number": "tool:queryAnalyzer:update",
+						"type": 2,
+						"title": "更新操作"
+					},
+					{
+						"name": "QueryAnalyzerDDL",
+						"orderNum": 3,
+						"number": "tool:queryAnalyzer:ddl",
+						"type": 2,
+						"title": "ddl操作"
+					},
+					{
+						"name": "QueryAnalyzerExecute",
+						"orderNum": 4,
+						"number": "tool:queryAnalyzer:execute",
+						"type": 2,
+						"title": "执行脚本"
+					}
+				]
+			},
+			{
 				"name": "Swagger",
 				"path": "swagger",
 				"component": "@/views/tool/swagger/index",
-				"orderNum": 10,
+				"orderNum": 11,
 				"number": "tool:swagger:list",
 				"type": 1,
 				"title": "系统接口",

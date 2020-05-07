@@ -1,0 +1,74 @@
+[
+	{
+		"name": "XX总部",
+		"number": "000",
+		"orderNum": 1,
+		"children": [
+			{
+				"name": "北京分公司",
+				"number": "000.001",
+				"orderNum": 1,
+				"children": [
+					{
+						"name": "研发部门",
+						"number": "000.001.001",
+						"orderNum": 1
+					},
+					{
+						"name": "市场部门",
+						"number": "000.001.002",
+						"orderNum": 2
+					},
+					{
+						"name": "测试部门",
+						"number": "000.001.003",
+						"orderNum": 3
+					},
+					{
+						"name": "财务部门",
+						"number": "000.001.004",
+						"orderNum": 4
+					},
+					{
+						"name": "运维部门",
+						"number": "000.001.005",
+						"orderNum": 5
+					}
+				]
+			},
+			{
+				"name": "深圳分公司",
+				"number": "000.002",
+				"orderNum": 2,
+				"children": [
+					{
+						"name": "研发部门",
+						"number": "000.002.001",
+						"orderNum": 1
+					},
+					{
+						"name": "市场部门",
+						"number": "000.002.002",
+						"orderNum": 2
+					},
+					{
+						"name": "测试部门",
+						"number": "000.002.003",
+						"orderNum": 3
+					},
+					{
+						"name": "财务部门",
+						"number": "000.002.004",
+						"orderNum": 4
+					},
+					{
+						"name": "运维部门",
+						"number": "000.002.005",
+						"orderNum": 5
+					}
+				]
+			}
+		]
+	}
+
+]
