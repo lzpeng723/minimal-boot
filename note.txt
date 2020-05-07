@@ -17,14 +17,22 @@ Activiti https://www.xugj520.cn/tag/Activiti/
 Activiti7视频 https://www.bilibili.com/video/BV1HJ411C7uJ
 Activiti7文档 https://activiti.gitbook.io/activiti-7-developers-guide/
 SpringBoot 整合Activiti 启动后不自动创建表 https://blog.csdn.net/chen649053473/article/details/104793352/
-
+超全面的权限系统设计方案！: https://www.jianshu.com/p/1bd0969b7b21
+hibernate一对多连接懒加载EAGER只能有一个，如果有多个报错，需要手动强制录入
 类相同,类加载器不同,通过BeanUtils.copy转换
 
 单表
 树表
 左树右表
 F7 dialog
-rhino富文本编辑器
+查询分析器: 可执行sql,rhino,nashron,id查表名,实体查表名,显示表定义,显示所有表,(格式化代码,查botp关系)
+POST base/execute
+BODY {"type":"sql/rhino", "script": "SELECT * FROM TABLE_NAME"}
+
+做一个OA系统
+voa 微人力
+博客系统
+vblog 微博客
 
 java.lang.instrument ASSERTION FAILED
 
