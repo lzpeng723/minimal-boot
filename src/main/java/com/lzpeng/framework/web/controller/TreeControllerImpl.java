@@ -18,9 +18,7 @@ public class TreeControllerImpl<Entity extends TreeEntity<Entity>> extends BaseC
     /**
      * 泛型注入
      */
-    //@Autowired
     protected TreeServiceImpl<Entity> treeService;
-
 
     /**
      * 得到树形数据

@@ -23,7 +23,7 @@ import java.util.List;
 @DynamicInsert
 @EqualsAndHashCode(callSuper = true, exclude={"parent"})
 @ToString(callSuper = true, exclude={"parent"})
-@JsonIgnoreProperties({"hibernateLnazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class TreeEntity<T extends TreeEntity<T>> extends BaseEntity {
 
     @ApiModelProperty("顺序号")
@@ -35,7 +35,7 @@ public abstract class TreeEntity<T extends TreeEntity<T>> extends BaseEntity {
      * cascade 关系维护端
      */
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},  fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @ApiModelProperty(value=  "父节点", hidden=true)
     @JoinColumn(name = "parent_id", columnDefinition = "varchar(255) COMMENT '父级id'")
     private T parent;

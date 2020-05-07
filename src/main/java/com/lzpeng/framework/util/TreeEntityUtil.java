@@ -15,7 +15,6 @@ public class TreeEntityUtil {
 
     /**
      * 将每个实体的父节点也加入集合中去
-     *
      * @param entities
      * @return
      */
@@ -24,9 +23,11 @@ public class TreeEntityUtil {
         List<Entity> result = new ArrayList<>();
         Queue<Entity> queue = new ConcurrentLinkedQueue<>(entities);
         while (!queue.isEmpty()) {
-            Entity child = queue.remove();//出队
+            //出队
+            Entity child = queue.remove();
             if (child.getParent() != null) {
-                queue.offer(child.getParent());//入队
+                //入队
+                queue.offer(child.getParent());
             }
             // 避免重复元素
             if (!result.contains(child)) {
@@ -86,12 +87,15 @@ public class TreeEntityUtil {
         // 根据顺序号排序
         Queue<Entity> queue = new ConcurrentLinkedQueue<>(entities);
         while (!queue.isEmpty()) {
-            Entity parent = queue.remove();  // 出队
+            // 出队
+            Entity parent = queue.remove();
             // 根据顺序号升序排列子节点
             parent.getChildren().sort(Comparator.comparingInt(TreeEntity::getOrderNum));
             for (Entity child : parent.getChildren()) {
-                child.setParentId(parent.getId()); // 设置父节点ID
-                queue.offer(child); // 入队
+                // 设置父节点ID
+                child.setParentId(parent.getId());
+                // 入队
+                queue.offer(child);
             }
         }
         // 根据顺序号升序排列根节点
@@ -124,13 +128,13 @@ public class TreeEntityUtil {
     }
 
     /**
-     * 构建扁平化数据
-     * @param entities 从数据库中获取的集合
+     * 将通过模糊查询获取的集合的父节点加入结果构建扁平化数据
+     * @param entities 通过findAll(Entity)从数据库中模糊查询获取的集合
      * @param <Entity>
      * @return 扁平化结构数据
      */
     public static <Entity extends TreeEntity<Entity>> List<Entity> flatData(Collection<Entity> entities){
-        // 将每个权限菜单的父节点也加入集合中去
+        // 将每个节点的父节点也加入集合中去
         List<Entity> result = addParentToList(entities);
         // 并删除所有的Children
         result = setChildrenWithEmpty(result);
@@ -141,6 +145,53 @@ public class TreeEntityUtil {
             Entity parent = entity.getParent();
             if (parent != null) {
                 entity.setParentId(parent.getId());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将通过findById(String)从数据库中获取的树形结构数据的子节点加入结果构建扁平化数据
+     * @param root 通过findById(String)从数据库中获取的树形结构数据
+     * @param <Entity>
+     * @return 扁平化结构数据
+     */
+    public static <Entity extends TreeEntity<Entity>> List<Entity> flatData(Entity root){
+        // 将每个节点的父节点也加入集合中去
+        List<Entity> result = addChildToList(root);
+        // 并删除所有的Children
+        result = setChildrenWithEmpty(result);
+        // 排序
+        result.sort(Comparator.comparingInt(TreeEntity::getOrderNum));
+        // 设置父节点ID
+        for (Entity entity : result) {
+            Entity parent = entity.getParent();
+            if (parent != null) {
+                entity.setParentId(parent.getId());
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将根节点的所有字节点加入集合
+     * @param root 根节点
+     * @param <Entity>
+     * @return
+     */
+    private static <Entity extends TreeEntity<Entity>> List<Entity> addChildToList(Entity root) {
+
+        // 因为是树形结构, 所以将每个实体的子节点也加入返回结果中 BFS 遍历
+        List<Entity> result = new ArrayList<>();
+        Queue<Entity> queue = new ConcurrentLinkedQueue<>();
+        // 入队
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            // 出队
+            Entity parent = queue.remove();
+            for (Entity child : parent.getChildren()) {
+                // 入队
+                queue.offer(child);
             }
         }
         return result;

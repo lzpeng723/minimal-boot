@@ -68,12 +68,17 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
     private FileInfoService fileInfoService;
 
     /**
-     * 查询条件 模糊匹配
+     * 查询条件
+     * 模糊匹配
+     * 忽略空值
+     * 忽略大小写
+     * 忽略字段，即不管password是什么值都不加入查询条件
      */
     private ExampleMatcher matcher = ExampleMatcher.matching()
             .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
             .withIgnoreNullValues()
-            .withIgnoreCase();
+            .withIgnoreCase()
+            .withIgnorePaths("password");
 
     /**
      * 获取数据字典
@@ -165,9 +170,11 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         if (page <= 0) {
             page = 1;
         }
-        page = page - 1; //为了适应 mysql 的接口将页码减1
+        //为了适应 mysql 的接口将页码减1
+        page = page - 1;
         if (size <= 0) {
-            size = 20; // 如果传入size 不合法则设置为 20
+            // 如果传入size 不合法则设置为 20
+            size = 20;
         }
         //Pageable 和 Page 接口介绍: https://blog.csdn.net/u011781521/article/details/74539330
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
@@ -182,7 +189,6 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
             pageResult = baseRepository.findAll(Example.of(model, matcher), pageable);
         }
         // 执行查询后操作
-        // afterFindAll(pageResult.getContent());
         return new QueryResult(pageResult.getContent(), pageResult.getTotalElements(), pageResult.getNumber() + 1, pageResult.getTotalPages());
     }
 

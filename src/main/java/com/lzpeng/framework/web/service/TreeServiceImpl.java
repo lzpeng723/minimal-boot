@@ -2,15 +2,16 @@ package com.lzpeng.framework.web.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lzpeng.common.response.QueryResult;
+import com.lzpeng.framework.domain.TreeEntity;
 import com.lzpeng.framework.util.TreeEntityUtil;
 import com.lzpeng.framework.web.repository.TreeRepository;
-import com.lzpeng.framework.domain.TreeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.BiPredicate;
 
 /**
  * 基础的 树形结构service
@@ -27,7 +28,6 @@ public abstract class TreeServiceImpl<Entity extends TreeEntity<Entity>> extends
     /**
      * 泛型注入
      */
-    //@Autowired
     protected TreeRepository<Entity> treeRepository;
 
     /**
