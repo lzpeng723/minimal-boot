@@ -3,7 +3,6 @@ package com.lzpeng.project.process.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -17,7 +16,6 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-@Order
 public class ProcessInitialize implements ApplicationRunner {
 
 
