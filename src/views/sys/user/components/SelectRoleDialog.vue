@@ -4,7 +4,7 @@
       v-el-drag-dialog
       :title="dialog.title"
       :visible.sync="dialog.show"
-      width="600px"
+      width="800px"
       height="400px"
       @open="openDialog"
       @close="closeDialog"
