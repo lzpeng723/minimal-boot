@@ -122,7 +122,7 @@
           <el-table-column label="岗位编码" align="center" prop="number"/>
           <el-table-column label="岗位名称" align="center" prop="name"/>
           <el-table-column label="状态" align="center" prop="enabled" :formatter="columnFormat"/>
-          <el-table-column label="@time" align="center" prop="createTime" width="180">
+          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
             <template slot-scope="{row}">
               <span>{{ parseTime(row.createTime) }}</span>
             </template>
@@ -192,6 +192,12 @@ export default {
         children: 'children',
         label: 'name'
       },
+      // 当前选中行id
+      ids: [],
+      // 当前选中是否是单行
+      single: false,
+      // 当前选中是否是多行
+      multiple: false,
       // 表格数据
       positionList: [],
       // 岗位数据字典
@@ -210,10 +216,12 @@ export default {
         dictValues: {},
         // dialog 数据
         form: {
+          treeId: 0,
           enabled: 1
         },
         // dialog 默认数据
         defaultForm: {
+          treeId: 0,
           enabled: 1
         }
       },
@@ -309,6 +317,7 @@ export default {
     handleAdd(row) {
       this.dialog.show = true
       this.dialog.title = '添加岗位'
+      this.dialog.form.treeId = this.model.treeId
     },
     /**
      * 表格内编辑按钮
@@ -321,6 +330,7 @@ export default {
       }
       this.dialog.show = true
       this.dialog.title = '编辑岗位'
+      this.dialog.form.treeId = this.model.treeId
     },
     /**
      * 表格内删除按钮
@@ -372,6 +382,12 @@ export default {
           })
         })
       })
+    },
+    // 多选框选中数据
+    handleSelectionChange(selection) {
+      this.ids = selection.map(item => item.id)
+      this.single = selection.length !== 1 // 是否只选择了一个
+      this.multiple = !selection.length // 是否有选择数据
     },
     // 导入
     handleImport() {

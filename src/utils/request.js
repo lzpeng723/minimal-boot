@@ -77,7 +77,7 @@ service.interceptors.response.use(
   },
   error => {
     const res = error.response.data
-    console.log('err' + res) // for debug
+    console.log({ err: res }) // 打印错误信息
     const msg = res && res.data && res.data.msg || error.message
     if (res.data.needReLogin) {
       // to re-login
