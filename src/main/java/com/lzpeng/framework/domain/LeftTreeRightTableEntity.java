@@ -33,9 +33,11 @@ public class LeftTreeRightTableEntity<T extends TreeEntity<T>> extends BaseEntit
     /**
      * 树节点
      * cascade 关系维护端
+     * 当设置CascadeType.PERSIST时,新增右表数据且选择已存在的左树数据时会抛异常
+     * [org.springframework.dao.InvalidDataAccessApiUsageException: uninitialized proxy passed to persist(); nested exception is org.hibernate.PersistentObjectException: uninitialized proxy passed to persist()]
      */
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @ApiModelProperty(value=  "树节点", hidden=true)
     @JoinColumn(name = "tree_id", columnDefinition = "varchar(255) COMMENT '树节点id'")
     private T tree;
