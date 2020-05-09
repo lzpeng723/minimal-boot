@@ -5,14 +5,12 @@ import cn.hutool.core.util.TypeUtil;
 import com.lzpeng.common.response.QueryResult;
 import com.lzpeng.framework.domain.LeftTreeRightTableEntity;
 import com.lzpeng.framework.domain.TreeEntity;
-import com.lzpeng.framework.util.TreeEntityUtil;
 import com.lzpeng.framework.web.repository.LeftTreeRightTableRepository;
 import lombok.SneakyThrows;
 
 import javax.transaction.Transactional;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 左树右表 Service
@@ -35,16 +33,16 @@ public abstract class LeftTreeRightTableServiceImpl<Tree extends TreeEntity<Tree
     protected LeftTreeRightTableRepository<Tree, Entity> leftTreeRightTableRepository;
 
     /**
-     * 保存前操作
-     * @param entity 右表数据
+     * 保存操作
+     * @param entity 实体
      * @return
      */
     @Override
-    protected boolean beforeSave(Entity entity) {
+    public Entity save(Entity entity) {
         if (entity.getTreeId() != null) {
             entity.setTree(treeService.findById(entity.getTreeId()));
         }
-        return true;
+        return super.save(entity);
     }
 
     /**
@@ -55,6 +53,13 @@ public abstract class LeftTreeRightTableServiceImpl<Tree extends TreeEntity<Tree
         return treeService.treeData();
     }
 
+    /**
+     * 分页查询数据
+     * @param page 页码
+     * @param size 每页数据
+     * @param model 查询条件
+     * @return
+     */
     @Override
     @SneakyThrows
     public QueryResult<Entity> query(int page, int size, Entity model) {
@@ -66,20 +71,6 @@ public abstract class LeftTreeRightTableServiceImpl<Tree extends TreeEntity<Tree
         return super.query(page, size, model);
     }
 
-    /**
-     * 获得右表数据
-     * @param treeId 树节点id
-     * @param model 查询条件
-     * @return
-     */
-
-    public List<Entity> rightTableData(String treeId, Entity model){
-        List<Entity> entityList = super.findAll(model);
-        Tree root = treeService.findById(treeId);
-        List<Tree> flatData = TreeEntityUtil.flatData(root);
-        List<String> treeIds = flatData.stream().map(TreeEntity::getId).collect(Collectors.toList());
-        return entityList.stream().filter(entity -> treeIds.contains(entity.getTree().getId())).collect(Collectors.toList());
-    }
 
     /**
      * 得到左树类型

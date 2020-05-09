@@ -67,62 +67,62 @@
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button
-                    type="primary"
-                    icon="el-icon-plus"
-                    size="mini"
-                    @click="handleAdd(null)"
+              type="primary"
+              icon="el-icon-plus"
+              size="mini"
+              @click="handleAdd(null)"
             >新增
             </el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-                    type="success"
-                    icon="el-icon-edit"
-                    size="mini"
-                    :disabled="single"
-                    @click="handleUpdate"
+              type="success"
+              icon="el-icon-edit"
+              size="mini"
+              :disabled="single"
+              @click="handleUpdate"
             >修改
             </el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-                    type="danger"
-                    icon="el-icon-delete"
-                    size="mini"
-                    :disabled="multiple"
-                    @click="handleBatchDelete"
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              :disabled="multiple"
+              @click="handleBatchDelete"
             >删除
             </el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-                    type="warning"
-                    icon="el-icon-upload"
-                    size="mini"
-                    @click="handleImport"
+              type="warning"
+              icon="el-icon-upload"
+              size="mini"
+              @click="handleImport"
             >导入
             </el-button>
           </el-col>
           <el-col :span="1.5">
             <el-button
-                    type="warning"
-                    icon="el-icon-download"
-                    size="mini"
-                    @click="handleExport"
+              type="warning"
+              icon="el-icon-download"
+              size="mini"
+              @click="handleExport"
             >导出
             </el-button>
           </el-col>
         </el-row>
         <!--${chineseClassName}列表数据-->
         <el-table
-                v-loading="loading"
-                :data="${simpleClassName?uncap_first}List"
-                @selection-change="handleSelectionChange">
+            v-loading="loading"
+            :data="${simpleClassName?uncap_first}List"
+            @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" align="center"/>
           <el-table-column label="${chineseClassName}编码" align="center" prop="number"/>
           <el-table-column label="${chineseClassName}名称" align="center" prop="name"/>
           <el-table-column label="状态" align="center" prop="enabled" :formatter="columnFormat"/>
-          <el-table-column label="@time" align="center" prop="createTime" width="180">
+          <el-table-column label="创建时间" align="center" prop="createTime" width="180">
             <template slot-scope="{row}">
               <span>{{ parseTime(row.createTime) }}</span>
             </template>
@@ -130,17 +130,17 @@
           <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template slot-scope="{row}">
               <el-button
-                      size="mini"
-                      type="text"
-                      icon="el-icon-edit"
-                      @click="handleUpdate(row)"
+                size="mini"
+                type="text"
+                icon="el-icon-edit"
+                @click="handleUpdate(row)"
               >修改
               </el-button>
               <el-button
-                      size="mini"
-                      type="text"
-                      icon="el-icon-delete"
-                      @click="handleDelete(row)"
+                size="mini"
+                type="text"
+                icon="el-icon-delete"
+                @click="handleDelete(row)"
               >删除
               </el-button>
             </template>
@@ -148,11 +148,11 @@
         </el-table>
         <!--分页组件-->
         <pagination
-                v-show="total>0"
-                :total="total"
-                :page.sync="page"
-                :limit.sync="size"
-                @pagination="handleQuery"
+          v-show="total>0"
+          :total="total"
+          :page.sync="page"
+          :limit.sync="size"
+          @pagination="handleQuery"
         />
       </el-col>
     </el-row><#else>
@@ -160,48 +160,48 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-                type="primary"
-                icon="el-icon-plus"
-                size="mini"
-                @click="handleAdd(null)"
+          type="primary"
+          icon="el-icon-plus"
+          size="mini"
+          @click="handleAdd(null)"
         >新增
         </el-button>
-      </el-col>
+      </el-col><#if entityType=="Base">
       <el-col :span="1.5">
         <el-button
-                type="success"
-                icon="el-icon-edit"
-                size="mini"
-                :disabled="single"
-                @click="handleUpdate"
+          type="success"
+          icon="el-icon-edit"
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-                type="danger"
-                icon="el-icon-delete"
-                size="mini"
-                :disabled="multiple"
-                @click="handleBatchDelete"
+          type="danger"
+          icon="el-icon-delete"
+          size="mini"
+          :disabled="multiple"
+          @click="handleBatchDelete"
         >删除
         </el-button>
-      </el-col>
+      </el-col></#if>
       <el-col :span="1.5">
         <el-button
-                type="warning"
-                icon="el-icon-upload"
-                size="mini"
-                @click="handleImport"
+          type="warning"
+          icon="el-icon-upload"
+          size="mini"
+          @click="handleImport"
         >导入
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-                type="warning"
-                icon="el-icon-download"
-                size="mini"
-                @click="handleExport"
+          type="warning"
+          icon="el-icon-download"
+          size="mini"
+          @click="handleExport"
         >导出
         </el-button>
       </el-col>
@@ -217,7 +217,7 @@
       <el-table-column label="${chineseClassName}编码" align="center" prop="number"/>
       <el-table-column label="${chineseClassName}名称" align="center" prop="name"/>
       <el-table-column label="状态" align="center" prop="enabled" :formatter="columnFormat"/>
-      <el-table-column label="@time" align="center" prop="createTime" width="180">
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="{row}">
           <span>{{ parseTime(row.createTime) }}</span>
         </template>
@@ -250,12 +250,12 @@
     </el-table>
     <!--分页组件-->
     <pagination
-          v-show="total>0"
-          :total="total"
-          :page.sync="page"
-          :limit.sync="size"
-          @pagination="handleQuery"
-  /></#if><#if editPageType=="dialog">
+      v-show="total>0"
+      :total="total"
+      :page.sync="page"
+      :limit.sync="size"
+      @pagination="handleQuery"
+    /></#if><#if editPageType=="dialog">
     <!--${chineseClassName}新增编辑弹出框-->
     <${simpleClassName?uncap_first}-dialog :dialog="dialog" @refresh="handleQuery"/></#if>
     <!--${chineseClassName}导入弹出框-->
@@ -282,7 +282,7 @@ export default {
       // 一共多少条数据
       total: 0,
       // 查询条件
-      model: {},<#if entityType=="LeftTreeRightTable">
+      model: {},<#switch entityType><#case "LeftTreeRightTable"><#case "Base">
       // 左树搜索条件
       leftTreeSearch: '',
       // 左树数据
@@ -291,15 +291,15 @@ export default {
       leftTreeProps: {
           children: 'children',
           label: 'name'
-      },<#elseif entityType=="Base">
+      },
       // 当前选中行id
       ids: [],
       // 当前选中是否是单行
       single: false,
       // 当前选中是否是多行
-      multiple: false,<#elseif entityType=="Tree">
+      multiple: false,<#break><#case "Tree">
       // 所有节点的父子关系
-      ${simpleClassName?uncap_first}Nodes: [],</#if>
+      ${simpleClassName?uncap_first}Nodes: [],<#default></#switch>
       // 表格数据
       ${simpleClassName?uncap_first}List: [],
       // ${chineseClassName}数据字典
@@ -318,12 +318,14 @@ export default {
         dictValues: {},
         // dialog 数据
         form: {<#if entityType=="Tree">
-          parentId: 0,</#if>
+          parentId: 0,<#elseif entityType=="LeftTreeRightTable">
+          treeId: 0,</#if>
           enabled: 1
         },
         // dialog 默认数据
         defaultForm: {<#if entityType=="Tree">
-          parentId: 0,</#if>
+          parentId: 0,<#elseif entityType=="LeftTreeRightTable">
+          treeId: 0,</#if>
           enabled: 1
         }
       },</#if>
@@ -425,7 +427,8 @@ export default {
           this.dialog.form.orderNum = (this.departmentList.length || 0) + 1
       }</#if>
       this.dialog.show = true
-      this.dialog.title = '添加${chineseClassName}'
+      this.dialog.title = '添加${chineseClassName}'<#if entityType=="LeftTreeRightTable">
+      this.dialog.form.treeId = this.model.treeId</#if>
       <#else>
       this.$router.push(`${r'${this.$route.path}'}/new`)
       </#if>
@@ -442,7 +445,8 @@ export default {
         this.dialog.form.enabled = +row.enabled // Boolean 转 int
       }
       this.dialog.show = true
-      this.dialog.title = '编辑${chineseClassName}'
+      this.dialog.title = '编辑${chineseClassName}'<#if entityType=="LeftTreeRightTable">
+      this.dialog.form.treeId = this.model.treeId</#if>
       <#else>
       this.$router.push(`${r'${this.$route.path}'}/${r'${row.id}'}`)
       </#if>
@@ -497,7 +501,7 @@ export default {
           })
         })
       })
-    },<#if entityType=="Base">
+    },<#if entityType!="Tree">
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)

@@ -33,17 +33,6 @@ public class LeftTreeRightTableControllerImpl<Tree extends TreeEntity<Tree>, Ent
     }
 
     /**
-     * 获得右表数据
-     * @param treeId 树节点id
-     * @param model 查询条件
-     * @return
-     */
-    public Result<List<Entity>> rightTableData(String treeId, Entity model){
-        List<Entity> rightTableData = leftTreeRightTableService.rightTableData(treeId, model);
-        return ResultUtil.success(rightTableData);
-    }
-
-    /**
      * 得到左树类型
      * @return
      */

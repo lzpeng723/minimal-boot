@@ -44,16 +44,18 @@ public abstract class TreeServiceImpl<Entity extends TreeEntity<Entity>> extends
             entity.setParent(parent);
         }
         // 队列，先进先出保存子节点
-
         Collection<Entity> entities = new HashSet<>();
         Queue<Entity> queue = new ConcurrentLinkedQueue<>();
-        queue.offer(entity); // 入队
+        // 入队
+        queue.offer(entity);
         while (!queue.isEmpty()) {
-            Entity parent = queue.remove();  // 出队
+            // 出队
+            Entity parent = queue.remove();
             // 给 每个 子节点 设置 parent
             for (Entity child : parent.getChildren()) {
                 child.setParent(parent);
-                queue.offer(child); // 入队
+                // 入队
+                queue.offer(child);
             }
             parent.getChildren().clear();
             entities.add(parent);
