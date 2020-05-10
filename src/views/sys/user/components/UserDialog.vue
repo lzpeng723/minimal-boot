@@ -3,6 +3,16 @@
     <!-- 添加或修改用户对话框 -->
     <el-dialog v-el-drag-dialog :title="dialog.title" :visible.sync="dialog.show" width="500px" @close="closeDialog">
       <el-form ref="form" :model="dialog.form" :rules="rules" label-width="80px">
+        <el-form-item label="部门">
+          <treeselect
+            v-model="dialog.form.treeId"
+            :options="leftTreeData"
+            :normalizer="normalizerLeftTreeData"
+            :show-count="true"
+            placeholder="请选择部门"
+            @input="changeLeftTreeNode"
+          />
+        </el-form-item>
         <el-form-item label="用户名" prop="username">
           <el-input v-model="dialog.form.username" placeholder="请输入用户名" />
         </el-form-item>
@@ -34,16 +44,23 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect' // 树形结构选择器 Select
 import elDragDialog from '@/directive/el-drag-dialog' // 可拖拽Dialog
-import { insertUser, updateUser } from '@/api/sys/user' // 用户api
+import { insertUser, updateUser, leftTreeData } from '@/api/sys/user' // 用户api
 export default {
   name: 'UserDialog', // 组件名称
+  components: {
+    // 注册树形结构选择器
+    Treeselect
+  },
   directives: { elDragDialog }, // 注册可拖拽Dialog directive
   props: {
     dialog: Object // 从父组件接收的参数
   },
   data() {
     return {
+      // 左树数据
+      leftTreeData: {},
       // 表单校验
       rules: {
         username: [
@@ -57,15 +74,46 @@ export default {
   },
   // 初始化组件时执行
   created() {
+    this.getLeftTreeData() // 获取左树数据
   },
   methods: {
-    // 关闭Dialog
+    /**
+     * 获得左树数据
+     */
+    getLeftTreeData() {
+      leftTreeData().then(res => {
+        this.leftTreeData = res
+      })
+    },
+    /**
+     * 转换左树数据
+     * @param node
+     */
+    normalizerLeftTreeData(node) {
+      return {
+        id: node.id,
+        label: node.name,
+        children: node.children
+      }
+    },
+    /**
+     * 当左树节点更新时操作
+     * @param value
+     */
+    changeLeftTreeNode(value) {
+
+    },
+    /**
+     * 关闭弹出框
+     */
     closeDialog() {
       this.dialog.form = this.deepClone(this.dialog.defaultForm)
       this.resetForm('form')
       this.dialog.show = false
     },
-    // 表单提交
+    /**
+     * 表单提交
+     */
     submitForm() {
       this.$refs['form'].validate((valid) => {
         if (valid) {

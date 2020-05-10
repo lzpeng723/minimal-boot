@@ -225,11 +225,13 @@ export default {
         dictValues: {},
         // dialog 数据
         form: {
-          enabled: 1
+          enabled: 1,
+          treeId: 0
         },
         // dialog 默认数据
         defaultForm: {
-          enabled: 1
+          enabled: 1,
+          treeId: 0
         }
       },
       // 分配角色页面数据
@@ -332,6 +334,7 @@ export default {
     handleAdd(row) {
       this.dialog.show = true
       this.dialog.title = '添加用户'
+      this.dialog.form.treeId = this.model.treeId
     },
     /**
      * 表格内编辑按钮
@@ -344,6 +347,7 @@ export default {
       }
       this.dialog.show = true
       this.dialog.title = '编辑用户'
+      this.dialog.form.treeId = this.model.treeId
     },
     /**
      * 分配角色
