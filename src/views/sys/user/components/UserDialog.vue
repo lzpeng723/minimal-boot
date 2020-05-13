@@ -17,7 +17,7 @@
           <el-input v-model="dialog.form.username" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item v-if="!dialog.form.id" label="密码" prop="password">
-          <el-input type="password" v-model="dialog.form.password" placeholder="请输入密码" />
+          <el-input v-model="dialog.form.password" type="password" placeholder="请输入密码" />
         </el-form-item>
         <el-form-item label="真实姓名" prop="name">
           <el-input v-model="dialog.form.name" placeholder="请输入用户真实姓名" />
@@ -28,7 +28,7 @@
               v-for="dict in dialog.dictValues['enabled']"
               :key="dict.key"
               :label="dict.key"
-            >{{dict.value}}</el-radio>
+            >{{ dict.value }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
