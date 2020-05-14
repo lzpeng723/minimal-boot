@@ -42,7 +42,7 @@
         <div class="head-container">
           <el-input
             v-model="leftTreeSearch"
-            placeholder="请输入节点名称"
+            placeholder="请输入${leftTree.chineseClassName}名称"
             clearable
             size="small"
             prefix-icon="el-icon-search"

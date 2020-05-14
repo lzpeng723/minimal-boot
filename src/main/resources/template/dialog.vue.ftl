@@ -25,7 +25,7 @@
               v-for="dict in dialog.dictValues['enabled']"
               :key="dict.key"
               :label="dict.key"
-            >{{dict.value}}</el-radio>
+            >{{ dict.value }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
