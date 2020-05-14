@@ -45,6 +45,7 @@ import 'codemirror/addon/fold/indent-fold.js'
 import 'codemirror/addon/fold/markdown-fold.js'
 import 'codemirror/addon/fold/xml-fold.js'
 
+// mode node_modules/codemirror/mode/meta.js
 // @link {https://blog.csdn.net/weixin_43080277/article/details/83860629}
 export const cmOptions = {
 

@@ -79,7 +79,7 @@ service.interceptors.response.use(
     const res = error.response.data
     console.log({ err: res }) // 打印错误信息
     const msg = res && res.data && res.data.msg || error.message
-    if (res.data.needReLogin) {
+    if (res.data && res.data.needReLogin) {
       // to re-login
       MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', {
         confirmButtonText: '重新登录',
