@@ -38,7 +38,7 @@ public class UserInitialize implements ApplicationRunner {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public void run(ApplicationArguments args) throws IOException {
-        QueryResult<User> result = userService.query(1, 1, null);
+        QueryResult<User> result = userService.query(1, 1);
         if (result.isEmpty()) {
             userService.importDataFromJson(IoUtil.read(userData.getInputStream(), Charset.defaultCharset()));
             log.info("初始化用户信息成功");

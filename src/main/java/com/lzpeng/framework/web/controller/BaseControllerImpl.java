@@ -8,6 +8,7 @@ import com.lzpeng.framework.domain.BaseEntity;
 import com.lzpeng.framework.model.BatchModel;
 import com.lzpeng.framework.web.service.BaseServiceImpl;
 import com.lzpeng.project.tool.domain.TableInfo;
+import com.querydsl.core.types.Predicate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,6 @@ public class BaseControllerImpl<Entity extends BaseEntity>  {
     /**
      * 泛型注入
      */
-    //@Autowired
     protected BaseServiceImpl<Entity> baseService;
 
 
@@ -83,9 +83,20 @@ public class BaseControllerImpl<Entity extends BaseEntity>  {
      * @param model
      * @return
      */
-    
     public Result<QueryResult<Entity>> query(int page, int size, Entity model) {
         QueryResult<Entity> result = baseService.query(page, size, model);
+        return ResultUtil.success(result);
+    }
+
+    /**
+     * QueryDsl分页查询
+     * @param page
+     * @param size
+     * @param predicate
+     * @return
+     */
+    public Result<QueryResult<Entity>> query(int page, int size, Predicate predicate) {
+        QueryResult<Entity> result = baseService.query(page, size, predicate);
         return ResultUtil.success(result);
     }
 

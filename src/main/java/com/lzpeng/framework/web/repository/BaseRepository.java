@@ -3,6 +3,7 @@ package com.lzpeng.framework.web.repository;
 import com.lzpeng.framework.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.util.ClassUtils;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author: 李志鹏
  */
 @NoRepositoryBean
-public interface BaseRepository<T extends BaseEntity> extends JpaRepository<T, String>, JpaSpecificationExecutor<T> {
+public interface BaseRepository<T extends BaseEntity> extends JpaRepository<T, String>, JpaSpecificationExecutor<T>, QuerydslPredicateExecutor<T> {
 
 
     /**

@@ -37,7 +37,7 @@ public class MenuInitialize implements ApplicationRunner {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public void run(ApplicationArguments args) throws IOException {
-        QueryResult<Menu> result = menuService.query(1, 1, null);
+        QueryResult<Menu> result = menuService.query(1, 1);
         if (result.isEmpty()) {
             menuService.importDataFromJson(IoUtil.read(menuData.getInputStream(), Charset.defaultCharset()));
             log.info("初始化菜单信息成功");

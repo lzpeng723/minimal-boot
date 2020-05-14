@@ -37,7 +37,7 @@ public class RoleInitialize implements ApplicationRunner {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public void run(ApplicationArguments args) throws IOException {
-        QueryResult<Role> result = roleService.query(1, 1, null);
+        QueryResult<Role> result = roleService.query(1, 1);
         if (result.isEmpty()) {
             roleService.importDataFromJson(IoUtil.read(roleData.getInputStream(), Charset.defaultCharset()));
             log.info("初始化角色信息成功");

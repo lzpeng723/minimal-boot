@@ -17,6 +17,7 @@ import com.lzpeng.framework.web.repository.BaseRepository;
 import com.lzpeng.project.base.service.FileInfoService;
 import com.lzpeng.project.tool.domain.TableInfo;
 import com.lzpeng.project.tool.service.TableInfoService;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -44,7 +45,6 @@ import java.util.*;
 @Transactional(rollbackOn = Exception.class)
 public abstract class BaseServiceImpl<Entity extends BaseEntity> {
 
-
     /**
      * 默认路径
      */
@@ -61,9 +61,19 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
      * 不能使用@Autowired 有 bug 不能泛型注入
      */
     protected BaseRepository<Entity> baseRepository;
-
+    /**
+     * Querydsl 处理复杂查询
+     */
+    //@Autowired
+    //protected JPAQueryFactory jpaQueryFactory;
+    /**
+     * 数据字典Service
+     */
     @Autowired
     private TableInfoService tableInfoService;
+    /**
+     * 文件上传下载Service
+     */
     @Autowired
     private FileInfoService fileInfoService;
 
@@ -157,28 +167,30 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         return null;
     }
 
+    /**
+     * Jpa Example分页查询
+     * @param page
+     * @param size
+     * @return
+     */
+    public QueryResult<Entity> query(int page, int size) {
+        return query(page, size, (Entity)null);
+    }
 
     /**
-     * 分页查询
-     *
+     * Jpa Example分页查询
      * @param page
      * @param size
      * @param model
      * @return
      */
     public QueryResult<Entity> query(int page, int size, Entity model) {
-        if (page <= 0) {
-            page = 1;
-        }
-        //为了适应 mysql 的接口将页码减1
-        page = page - 1;
-        if (size <= 0) {
-            // 如果传入size 不合法则设置为 20
-            size = 20;
-        }
-        //Pageable 和 Page 接口介绍: https://blog.csdn.net/u011781521/article/details/74539330
-        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
-        Pageable pageable = PageRequest.of(page, size, sort);
+        // 处理不正确的页码
+        page = optimizePage(page);
+        // 处理不正确的每页数据量
+        size = optimizeSize(size);
+        // 得到分页对象
+        Pageable pageable = getPageable(page, size);
         Page<Entity> pageResult;
         if (model == null) {
             // 没有传查询条件
@@ -187,6 +199,33 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
             // 将空白字符 或 undefined 设置为 null
             BeanUtils.convertBlankToNull(model);
             pageResult = baseRepository.findAll(Example.of(model, matcher), pageable);
+        }
+        // 执行查询后操作
+        return new QueryResult(pageResult.getContent(), pageResult.getTotalElements(), pageResult.getNumber() + 1, pageResult.getTotalPages());
+    }
+
+    /**
+     * QueryDsl分页查询
+     * @param page
+     * @param size
+     * @param predicate
+     * @return
+     */
+    public QueryResult<Entity> query(int page, int size, Predicate predicate) {
+        // 处理不正确的页码
+        page = optimizePage(page);
+        // 处理不正确的每页数据量
+        size = optimizeSize(size);
+        // 得到分页对象
+        Pageable pageable = getPageable(page, size);
+        Page<Entity> pageResult;
+        if (predicate == null) {
+            // 没有传查询条件
+            pageResult = baseRepository.findAll(pageable);
+        } else {
+            // 将空白字符 或 undefined 设置为 null
+            // BeanUtils.convertBlankToNull(model);
+            pageResult = baseRepository.findAll(predicate, pageable);
         }
         // 执行查询后操作
         return new QueryResult(pageResult.getContent(), pageResult.getTotalElements(), pageResult.getNumber() + 1, pageResult.getTotalPages());
@@ -494,20 +533,42 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         fileInfoService.downloadFile(fileName, inputStream, response);
     }
 
-//    /**
-//     * 查询后可以加工实体
-//     * @param entity
-//     */
-//    protected void afterFind(Entity entity){
-//    }
-//
-//    /**
-//     * 查询后可以加工实体
-//     * @param entities
-//     */
-//    protected void afterFindAll(Collection<Entity> entities){
-//        for (Entity entity : entities) {
-//            afterFind(entity);
-//        }
-//    }
+    /**
+     * 得到JPA分页对象
+     * @param page 第几页
+     * @param size 每页几条数据
+     * @return
+     */
+    private Pageable getPageable(int page, int size) {
+        //Pageable 和 Page 接口介绍: https://blog.csdn.net/u011781521/article/details/74539330
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        return PageRequest.of(page, size, sort);
+    }
+
+    /**
+     * 优化每页数据
+     * @param size
+     * @return
+     */
+    private int optimizeSize(int size) {
+        if (size <= 0) {
+            // 如果传入size 不合法则设置为 20
+            size = 20;
+        }
+        return size;
+    }
+
+    /**
+     * 优化页码
+     * @param page
+     * @return
+     */
+    private int optimizePage(int page) {
+        if (page <= 0) {
+            page = 1;
+        }
+        //为了适应数据库,将页码减1
+        page = page - 1;
+        return page;
+    }
 }

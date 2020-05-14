@@ -37,7 +37,7 @@ public class DepartmentInitialize implements ApplicationRunner {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public void run(ApplicationArguments args) throws IOException {
-        QueryResult<Department> result = departmentService.query(1, 1, null);
+        QueryResult<Department> result = departmentService.query(1, 1);
         if (result.isEmpty()) {
             departmentService.importDataFromJson(IoUtil.read(departmentData.getInputStream(), Charset.defaultCharset()));
             log.info("初始化部门信息成功");
