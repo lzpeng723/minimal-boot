@@ -11,6 +11,12 @@ springboot示例: https://gitee.com/hengboy/spring-boot-chapter
 @ConditionalOnMissingBean失效问题追踪 https://blog.csdn.net/it_freshman/article/details/100031510
 两个Bean的名称必须不同,必须加在其中一个上加@ConditionalOnMissingBean,另一个上加@Primary
 ThreadLocal内存泄露问题 https://zhuanlan.zhihu.com/p/58636499 使用完后需要remove
+SpringBoot环境下QueryDSL-JPA的入门及进阶 https://www.jianshu.com/p/69dcb1b85bbb
+Spring Boot JPA - 使用 Querydsl 处理复杂的操作 https://www.v2ex.com/t/350737
+如何自己实现lombok功能-Pluggable Annotation Processing的讲解与实践: https://blog.csdn.net/jimo_lonely/article/details/104959716
+JMH: 最装逼，最牛逼的基准测试工具套件: https://www.jianshu.com/p/0da2988b9846
+还得看 Java！Gitee 4月最火 Java 项目大盘点: https://juejin.im/post/5eba393cf265da7bc3539b85?utm_source=gold_browser_extension
+springBoot jpa 多数据源的动态切换: https://blog.csdn.net/sunshine920103/article/details/50363315
 
 RESTful风格下批量删除都有哪些实现方式？https://www.zhihu.com/question/65356825
 Activiti https://www.xugj520.cn/tag/Activiti/
@@ -18,6 +24,7 @@ Activiti7视频 https://www.bilibili.com/video/BV1HJ411C7uJ
 Activiti7文档 https://activiti.gitbook.io/activiti-7-developers-guide/
 SpringBoot 整合Activiti 启动后不自动创建表 https://blog.csdn.net/chen649053473/article/details/104793352/
 超全面的权限系统设计方案！: https://www.jianshu.com/p/1bd0969b7b21
+JPA自动生成表: org.hibernate.tool.schema.internal.HibernateSchemaManagementTool
 hibernate一对多连接懒加载EAGER只能有一个，如果有多个报错，需要手动强制录入
 类相同,类加载器不同,通过BeanUtils.copy转换
 

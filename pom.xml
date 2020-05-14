@@ -22,7 +22,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.2.7.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
-        <hutool.version>5.3.3</hutool.version>
+        <querydsl-generate.version>1.1.3</querydsl-generate.version>
+        <hutool.version>5.3.4</hutool.version>
         <javapoet.version>1.12.1</javapoet.version>
         <springfox.version>2.9.2</springfox.version>
         <swagger.version>1.5.21</swagger.version>
@@ -32,10 +33,10 @@
         <oshi.version>4.5.0</oshi.version>
         <jna.version>5.5.0</jna.version>
         <knife4j.version>2.0.2</knife4j.version>
-		<druid.version>1.1.21</druid.version>
-		<rhino.version>1.7.12</rhino.version>
-		<poi.version>4.1.2</poi.version>
-		<activiti.version>7.1.0.M6</activiti.version>
+        <druid.version>1.1.21</druid.version>
+        <rhino.version>1.7.12</rhino.version>
+        <poi.version>4.1.2</poi.version>
+        <activiti.version>7.1.0.M6</activiti.version>
     </properties>
 
     <dependencies>
@@ -49,11 +50,31 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- QueryDSL 支持 -->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+        </dependency>
+        <!-- QueryDSL 支持 -->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-collections</artifactId>
+        </dependency>
+        <!-- QueryDSL 支持 -->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+        </dependency>
+        <!-- QueryDSL 支持 -->
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
         <!-- mongodb -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--        </dependency>-->
         <!-- redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -223,11 +244,11 @@
             <version>${poi.version}</version>
         </dependency>
         <!-- 拼音工具 需要私服 -->
-<!--        <dependency>-->
-<!--            <groupId>net.sourceforge.pinyin4j</groupId>-->
-<!--            <artifactId>pinyin4j</artifactId>-->
-<!--            <version>3.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>net.sourceforge.pinyin4j</groupId>-->
+        <!--            <artifactId>pinyin4j</artifactId>-->
+        <!--            <version>3.0</version>-->
+        <!--        </dependency>-->
 
     </dependencies>
 
@@ -242,19 +263,20 @@
                 <scope>import</scope>
             </dependency>
             <!-- activiti7 包管理 与最新版本SpringBoot冲突-->
-<!--            <dependency>-->
-<!--                <groupId>org.activiti.dependencies</groupId>-->
-<!--                <artifactId>activiti-dependencies</artifactId>-->
-<!--                <version>${activiti.version}</version>-->
-<!--                <scope>import</scope>-->
-<!--                <type>pom</type>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>org.activiti.dependencies</groupId>-->
+            <!--                <artifactId>activiti-dependencies</artifactId>-->
+            <!--                <version>${activiti.version}</version>-->
+            <!--                <scope>import</scope>-->
+            <!--                <type>pom</type>-->
+            <!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+            <!-- SpringBoot 默认打包工具 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -266,6 +288,23 @@
                 <configuration>
                     <skipTests>true</skipTests>
                 </configuration>
+            </plugin>
+            <!-- QueryDSL 代码生成 -->
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>${querydsl-generate.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
