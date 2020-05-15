@@ -31,9 +31,21 @@ import java.util.List;
 @Api(tags = "类加载接口", value = "查看类以及类加载器信息")
 public class ClassLoaderController {
 
+    /**
+     * 系统工具模块权限名称
+     */
     private static final String MODULE_NAME = "tool";
+    /**
+     * 类加载器模块权限名称
+     */
     private static final String CLASS_NAME = "classLoader";
+    /**
+     * 类加载器页面权限
+     */
     private static final String LIST_PERM = MODULE_NAME + ":" + CLASS_NAME + ":list";
+    /**
+     * 类加载器查询权限
+     */
     private static final String QUERY_PERM = MODULE_NAME + ":" + CLASS_NAME + ":query";
 
     @Autowired

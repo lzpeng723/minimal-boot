@@ -35,7 +35,8 @@ public class GenerateEntityIdListener {
                 throw new RuntimeException("错误: " + clazzName + " 不符合正则表达式 " + pattern);
             }
             long longId = snowflake.nextId();
-            String entityId = Radix.encodeEntityId(entity.getClass(), longId); // 编码实体id
+            // 编码实体id
+            String entityId = Radix.encodeEntityId(entity.getClass(), longId);
             entity.setId(entityId);
         }
     }

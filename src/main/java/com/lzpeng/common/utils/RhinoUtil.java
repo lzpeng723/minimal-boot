@@ -38,18 +38,23 @@ public class RhinoUtil {
 	 * @return
 	 */
 	public static Object execute(String scriptName, String script, Map<String, Object> map) {
-		Context context = Context.enter();  //获取环境设置
-		Scriptable scope = context.initStandardObjects(); //初始化本地对象
+		//获取环境设置
+		Context context = Context.enter();
+		//初始化本地对象
+		Scriptable scope = context.initStandardObjects();
 		if (map != null) {
 			for (Entry<String, Object> entry : map.entrySet()) {
-				Object jsObj = Context.javaToJS(entry.getValue(), scope); // 将java对象转为js对象
-				ScriptableObject.putProperty(scope, entry.getKey(), jsObj);// 将java对象放置JS的作用域中
+				// 将java对象转为js对象
+				Object jsObj = Context.javaToJS(entry.getValue(), scope);
+				// 将java对象放置JS的作用域中
+				ScriptableObject.putProperty(scope, entry.getKey(), jsObj);
 			}
 		}
 		// load外部的js文件获取文件内容
 		// result 为执行JS产生的结果,如果JS中没有需要计算的表达式,结果为undefined
-		Object result = context.evaluateString(scope, script, scriptName, 1, null); //执行
-		Context.exit();  //退出
+		Object result = context.evaluateString(scope, script, scriptName, 1, null);
+		//退出
+		Context.exit();
 		return result;
 	}
 	

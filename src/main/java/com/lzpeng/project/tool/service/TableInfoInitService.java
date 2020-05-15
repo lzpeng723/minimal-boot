@@ -76,7 +76,8 @@ public class TableInfoInitService {
      */
     public List<TableInfo> getTableInfo() throws Exception {
         List<TableInfo> tableInfos = new ArrayList<>();
-        List<String> tableNames = tableInfoService.findTableNames(); // 查询已生成字典的表名
+        // 查询已生成字典的表名
+        List<String> tableNames = tableInfoService.findTableNames();
         // 获取所有实体信息
         Map<String, EntityPersister> entityPersisterMap = sessionFactory.getMetamodel().entityPersisters();
         for (EntityPersister entityPersister : entityPersisterMap.values()) {

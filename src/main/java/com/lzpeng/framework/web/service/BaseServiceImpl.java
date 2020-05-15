@@ -2,6 +2,7 @@ package com.lzpeng.framework.web.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.TypeUtil;
@@ -259,6 +260,17 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
     public List<Entity> findAll(Specification<Entity> specification) {
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         return baseRepository.findAll(specification, sort);
+    }
+
+    /**
+     * 查询所有
+     * @param predicate query dsl 查询条件
+     * @return
+     */
+    public List<Entity> findAll(Predicate predicate) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Iterable<Entity> iterable = baseRepository.findAll(predicate, sort);
+        return ListUtil.toList(iterable);
     }
 
     /**
