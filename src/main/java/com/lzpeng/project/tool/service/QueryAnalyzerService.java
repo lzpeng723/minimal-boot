@@ -1,6 +1,5 @@
 package com.lzpeng.project.tool.service;
 
-import cn.hutool.core.util.ReflectUtil;
 import com.lzpeng.framework.domain.BaseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -56,16 +53,16 @@ public class QueryAnalyzerService {
     public Object executeJPQL(String jpql) {
         Query query = entityManager.createQuery(jpql);
         List<BaseEntity> resultList = query.getResultList();
-        for (BaseEntity entity : resultList) {
-            // TODO 过滤集合属性 OR 转JSON时 过滤集合属性
-            Class<? extends BaseEntity> entityClass = entity.getClass();
-            Field[] fields = ReflectUtil.getFields(entityClass);
-            for (Field field : fields) {
-                if (Collection.class.isAssignableFrom(field.getType())) {
-                    ReflectUtil.setFieldValue(entity, field, null);
-                }
-            }
-        }
+//        for (BaseEntity entity : resultList) {
+//            // TODO 过滤集合属性 OR 转JSON时 过滤集合属性
+//            Class<? extends BaseEntity> entityClass = entity.getClass();
+//            Field[] fields = ReflectUtil.getFields(entityClass);
+//            for (Field field : fields) {
+//                if (Collection.class.isAssignableFrom(field.getType())) {
+//                    ReflectUtil.setFieldValue(entity, field, null);
+//                }
+//            }
+//        }
         return resultList;
     }
 }
