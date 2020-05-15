@@ -3,12 +3,12 @@
     <el-row>
       <el-button size="mini" round @click="executeSQL">执行SQL</el-button>
       <el-button size="mini" round @click="executeJPQL">执行JPQL</el-button>
-      <el-button size="mini" round>执行Rhino脚本</el-button>
-      <el-button size="mini" round>执行Nashorn脚本</el-button>
-      <el-button size="mini" round>id查表名</el-button>
-      <el-button size="mini" round>实体查表名</el-button>
-      <el-button size="mini" round>显示表定义</el-button>
-      <el-button size="mini" round>显示所有表</el-button>
+      <el-button size="mini" round @click="executeRhino">执行Rhino脚本</el-button>
+      <el-button size="mini" round @click="executeNashorn">执行Nashorn脚本</el-button>
+      <el-button size="mini" round @click="findTableById">id查表名</el-button>
+      <el-button size="mini" round @click="findTableByEntity">实体查表名</el-button>
+      <el-button size="mini" round @click="findTables">显示表定义</el-button>
+      <el-button size="mini" round @click="findEntities">显示所有实体</el-button>
       <el-button size="mini" round disabled>格式化代码</el-button>
       <el-button size="mini" round disabled>查BOTP关系</el-button>
     </el-row>
@@ -22,9 +22,9 @@
     />
 
     <el-table
+      v-loading="false"
       stripe
       border
-      v-loading="false"
       :data="result"
     >
       <!--表格自适应宽度: https://www.jianshu.com/p/b1e7e2a695c0-->
@@ -43,7 +43,16 @@
 <script>
 import { codemirror } from 'vue-codemirror'
 import { cmOptions } from '@/utils/codemirror'
-import { executeSQL, executeJPQL } from '@/api/tool/queryAnalyzer' // 查询分析器api
+import {
+  executeSQL,
+  executeJPQL,
+  executeRhino,
+  executeNashorn,
+  findTableById,
+  findTableByEntity,
+  findTables,
+  findEntities
+} from '@/api/tool/queryAnalyzer' // 查询分析器api
 
 export default {
   name: 'GenDetail',
@@ -51,9 +60,27 @@ export default {
   data() {
     return {
       cmOptions,
+      // 输入的代码
       code: '',
+      // 表格数据
       result: [],
-      keys: []
+      // 表头数据
+      keys: [],
+      // 数据字典默认表头
+      tableInfoColumn: [
+        {
+          label: '别名',
+          prop: 'apiModel'
+        },
+        {
+          label: '类名',
+          prop: 'className'
+        },
+        {
+          label: '表名',
+          prop: 'tableName'
+        }
+      ]
     }
   },
   created() {
@@ -96,6 +123,75 @@ export default {
           // sql 查询结果
           this.result = res
           this.keys = Object.keys(res[0] || {})
+        }
+      })
+    },
+    /**
+     * 执行 Rhino 脚本
+     */
+    executeRhino() {
+      executeRhino(this.code).then(res => {
+        if (res) {
+          this.result = [{ result: res }]
+          this.keys = [{ label: '结果', prop: 'result' }]
+        }
+      })
+    },
+    /**
+     * 执行 Nashorn 脚本
+     */
+    executeNashorn() {
+      executeNashorn(this.code).then(res => {
+        if (res) {
+          this.result = [{ result: JSON.stringify(res) }]
+          this.keys = [{ label: '结果', prop: 'result' }]
+        }
+      })
+    },
+    /**
+     * 根据id查询表
+     */
+    findTableById() {
+      findTableById(this.code).then(res => {
+        if (res) {
+          this.result = [res]
+          this.keys = this.tableInfoColumn
+        }
+      })
+    },
+    /**
+     * 根据实体查询表
+     */
+    findTableByEntity() {
+      findTableByEntity(this.code).then(res => {
+        if (res) {
+          this.result = res
+          this.keys = this.tableInfoColumn
+        }
+      })
+    },
+    /**
+     * 查询所有表
+     */
+    findTables() {
+      findTables(this.code).then(res => {
+        if (res) {
+          this.result = res.reduce((result, tableName) => {
+            result.push({ name: tableName })
+            return result
+          }, [])
+          this.keys = [{ label: '表名', prop: 'name' }]
+        }
+      })
+    },
+    /**
+     * 查询所有实体
+     */
+    findEntities() {
+      findEntities().then(res => {
+        if (res) {
+          this.result = res
+          this.keys = this.tableInfoColumn
         }
       })
     }

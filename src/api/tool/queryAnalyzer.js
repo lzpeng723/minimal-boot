@@ -27,3 +27,62 @@ export function executeJPQL(jpql) {
     data: { jpql }
   })
 }
+/**
+ * 执行 Rhino 脚本
+ */
+export function executeRhino(rhino) {
+  return request({
+    url: `${baseUrl}/rhino`,
+    method: 'post',
+    data: { rhino }
+  })
+}
+/**
+ * 执行 Nashorn 脚本
+ */
+export function executeNashorn(nashorn) {
+  return request({
+    url: `${baseUrl}/nashorn`,
+    method: 'post',
+    data: { nashorn }
+  })
+}
+
+/**
+ * id 查表名
+ */
+export function findTableById(id) {
+  return request({
+    url: `${baseUrl}/id`,
+    method: 'get',
+    params: { id }
+  })
+}
+/**
+ * 实体 查表名
+ */
+export function findTableByEntity(entityName) {
+  return request({
+    url: `${baseUrl}/entity`,
+    method: 'get',
+    params: { entityName }
+  })
+}
+/**
+ * 显示所有表
+ */
+export function findTables() {
+  return request({
+    url: `${baseUrl}/tables`,
+    method: 'get'
+  })
+}
+/**
+ * 显示所有实体
+ */
+export function findEntities() {
+  return request({
+    url: `${baseUrl}/entities`,
+    method: 'get'
+  })
+}
