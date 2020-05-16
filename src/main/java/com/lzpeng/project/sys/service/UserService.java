@@ -1,5 +1,6 @@
 package com.lzpeng.project.sys.service;
 
+import com.lzpeng.framework.web.config.UserAuditor;
 import com.lzpeng.project.sys.domain.Role;
 import com.lzpeng.project.sys.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 
 /**
  * 用户 业务层
+ *
  * @date: 2020/2/1
  * @time: 23:44
  * @author: 李志鹏
@@ -27,13 +29,27 @@ import java.util.regex.Pattern;
 @Transactional(rollbackOn = Exception.class)
 public class UserService extends AbstractUserService implements UserDetailsService {
 
-
+    /**
+     * 密码加密和验证
+     */
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * 角色Service
+     */
     @Autowired
     private RoleService roleService;
 
+    /**
+     * 获取 当前用户
+     */
+    @Autowired
+    private UserAuditor userAuditor;
+
+    /**
+     * Bcrypt 密码正则表达式
+     */
     private Pattern BCRYPT_PATTERN = Pattern
             .compile("\\A\\$2(a|y|b)?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
 
@@ -99,27 +115,19 @@ public class UserService extends AbstractUserService implements UserDetailsServi
     }
 
 
-//    /**
-//     * 获取当前用户
-//     * @return
-//     */
-//    public UserDetails getCurrentUser(){
-//        return userAuditor.getCurrentUser();
-//    }
-//
-//    /**
-//     * 获取 authentication 中的用户
-//     * @return
-//     */
-//    public UserDetails getCurrentUser(Authentication authentication){
-//        return userAuditor.getCurrentUser(authentication);
-//    }
-//    /**
-//     * 获取 principal 中的用户
-//     * @return
-//     */
-//    public UserDetails getCurrentUserByPrincipal(Object principal){
-//        return userAuditor.getCurrentUserByPrincipal(principal);
-//    }
+    /**
+     * 获取当前用户
+     *
+     * @return
+     */
+    public User getCurrentUser() {
+        UserDetails userDetails = userAuditor.getCurrentUser();
+        if (userDetails instanceof User) {
+            User user = (User) userDetails;
+            return user;
+        }
+        return null;
+    }
+
 
 }

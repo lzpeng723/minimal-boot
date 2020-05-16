@@ -298,7 +298,51 @@
 				"number": "sys:notice:list",
 				"type": 1,
 				"title": "通知公告",
-				"icon": "message"
+				"icon": "message",
+				"children": [
+					{
+						"name": "NoticeQuery",
+						"orderNum": 1,
+						"number": "sys:notice:query",
+						"type": 2,
+						"title": "岗位查询"
+					},
+					{
+						"name": "NoticeAdd",
+						"orderNum": 2,
+						"number": "sys:notice:add",
+						"type": 2,
+						"title": "岗位新增"
+					},
+					{
+						"name": "NoticeEdit",
+						"orderNum": 3,
+						"number": "sys:notice:edit",
+						"type": 2,
+						"title": "岗位修改"
+					},
+					{
+						"name": "NoticeDelete",
+						"orderNum": 4,
+						"number": "sys:notice:delete",
+						"type": 2,
+						"title": "岗位删除"
+					},
+					{
+						"name": "NoticeImport",
+						"orderNum": 5,
+						"number": "sys:notice:import",
+						"type": 2,
+						"title": "岗位导入"
+					},
+					{
+						"name": "NoticeExport",
+						"orderNum": 6,
+						"number": "sys:notice:export",
+						"type": 2,
+						"title": "岗位导出"
+					}
+				]
 			}
 		]
 	},

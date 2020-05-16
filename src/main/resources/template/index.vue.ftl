@@ -264,52 +264,60 @@
 </template>
 
 <script>
-import { get${simpleClassName}Page, get${simpleClassName}Dict, delete${simpleClassName}, batchOperation<#if entityType=="LeftTreeRightTable">, leftTreeData</#if> } from '@/api/${moduleName}/${simpleClassName?uncap_first}' // ${chineseClassName}api<#if editPageType=="dialog">
-import ${simpleClassName}Dialog from './components/${simpleClassName}Dialog'</#if>
-import ImportDialog from '@/components/ImportDialog' // 导入文件弹出框
+    import {
+        get${simpleClassName}Page,
+        get${simpleClassName}Dict,
+        delete${simpleClassName},
+        batchOperation<#if entityType=="LeftTreeRightTable">,
+        leftTreeData</#if>
+    } from '@/api/${moduleName}/${simpleClassName?uncap_first}' // ${chineseClassName}api<#if editPageType=="dialog">
+    import ${simpleClassName}Dialog from './components/${simpleClassName}Dialog'
 
-export default {
-  name: '${simpleClassName}List',
-  components: { ImportDialog<#if editPageType=="dialog">, ${simpleClassName}Dialog</#if> },
-  data() {
-    return {
-      // 表格是否在加载中
-      loading: false,
-      // 当前第几页
-      page: 1,
-      // 每页多少条数据
-      size: 20,
-      // 一共多少条数据
-      total: 0,
-      // 查询条件
-      model: {},<#switch entityType><#case "LeftTreeRightTable"><#case "Base">
-      // 左树搜索条件
-      leftTreeSearch: '',
-      // 左树数据
-      leftTreeData: undefined,
-      // 左树属性
-      leftTreeProps: {
-          children: 'children',
-          label: 'name'
-      },
-      // 当前选中行id
-      ids: [],
-      // 当前选中是否是单行
-      single: false,
-      // 当前选中是否是多行
-      multiple: false,<#break><#case "Tree">
-      // 所有节点的父子关系
-      ${simpleClassName?uncap_first}Nodes: [],<#default></#switch>
-      // 表格数据
-      ${simpleClassName?uncap_first}List: [],
-      // ${chineseClassName}数据字典
-      ${simpleClassName?uncap_first}Dict: {},
-      // 缓存每列的详细信息 {fieldName:columnInfo}
-      columnInfo: {},
-      // 缓存每列的数据字典 {fieldName:dictValues}
-      dictValues: {},<#if editPageType=="dialog">
-      // ${chineseClassName}新增编辑页面 参数
-      dialog: {
+    </#if>
+    import ImportDialog from '@/components/ImportDialog' // 导入文件弹出框
+
+    export default {
+        name: '${simpleClassName}List',
+        components: {ImportDialog<#if editPageType=="dialog">, ${simpleClassName}Dialog</#if>},
+        data() {
+            return {
+                // 表格是否在加载中
+                loading: false,
+                // 当前第几页
+                page: 1,
+                // 每页多少条数据
+                size: 20,
+                // 一共多少条数据
+                total: 0,
+                // 查询条件
+                model: {}, <#switch entityType><#case "LeftTreeRightTable">
+                // 左树搜索条件
+                leftTreeSearch: '',
+                // 左树数据
+                leftTreeData: undefined,
+                // 左树属性
+                leftTreeProps: {
+                    children: 'children',
+                    label: 'name'
+                }, <#case "Base">
+                // 当前选中行id
+                ids: [],
+                // 当前选中是否是单行
+                single: false,
+                // 当前选中是否是多行
+                multiple: false, <#break><#case "Tree">
+                // 所有节点的父子关系
+                ${simpleClassName?uncap_first}Nodes: [], <#default></#switch>
+                // 表格数据
+                ${simpleClassName?uncap_first}List: [],
+                // ${chineseClassName}数据字典
+                ${simpleClassName?uncap_first}Dict: {},
+                // 缓存每列的详细信息 {fieldName:columnInfo}
+                columnInfo: {},
+                // 缓存每列的数据字典 {fieldName:dictValues}
+                dictValues: {}, <#if editPageType=="dialog">
+                // ${chineseClassName}新增编辑页面 参数
+                dialog: {
         // 默认不显示 dialog 新增或编辑时显示
         show: false,
         // dialog 标题

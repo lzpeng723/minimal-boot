@@ -3,14 +3,13 @@
  */
 package com.lzpeng.framework.web.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.lzpeng.framework.web.filter.TimeFilter;
 import com.lzpeng.framework.web.interceptor.RequestLogInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -58,17 +57,12 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        //设置允许跨域的路径
-//        registry.addMapping("/**")
-//                //设置允许跨域请求的域名
-//                .allowedOrigins("*")
-//                //这里：是否允许证书 不再默认开启
-//                .allowCredentials(true)
-//                //设置允许的方法
-//                .allowedMethods("*")
-//                //跨域允许时间
-//                .maxAge(3600);
-//    }
+	/**
+	 * 枚举类的转换器工厂 addConverterFactory
+	 */
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverterFactory(new IntegerToEnumConverterFactory());
+		registry.addConverterFactory(new StringToIntEnumConverterFactory());
+	}
 }

@@ -32,3 +32,4 @@ build/
 ### 排除其他文件 ###
 /log/
 /.mvn/
+/src/vue/

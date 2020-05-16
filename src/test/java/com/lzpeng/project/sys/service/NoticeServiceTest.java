@@ -1,10 +1,9 @@
-package com.lzpeng.project.tool.service;
+package com.lzpeng.project.sys.service;
 
 import cn.hutool.core.io.FileUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lzpeng.common.response.QueryResult;
-import com.lzpeng.project.sys.domain.NotificationRecord;
-import com.lzpeng.project.tool.domain.Gen;
+import com.lzpeng.project.sys.domain.Notice;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collection;
 
@@ -20,53 +18,52 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * 代码生成模板 业务层单元测试
- * @date: 2020-4-16
- * @time: 11:47:29
- * @author: 李志鹏
+ * 通知 业务层单元测试
+ *
+ * @author : 李志鹏
+ * @date : 2020-5-16
+ * @time : 21:03:56
  */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class GenServiceTest {
+public class NoticeServiceTest {
 
     @Autowired
-    private GenInitService genInitService;
-
-    @Autowired
-    private GenService genService;
+    private NoticeService noticeService;
 
     @Test
     public void testSave() {
-        Gen gen = new Gen();
-        gen = genService.save(gen);
-        assertNotNull(gen.getId());
+        Notice notice = new Notice();
+        notice = noticeService.save(notice);
+        assertNotNull(notice.getId());
     }
 
     @Test
     public void testDelete() {
         String id = "{}";
-        genService.delete(id);
+        noticeService.delete(id);
     }
 
     @Test
     public void testUpdate() {
         String id = "{}";
-        Gen gen = new Gen();
-        gen = genService.update(id, gen);
-        assertEquals(gen.getId(), id);
+        Notice notice = new Notice();
+        notice = noticeService.update(id, notice);
+        assertEquals(notice.getId(), id);
     }
+
     @Test
     public void testFindById() {
         String id = "{}";
-        Gen gen = genService.findById(id);
-        assertEquals(gen.getId(), id);
+        Notice notice = noticeService.findById(id);
+        assertEquals(notice.getId(), id);
     }
 
     @Test
     public void testQuery() {
-        Gen gen = new Gen();
-        QueryResult<Gen> result = genService.query(0, 10, gen);
+        Notice notice = new Notice();
+        QueryResult<Notice> result = noticeService.query(0, 10, notice);
         assertNotNull(result.getList());
     }
 
@@ -74,23 +71,18 @@ public class GenServiceTest {
     public void testReadDataFromJson() throws JsonProcessingException {
         String path = ""; // json File Path
         String json = FileUtil.readString(path, Charset.defaultCharset());
-        Collection<Gen> gens = genService.readDataFromJson(json);
-        assertNotNull(gens);
-        log.info("{}", gens);
+        Collection<Notice> notices = noticeService.readDataFromJson(json);
+        assertNotNull(notices);
+        log.info("{}", notices);
     }
 
     @Test
     public void testImportDataFromJson() throws JsonProcessingException {
         String path = ""; // json File Path
         String json = FileUtil.readString(path, Charset.defaultCharset());
-        Collection<Gen> gens = genService.importDataFromJson(json);
-        assertNotNull(gens);
-        log.info("{}", gens);
-    }
-
-    @Test
-    public void testGenCodeToUserDir() throws IOException {
-        genService.genCodeToUserDir(NotificationRecord.class);
+        Collection<Notice> notices = noticeService.importDataFromJson(json);
+        assertNotNull(notices);
+        log.info("{}", notices);
     }
 
 }
