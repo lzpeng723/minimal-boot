@@ -48,7 +48,7 @@ public class BaseEntity implements Serializable {
 
     @Id
     @ApiModelProperty(value = "主键ID", hidden = true)
-    @Column(columnDefinition = "varchar(255) COMMENT 'id 主键'")
+    @Column(columnDefinition = "varchar(255) COMMENT 'id 主键'", updatable = false)
     private String id;
 
     @Excel(name = "是否禁用")
@@ -64,7 +64,7 @@ public class BaseEntity implements Serializable {
     @ApiModelProperty(value = "创建时间", hidden = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @Column(columnDefinition = "datetime COMMENT '创建时间'")
+    @Column(columnDefinition = "datetime COMMENT '创建时间'", updatable = false)
     private Date createTime;
     /**
      * 最后修改时间
@@ -82,7 +82,7 @@ public class BaseEntity implements Serializable {
     @CreatedBy
     @Excel(name = "创建者", imported = false)
     @ApiModelProperty(value = "创建者", hidden = true)
-    @Column(columnDefinition = "varchar(255) COMMENT '创建者'")
+    @Column(columnDefinition = "varchar(255) COMMENT '创建者'", updatable = false)
     private String createBy;
     /**
      * 最后修改者
