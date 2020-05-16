@@ -31,13 +31,13 @@
 </template>
 
 <script>
-import { getMenuTree } from '@/api/sys/menu' // 菜单API
+
 import { setPermissions, noPermissions } from '@/api/sys/role' // 角色API
 import elDragDialog from '@/directive/el-drag-dialog' // 可拖拽Dialog
 import treeTransfer from 'el-tree-transfer' // 引入树形穿梭框
 
 export default {
-  name: 'PermissionDialog',
+  name: 'SelectPermissionDialog',
   components: { treeTransfer }, // 注册树形穿梭框
   directives: { elDragDialog }, // 注册可拖拽Dialog directive
   props: {

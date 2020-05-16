@@ -43,7 +43,8 @@ js文件在线编辑运行: https://github.com/zycfj/JsBox
 vue-codemirror组件: https://github.com/surmon-china/vue-codemirror
 https://blog.csdn.net/mySpringandhibernate/article/details/84105095
 vue-ele-form-codemirror | vue-ele-form 的代码编辑器: https://github.com/dream2023/vue-ele-form-codemirror
-vue-router踩坑：History模式下，打包后页面访问404 https://blog.csdn.net/bxl0218/article/details/80974811
+vue-router踩坑: History模式下，打包后页面访问404 https://blog.csdn.net/bxl0218/article/details/80974811
+Vuepress: https://www.vuepress.cn/
 //
 单表
 树表

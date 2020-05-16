@@ -165,7 +165,7 @@
     <!--角色新增编辑弹出框-->
     <role-dialog :dialog="dialog" @refresh="handleQuery" />
     <!--权限分配弹出框-->
-    <permission-dialog :dialog="permissionDialog" @refresh="handleQuery" />
+    <select-permission-dialog :dialog="permissionDialog" @refresh="handleQuery" />
     <!--角色导入弹出框-->
     <import-dialog :dialog="importDialog" @onSuccess="importSuccess" />
   </div>
@@ -174,12 +174,12 @@
 <script>
 import { getRolePage, getRoleDict, deleteRole, batchOperation, leftTreeData } from '@/api/sys/role' // 角色api
 import RoleDialog from './components/RoleDialog'
-import PermissionDialog from './components/PermissionDialog'
+import SelectPermissionDialog from './components/SelectPermissionDialog' // 选择权限对话框
 import ImportDialog from '@/components/ImportDialog' // 导入文件弹出框
 
 export default {
   name: 'RoleList',
-  components: { ImportDialog, PermissionDialog, RoleDialog },
+  components: { ImportDialog, SelectPermissionDialog, RoleDialog },
   data() {
     return {
       // 表格是否在加载中
