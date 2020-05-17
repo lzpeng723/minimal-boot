@@ -1,0 +1,2 @@
+### 排除 vuepress构建生成的文件 ###
+/docs/.vuepress/dist/
