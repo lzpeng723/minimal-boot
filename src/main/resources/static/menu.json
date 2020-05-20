@@ -773,14 +773,13 @@
 		]
 	},
 	{
-		"name": "Http://ruoyi.vip",
-		"path": "http://ruoyi.vip",
+		"name": "https://lzpeng723.github.io/zh",
+		"path": "https://lzpeng723.github.io/zh",
 		"component": "@/layout/index",
 		"orderNum": 4,
 		"type": 1,
-		"hidden": true,
 		"frame": true,
-		"title": "若依官网",
+		"title": "参考文档",
 		"icon": "guide"
 	}
 ]
