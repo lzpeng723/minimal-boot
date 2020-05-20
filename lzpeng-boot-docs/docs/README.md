@@ -22,17 +22,14 @@ footer: MIT Licensed | Copyright (c) 2020 lzpeng723 All Rights Reserved lzpeng72
 ### Background Management System is as easy as counting one, two, three.
 
 ``` bash
-# clone the back-end project
-git clone https://github.com/lzpeng723/lzpeng-boot-server.git
+# clone the project
+git clone https://github.com/lzpeng723/lzpeng-boot.git
 
-# open the project directory, install dependencies, start the project
-cd lzpeng-boot-server && mvn compile && mvn springboot:run
+# open the back-end project directory, install dependencies, start the project
+cd lzpeng-boot/lzpeng-boot-server && mvn compile && mvn springboot:run
 
-# clone the front-end project
-git clone https://github.com/lzpeng723/lzpeng-boot-client.git
-
-# open the project directory, install dependencies, start the project
-cd lzpeng-boot-client && npm i -S && npm run dev
+# open the front-end project directory, install dependencies, start the project
+cd lzpeng-boot/lzpeng-boot-client && npm i -S && npm run dev
 ```
 
 ::: warning Warning

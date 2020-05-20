@@ -1,2 +1,4 @@
 ### 排除 vuepress构建生成的文件 ###
 /docs/.vuepress/dist/
+### 排除 npm构建生成的文件 ###
+/node_modules/

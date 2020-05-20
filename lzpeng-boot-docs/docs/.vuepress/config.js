@@ -36,14 +36,7 @@ module.exports = {
                         link: '/guide/'
                     }, {
                         text: 'Code',
-                        items: [{
-                                text: 'Server',
-                                link: 'https://github.com/lzpeng723/lzpeng-boot-server'
-                            }, {
-                                text: 'Client',
-                                link: 'https://github.com/lzpeng723/lzpeng-boot-client'
-                            }
-                        ]
+                        link: 'https://github.com/lzpeng723/lzpeng-boot'
                     }
 
                 ],
@@ -91,14 +84,7 @@ module.exports = {
                         link: '/zh/guide/'
                     }, {
                         text: '源码',
-                        items: [{
-                                text: '服务端',
-                                link: 'https://github.com/lzpeng723/lzpeng-boot-server'
-                            }, {
-                                text: '客户端',
-                                link: 'https://github.com/lzpeng723/lzpeng-boot-client'
-                            }
-                        ]
+                        link: 'https://github.com/lzpeng723/lzpeng-boot'
                     }
                 ],
                 sidebar: {

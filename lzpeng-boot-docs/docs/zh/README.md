@@ -22,17 +22,14 @@ footer: MIT Licensed | Copyright (c) 2020 lzpeng723 All Rights Reserved lzpeng72
 ### 后台管理系统像数 1, 2, 3 一样容易
 
 ``` bash
-# 克隆后端项目
-git clone https://github.com/lzpeng723/lzpeng-boot-server.git
+# 克隆项目
+git clone https://github.com/lzpeng723/lzpeng-boot.git
 
-# 进入项目目录 安装依赖 启动项目
-cd lzpeng-boot-server && mvn compile && mvn springboot:run
+# 进入后端项目目录 安装依赖 启动项目
+cd lzpeng-boot/lzpeng-boot-server && mvn compile && mvn springboot:run
 
-# 克隆前端项目
-git clone https://github.com/lzpeng723/lzpeng-boot-client.git
-
-# 进入项目目录 安装依赖 启动项目
-cd lzpeng-boot-client && npm i -S && npm run dev
+# 进入前端项目目录 安装依赖 启动项目
+cd lzpeng-boot/lzpeng-boot-client && npm i -S && npm run dev
 ```
 
 ::: warning 注意
