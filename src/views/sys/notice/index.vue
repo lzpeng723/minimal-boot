@@ -107,7 +107,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="sendNotice(row)"
+            @click="openSendNotice = true"
           >发送
           </el-button>
           <el-button
@@ -139,6 +139,12 @@
     <notice-dialog :dialog="dialog" @refresh="handleQuery" />
     <!--通知导入弹出框-->
     <import-dialog :dialog="importDialog" @onSuccess="importSuccess" />
+    <select-dialog
+      :show="openSendNotice"
+      :showColumns="['username', 'name']"
+      entity="com.lzpeng.project.sys.domain.User"
+      :filter="[{key:'name',op:'<',value:'user'}]"
+    />
   </div>
 </template>
 
@@ -146,12 +152,15 @@
 import { getNoticePage, getNoticeDict, deleteNotice, batchOperation, sendNotice } from '@/api/sys/notice' // 通知api
 import NoticeDialog from './components/NoticeDialog'
 import ImportDialog from '@/components/ImportDialog' // 导入文件弹出框
+import SelectDialog from '@/components/SelectDialog'
 
 export default {
   name: 'NoticeList',
-  components: { ImportDialog, NoticeDialog },
+  components: { SelectDialog, ImportDialog, NoticeDialog },
   data() {
     return {
+      // 是否打开发送通知对话框
+      openSendNotice: false,
       // 表格是否在加载中
       loading: false,
       // 当前第几页

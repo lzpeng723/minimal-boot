@@ -16,7 +16,7 @@ const service = axios.create({
         delete params[key]
       }
     }
-    return qs.stringify(params, { allowDots: true })
+    return qs.stringify(params, { allowDots: true, arrayFormat: 'repeat' })
   }
 })
 

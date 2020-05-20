@@ -12,7 +12,7 @@ cnpm i core-js@2  -S
 cnpm i -S js-base64
 // 树形下拉选择框 https://www.vue-treeselect.cn/
 cnpm i -S @riophae/vue-treeselect
-// qs 处理 GET 请求参数(body -> query)
+// qs 处理 GET 请求参数(body -> query) https://www.jianshu.com/p/57db80c37925
 cnpm i -S qs
 // 文件名称注入器
 cnpm i -S @d2-projects/vue-filename-injector
