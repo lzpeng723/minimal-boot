@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.lzpeng</groupId>
-    <artifactId>lzpeng</artifactId>
+    <artifactId>lzpeng-boot-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lzpeng</name>
+    <name>lzpeng-boot-server</name>
     <description>极简台管理系统</description>
 
     <properties>
