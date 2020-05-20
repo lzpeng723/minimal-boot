@@ -13,27 +13,29 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Generated;
 import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * ${chineseClassName} 抽象业务层 提供基于注解的缓存配置
- * @date : ${.now?date}
- * @time : ${.now?time}
- * @author : 李志鹏
- */
+* ${chineseClassName} 抽象业务层 提供基于注解的缓存配置
+* @date : ${.now?date}
+* @time : ${.now?time}
+* @author : 李志鹏
+*/
 @Service
 @Transactional(rollbackOn = Exception.class)
+@Generated(value = "com.lzpeng.project.tool.service.GenService", date = "${.now?date} ${.now?time}", comments = "${chineseClassName} 抽象业务层 提供基于注解的缓存配置")
 public abstract class Abstract${simpleClassName}Service extends ${entityType}ServiceImpl<<#if entityType=="LeftTreeRightTable">${leftTree.simpleClassName}, </#if>${simpleClassName}> {
 
-    protected static final String ENTITY_NAME = "${fullClassName}";
+protected static final String ENTITY_NAME = "${fullClassName}";
 
-    protected ${simpleClassName}Repository ${simpleClassName?uncap_first}Repository;<#if entityType=="LeftTreeRightTable">
+protected ${simpleClassName}Repository ${simpleClassName?uncap_first}Repository;<#if entityType=="LeftTreeRightTable">
 
     protected ${leftTree.simpleClassName}Service ${leftTree.simpleClassName?uncap_first}Service;</#if>
 
-    @Autowired
-    public void set${simpleClassName}Repository(${simpleClassName}Repository ${simpleClassName?uncap_first}Repository) {
+@Autowired
+public void set${simpleClassName}Repository(${simpleClassName}Repository ${simpleClassName?uncap_first}Repository) {
         this.baseRepository = ${simpleClassName?uncap_first}Repository;<#if entityType??>
         this.${entityType?uncap_first}Repository = ${simpleClassName?uncap_first}Repository;</#if>
         this.${simpleClassName?uncap_first}Repository = ${simpleClassName?uncap_first}Repository;

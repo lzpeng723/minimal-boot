@@ -17,30 +17,32 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Generated;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * ${chineseClassName} 控制层
- * @date : ${.now?date}
- * @time : ${.now?time}
- * @author : 李志鹏
- */
+* ${chineseClassName} 控制层
+* @date : ${.now?date}
+* @time : ${.now?time}
+* @author : 李志鹏
+*/
 @Slf4j
 @RestController
 @RequestMapping("/${moduleName}/${simpleClassName?uncap_first}")
+@Generated(value = "com.lzpeng.project.tool.service.GenService", date = "${.now?date} ${.now?time}", comments = "${chineseClassName} 控制层")
 @Api(tags = "${chineseClassName}管理接口", value = "${chineseClassName}管理，提供${chineseClassName}的增、删、改、查")
 public class ${simpleClassName}Controller extends ${entityType}ControllerImpl<<#if entityType=="LeftTreeRightTable">${leftTree.simpleClassName}, </#if>${simpleClassName}> {
 
-    /**
-    * 模块名称
-    */
-    private static final String MODULE_NAME = "${moduleName}";
-    /**
-    * 类名称
-    */
+/**
+* 模块名称
+*/
+private static final String MODULE_NAME = "${moduleName}";
+/**
+* 类名称
+*/
     private static final String CLASS_NAME = "${simpleClassName?uncap_first}";
     /**
     * ${chineseClassName}列表权限

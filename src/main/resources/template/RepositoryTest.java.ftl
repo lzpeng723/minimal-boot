@@ -10,29 +10,32 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Generated;
+
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * ${chineseClassName} 数据层单元测试
- * @date : ${.now?date}
- * @time : ${.now?time}
- * @author : 李志鹏
- */
+* ${chineseClassName} 数据层单元测试
+* @date : ${.now?date}
+* @time : ${.now?time}
+* @author : 李志鹏
+*/
 @Slf4j
 @RunWith(SpringRunner.class)
+@Generated(value = "com.lzpeng.project.tool.service.GenService", date = "${.now?date} ${.now?time}", comments = "${chineseClassName} 数据层单元测试")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ${simpleClassName}RepositoryTest {
 
-    @Autowired
-    private ${simpleClassName}Repository ${simpleClassName?uncap_first}Repository;
+@Autowired
+private ${simpleClassName}Repository ${simpleClassName?uncap_first}Repository;
 
-    @Test
-    public void testSave(){
-        ${simpleClassName} ${simpleClassName?uncap_first} = new ${simpleClassName}();
-        ${simpleClassName?uncap_first} = ${simpleClassName?uncap_first}Repository.save(${simpleClassName?uncap_first});
+@Test
+public void testSave(){
+${simpleClassName} ${simpleClassName?uncap_first} = new ${simpleClassName}();
+${simpleClassName?uncap_first} = ${simpleClassName?uncap_first}Repository.save(${simpleClassName?uncap_first});
         assertNotNull(${simpleClassName?uncap_first}.getId());
     }
 

@@ -19,32 +19,35 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.annotation.Generated;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * ${chineseClassName} 控制层单元测试
- * @date : ${.now?date}
- * @time : ${.now?time}
- * @author : 李志鹏
- */
+* ${chineseClassName} 控制层单元测试
+* @date : ${.now?date}
+* @time : ${.now?time}
+* @author : 李志鹏
+*/
 @Slf4j
 @EnableWebMvc
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SuppressWarnings("deprecation")
+@Generated(value = "com.lzpeng.project.tool.service.GenService", date = "${.now?date} ${.now?time}", comments = "${chineseClassName} 控制层单元测试")
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 public class ${simpleClassName}ControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+@Autowired
+private MockMvc mockMvc;
 
-    private ObjectMapper objectMapper;
+private ObjectMapper objectMapper;
 
-    /**
-    * 测试用户
+/**
+* 测试用户
     */
     private static final String TEST_USER = "test-user";
     /**

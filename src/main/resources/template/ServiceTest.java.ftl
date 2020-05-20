@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Generated;
+
 import java.nio.charset.Charset;
 import java.util.Collection;
 
@@ -18,23 +20,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * ${chineseClassName} 业务层单元测试
- * @date : ${.now?date}
- * @time : ${.now?time}
- * @author : 李志鹏
- */
+* ${chineseClassName} 业务层单元测试
+* @date : ${.now?date}
+* @time : ${.now?time}
+* @author : 李志鹏
+*/
 @Slf4j
 @RunWith(SpringRunner.class)
+@Generated(value = "com.lzpeng.project.tool.service.GenService", date = "${.now?date} ${.now?time}", comments = "${chineseClassName} 业务层单元测试")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ${simpleClassName}ServiceTest {
 
-    @Autowired
-    private ${simpleClassName}Service ${simpleClassName?uncap_first}Service;
+@Autowired
+private ${simpleClassName}Service ${simpleClassName?uncap_first}Service;
 
-    @Test
-    public void testSave() {
-        ${simpleClassName} ${simpleClassName?uncap_first} = new ${simpleClassName}();
-        ${simpleClassName?uncap_first} = ${simpleClassName?uncap_first}Service.save(${simpleClassName?uncap_first});
+@Test
+public void testSave() {
+${simpleClassName} ${simpleClassName?uncap_first} = new ${simpleClassName}();
+${simpleClassName?uncap_first} = ${simpleClassName?uncap_first}Service.save(${simpleClassName?uncap_first});
         assertNotNull(${simpleClassName?uncap_first}.getId());
     }
 
