@@ -4,19 +4,19 @@ module.exports = {
         // 作为特例，默认语言可以使用 '/' 作为其路径。
         '/': {
             lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
-            title: 'Minimal Management System (Lzpeng Boot)',
-            description: 'Minimal Management System (Lzpeng Boot)'
+            title: 'Lzpeng Boot',
+            description: 'Use Lzpeng Boot Build Management System'
         },
         '/zh/': {
             lang: 'zh-CN',
-            title: '极简后台管理系统 (Lzpeng Boot)',
-            description: '极简后台管理系统 (Lzpeng Boot)'
+            title: 'Lzpeng Boot',
+            description: '使用Lzpeng Boot快速构建后台管理系统'
         }
     },
     themeConfig: {
         locales: {
             '/': {
-				logo: '/logo.png',
+                logo: '/logo.png',
                 selectText: 'Languages',
                 label: 'English',
                 ariaLabel: 'Languages',
@@ -59,8 +59,8 @@ module.exports = {
                 }
             },
             '/zh/': {
-				// 图标
-				logo: '/logo.png',
+                // 图标
+                logo: '/logo.png',
                 // 多语言下拉菜单的标题
                 selectText: '选择语言',
                 // 该语言在下拉菜单中的标签
