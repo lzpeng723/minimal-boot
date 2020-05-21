@@ -36,7 +36,7 @@ public class EntityController {
      * @return
      */
     @GetMapping
-    public Result getTableData(String entity, String column, String[] showColumns, String[] filter, @RequestParam MultiValueMap<String, String> parameters) {
+    public Result getTableData(String entity, String column, String[] showColumns, String filter, @RequestParam MultiValueMap<String, String> parameters) {
         Map<String, Object> result = entityService.getTableData(entity, column, showColumns, filter, parameters);
         return ResultUtil.success(result);
     }

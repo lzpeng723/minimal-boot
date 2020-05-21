@@ -143,7 +143,8 @@
       :show="openSendNotice"
       :showColumns="['username', 'name']"
       entity="com.lzpeng.project.sys.domain.User"
-      :filter="[{key:'name',op:'<',value:'user'}]"
+      :filters="[{key:'username',op:'like',value:'%s%'}]"
+      @close="openSendNotice = false"
     />
   </div>
 </template>

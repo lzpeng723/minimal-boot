@@ -20,7 +20,7 @@
         <el-table-column
           v-for="column in showColumns"
           :key="column"
-          :label="dictValues[column] && dictValues[column].value || column"
+          :label="columnInfo[column] && columnInfo[column].apiModelProperty || column"
           :prop="column"
           align="center"
           width="180"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import parseSql from '@/utils/parseSql'
 import elDragDialog from '@/directive/el-drag-dialog' // 可拖拽Dialog
 import {
   getTableData
@@ -56,7 +57,7 @@ export default {
     // 字段名
     column: String,
     // 过滤条件
-    filter: Array,
+    filters: Array,
     // 显示哪些列
     showColumns: {
       type: Array,
@@ -94,13 +95,21 @@ export default {
   methods: {
     // 打开Dialog
     openDialog() {
+      // 组装过滤条件
+      const filterItems = []
+      for (let i = 0; i < this.filters.length; i++) {
+        const filter = this.filters[i]
+        const filterItem = parseSql.getFilter(filter.key, filter.op, filter.value)
+        filterItems.push(filterItem)
+      }
+      const mergeFilter = parseSql.mergeFilter(filterItems, 'and')
       getTableData({
         entity: this.entity,
         column: this.column,
-        filter: this.filter,
+        filter: mergeFilter,
         showColumns: this.showColumns
       }).then(res => {
-        this.tableData = res.tableData
+        this.tableData = res.tableData // 表格数据
         const result = this.parseTableMeta(res.tableInfo) // 解析单据的详细定义信息
         this.columnInfo = result.columnInfo // 每列的详细信息
         this.dictValues = result.dictValues // 每列的数据字典
@@ -108,7 +117,10 @@ export default {
     },
     // 关闭Dialog
     closeDialog() {
-      this.dialog.show = false
+      this.tableData = [] // 表格数据
+      this.columnInfo = [] // 每列的详细信息
+      this.dictValues = [] // 每列的数据字典
+      this.$emit('close')
     }
   }
 }
