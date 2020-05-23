@@ -1,4 +1,4 @@
-package com.lzpeng.project.base;
+package com.lzpeng.project.home;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +15,12 @@ import static com.lzpeng.framework.Swagger2Configuration.apiInfo;
  * @author: 李志鹏
  */
 @Configuration
-public class BaseSwagger2ApiConfig {
+public class HomeSwagger2ApiConfig {
     @Bean
-    public Docket baseApi() {
+    public Docket homeApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("基础服务")
-                .apiInfo(apiInfo("基础服务API", "基础服务API", "1.0"))
+                .groupName("首页服务")
+                .apiInfo(apiInfo("首页服务API", "首页服务API", "1.0"))
                 //.globalOperationParameters(parameters)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(getClass().getPackage().getName()))

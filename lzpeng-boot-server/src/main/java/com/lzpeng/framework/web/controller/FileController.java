@@ -1,10 +1,10 @@
-package com.lzpeng.project.base.controller;
+package com.lzpeng.framework.web.controller;
 
 
 import com.lzpeng.common.response.Result;
 import com.lzpeng.common.response.ResultUtil;
-import com.lzpeng.project.base.domain.FileInfo;
-import com.lzpeng.project.base.service.FileInfoService;
+import com.lzpeng.framework.domain.FileInfo;
+import com.lzpeng.framework.web.service.FileInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 @Slf4j
 @RestController
-@RequestMapping("/base/file")
+@RequestMapping("/framework/file")
 @Api(tags = "文件处理接口", value = "文件处理，提供文件的上传和下载")
 public class FileController {
 

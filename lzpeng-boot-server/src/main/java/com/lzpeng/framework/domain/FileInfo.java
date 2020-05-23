@@ -1,5 +1,6 @@
-package com.lzpeng.project.base.domain;
+package com.lzpeng.framework.domain;
 
+import com.lzpeng.framework.annotation.GenerateCode;
 import com.lzpeng.framework.domain.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,6 +20,7 @@ import javax.persistence.Entity;
 @Entity
 @ApiModel("文件信息")
 @ToString(callSuper = true)
+@GenerateCode(generate = false)
 public class FileInfo extends BaseEntity {
     /**
      * 文件名

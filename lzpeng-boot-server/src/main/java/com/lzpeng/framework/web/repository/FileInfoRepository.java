@@ -1,7 +1,6 @@
-package com.lzpeng.project.base.repository;
+package com.lzpeng.framework.web.repository;
 
-import com.lzpeng.project.base.domain.FileInfo;
-import com.lzpeng.framework.web.repository.BaseRepository;
+import com.lzpeng.framework.domain.FileInfo;
 import io.swagger.annotations.Api;
 
 /**

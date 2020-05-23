@@ -1,4 +1,4 @@
-package com.lzpeng.annotation;
+package com.lzpeng.common.annotation;
 
 import org.junit.Test;
 

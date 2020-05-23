@@ -1,9 +1,9 @@
-package com.lzpeng.project.base.service;
+package com.lzpeng.framework.web.service;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
-import com.lzpeng.project.base.domain.FileInfo;
-import com.lzpeng.project.base.repository.FileInfoRepository;
+import com.lzpeng.framework.domain.FileInfo;
+import com.lzpeng.framework.web.repository.FileInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ContentDisposition;

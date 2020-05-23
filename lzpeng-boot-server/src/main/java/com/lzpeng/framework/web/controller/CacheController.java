@@ -1,4 +1,4 @@
-package com.lzpeng.project.base.controller;
+package com.lzpeng.framework.web.controller;
 
 import com.lzpeng.common.response.Result;
 import com.lzpeng.common.response.ResultUtil;
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @EnableCaching
 @RestController
-@RequestMapping("/base/cache")
+@RequestMapping("/framework/cache")
 @Api(tags = "缓存管理接口", value = "缓存管理，提供缓存的查询和删除")
 public class CacheController {
 
