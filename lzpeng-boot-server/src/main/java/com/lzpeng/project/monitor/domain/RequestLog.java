@@ -63,7 +63,7 @@ public class RequestLog extends BaseEntity {
      */
     @Excel(name = "查询参数", imported = false)
     @ApiModelProperty("query参数")
-    @Column(columnDefinition="varchar(255) COMMENT 'query参数'")
+    @Column(columnDefinition="text COMMENT 'query参数'")
     private String queryString;
 
     /**

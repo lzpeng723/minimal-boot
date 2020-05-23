@@ -107,7 +107,7 @@
             size="mini"
             type="text"
             icon="el-icon-edit"
-            @click="openSendNotice = true"
+            @click="handleSendNotice(row)"
           >发送
           </el-button>
           <el-button
@@ -140,11 +140,14 @@
     <!--通知导入弹出框-->
     <import-dialog :dialog="importDialog" @onSuccess="importSuccess" />
     <select-dialog
-      :show="openSendNotice"
-      :showColumns="['username', 'name']"
+      multiple
+      title="选择用户"
       entity="com.lzpeng.project.sys.domain.User"
+      :show="openSendNotice"
+      :showColumns="['id', 'username', 'name']"
       :filters="[{key:'username',op:'like',value:'%s%'}]"
       @close="openSendNotice = false"
+      @submit="sendNotice"
     />
   </div>
 </template>
@@ -160,6 +163,8 @@ export default {
   components: { SelectDialog, ImportDialog, NoticeDialog },
   data() {
     return {
+      // 当前选择的行
+      currentRow: null,
       // 是否打开发送通知对话框
       openSendNotice: false,
       // 表格是否在加载中
@@ -266,16 +271,25 @@ export default {
       this.dialog.title = '添加通知'
     },
     /**
-     * TODO 表格内发送按钮
-     * @param row 当前行数据
+     * 发送通知
+     * @param users 用户
      */
-    sendNotice(row) {
-      sendNotice(row.id, ['27H_j0hl_1vcn2eGR4rK', '27H_j0hl_1vcn2f1ibOo']).then(res => {
+    sendNotice(users = []) {
+      const row = this.currentRow
+      sendNotice(row.id, users.map(user => user.id)).then(res => {
         this.$notify.success({
           title: '成功',
           message: '发送通知成功'
         })
       })
+    },
+    /**
+     * 打开发送通知选择用户Dialog
+     * @param row 当前行数据
+     */
+    handleSendNotice(row) {
+      this.openSendNotice = true
+      this.currentRow = row
     },
     /**
      * 表格内编辑按钮

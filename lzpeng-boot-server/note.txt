@@ -27,6 +27,7 @@ SpringBoot 整合Activiti 启动后不自动创建表 https://blog.csdn.net/chen
 JPA自动生成表: org.hibernate.tool.schema.internal.HibernateSchemaManagementTool
 hibernate一对多连接懒加载EAGER只能有一个，如果有多个报错，需要手动强制录入
 类相同,类加载器不同,通过BeanUtils.copy转换
+FreeMarkerTemplateUtils: org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 单表
 树表

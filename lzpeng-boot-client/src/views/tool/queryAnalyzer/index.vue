@@ -27,7 +27,7 @@
       border
       :data="result"
     >
-      <!--表格自适应宽度: https://www.jianshu.com/p/b1e7e2a695c0-->
+      <!--表格根据文字长度自适应宽度: https://www.jianshu.com/p/b1e7e2a695c0-->
       <el-table-column
         v-for="key in keys"
         :key="key.label || key"
