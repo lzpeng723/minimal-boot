@@ -2,7 +2,7 @@ package com.lzpeng.project.monitor.service;
 
 import cn.hutool.core.io.FileUtil;
 import com.lzpeng.common.response.QueryResult;
-import com.lzpeng.project.base.service.FileInfoService;
+import com.lzpeng.framework.web.service.FileInfoService;
 import com.lzpeng.project.monitor.vo.ServerLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

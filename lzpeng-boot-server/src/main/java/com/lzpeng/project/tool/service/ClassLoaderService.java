@@ -3,7 +3,7 @@ package com.lzpeng.project.tool.service;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import com.lzpeng.project.base.service.FileInfoService;
+import com.lzpeng.framework.web.service.FileInfoService;
 import com.lzpeng.project.tool.vo.ClassInfo;
 import com.lzpeng.project.tool.vo.ClassLoaderInfo;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;

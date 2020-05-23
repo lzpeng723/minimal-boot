@@ -15,7 +15,6 @@ import com.lzpeng.framework.domain.BaseEntity;
 import com.lzpeng.framework.model.BatchModel;
 import com.lzpeng.framework.util.BeanUtils;
 import com.lzpeng.framework.web.repository.BaseRepository;
-import com.lzpeng.project.base.service.FileInfoService;
 import com.lzpeng.project.tool.domain.TableInfo;
 import com.lzpeng.project.tool.service.TableInfoService;
 import com.querydsl.core.types.Predicate;
@@ -334,19 +333,6 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         return list;
     }
 
-
-    /**
-     * 从json导入到数据库
-     *
-     * @param json
-     * @return
-     * @throws JsonProcessingException
-     */
-    public List<Entity> importDataFromJson(String json) throws JsonProcessingException {
-        List<Entity> collection = readDataFromJson(json);
-        return saveAll(collection);
-    }
-
     /**
      * 从 excel 导入实体到对象
      *
@@ -360,6 +346,19 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
 
 
     /**
+     * 从json导入到数据库
+     *
+     * @param json
+     * @return
+     * @throws JsonProcessingException
+     */
+    public List<Entity> importDataFromJson(String json) throws JsonProcessingException {
+        List<Entity> collection = readDataFromJson(json);
+        return saveAll(collection);
+    }
+
+
+    /**
      * 从 excel导入到数据库
      *
      * @param inputStream excel 文件流
@@ -368,6 +367,42 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
     public List<Entity> importDataFromExcel(InputStream inputStream) {
         List<Entity> collection = readDataFromExcel(inputStream);
         return saveAll(collection);
+    }
+    /**
+     * 上传的文件
+     * @param file
+     * @return
+     */
+    public List<Entity> importData(MultipartFile file) throws IOException {
+        List<Entity> list = null;
+        String originalFilename = file.getOriginalFilename();
+        String extName = FileUtil.extName(originalFilename.toLowerCase());
+        switch (extName) {
+            case "json":
+                list = importDataFromJson(IoUtil.read(file.getInputStream(), Charset.defaultCharset()));
+                break;
+            case "xls":
+            case "xlsx":
+                list = importDataFromExcel(file.getInputStream());
+                break;
+            case "xml":
+                // TODO 导入xml
+                break;
+            default:
+                throw new RuntimeException("不支持的文件类型: " + extName);
+        }
+        return list;
+    }
+
+    /**
+     * 导出信息到文件
+     * @param ids
+     * @param response
+     */
+    public void exportData(List<String> ids, HttpServletResponse response) throws IOException {
+        InputStream inputStream = exportDataToExcel(ids);
+        String fileName = getEntityClass().getSimpleName() + System.currentTimeMillis() + ".xlsx";
+        fileInfoService.downloadFile(fileName, inputStream, response);
     }
 
     /**
@@ -387,27 +422,6 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         return inputStream;
     }
 
-    /**
-     * 得到泛型参数
-     *
-     * @return
-     */
-    protected Class<Entity> getEntityClass() {
-        Type type = TypeUtil.getTypeArgument(getClass());
-        if (type != null && type instanceof Class) {
-            return (Class<Entity>) type;
-        }
-        return null;
-    }
-
-    /**
-     * 得到临时文件夹
-     *
-     * @return
-     */
-    protected String getTempDir() {
-        return Paths.get(USER_DIR, String.valueOf(System.nanoTime())).toString();
-    }
 
     /**
      * 批量增删改查
@@ -454,6 +468,83 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         return baseRepository.findAllByIdNotIn(ids);
     }
 
+
+    /**
+     * 启用
+     *
+     * @param id
+     * @return
+     */
+    public int enabled(String id) {
+        return baseRepository.updateEnabled(id, true);
+    }
+
+    /**
+     * 禁用
+     * @param id
+     * @return
+     */
+    public int disabled(String id) {
+        return baseRepository.updateEnabled(id, false);
+    }
+
+    /**
+     * 计数
+     * @return
+     */
+    public long count() {
+        return baseRepository.count();
+    }
+
+    /**
+     * 根据 model 模糊技计数
+     * @param model
+     * @return
+     */
+    public long count(Entity model) {
+        if (model == null) {
+            // 没有传查询条件
+            return count();
+        } else {
+            // 将空白字符 或 undefined 设置为 null
+            BeanUtils.convertBlankToNull(model);
+            return baseRepository.count(Example.of(model, matcher));
+        }
+    }
+
+    /**
+     * 计数
+     * @param predicate query DSL 查询条件
+     * @return
+     */
+    public long count(Predicate predicate) {
+        return baseRepository.count(predicate);
+    }
+
+
+    /**
+     * 得到泛型参数
+     *
+     * @return
+     */
+    protected Class<Entity> getEntityClass() {
+        Type type = TypeUtil.getTypeArgument(getClass());
+        if (type != null && type instanceof Class) {
+            return (Class<Entity>) type;
+        }
+        return null;
+    }
+
+    /**
+     * 得到临时文件夹
+     *
+     * @return
+     */
+    protected String getTempDir() {
+        return Paths.get(USER_DIR, String.valueOf(System.nanoTime())).toString();
+    }
+
+
     /**
      * 保存前操作
      *
@@ -478,7 +569,6 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         }
         return true;
     }
-
     /**
      * 保存后操作
      *
@@ -486,63 +576,6 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
      */
     protected void afterSave(Entity entity) {
 
-    }
-
-    /**
-     * 启用
-     *
-     * @param id
-     * @return
-     */
-    public int enabled(String id) {
-        return baseRepository.updateEnabled(id, true);
-    }
-
-    /**
-     * 禁用
-     *
-     * @param id
-     * @return
-     */
-    public int disabled(String id) {
-        return baseRepository.updateEnabled(id, false);
-    }
-
-    /**
-     * 上传的文件
-     * @param file
-     * @return
-     */
-    public List<Entity> importData(MultipartFile file) throws IOException {
-        List<Entity> list = null;
-        String originalFilename = file.getOriginalFilename();
-        String extName = FileUtil.extName(originalFilename.toLowerCase());
-        switch (extName) {
-            case "json":
-                list = importDataFromJson(IoUtil.read(file.getInputStream(), Charset.defaultCharset()));
-                break;
-            case "xls":
-            case "xlsx":
-                list = importDataFromExcel(file.getInputStream());
-                break;
-            case "xml":
-                // TODO 导入xml
-                break;
-            default:
-                throw new RuntimeException("不支持的文件类型: " + extName);
-        }
-        return list;
-    }
-
-    /**
-     * 导出信息到文件
-     * @param ids
-     * @param response
-     */
-    public void exportData(List<String> ids, HttpServletResponse response) throws IOException {
-        InputStream inputStream = exportDataToExcel(ids);
-        String fileName = getEntityClass().getSimpleName() + System.currentTimeMillis() + ".xlsx";
-        fileInfoService.downloadFile(fileName, inputStream, response);
     }
 
     /**

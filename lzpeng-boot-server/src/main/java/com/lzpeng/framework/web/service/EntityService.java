@@ -65,10 +65,17 @@ public class EntityService {
         if (!StrUtil.isBlankOrUndefined(column)) {
             entityType = (Class<? extends BaseEntity>) ReflectUtil.getField(entityType, column).getType();
         }
+        List<String> showColumnsList = Arrays.asList(showColumns);
+        List<String> resultColumnsList = new ArrayList<>();
+        // 是否有 id 字段
+        if (!showColumnsList.contains("id")) {
+            resultColumnsList.add("id");
+        }
+        resultColumnsList.addAll(showColumnsList);
         String whereCondition = DefaultSqlLoader.parseFilter(filter);
         String jpql = new StringBuilder()
                 .append("SELECT ")
-                .append(Arrays.stream(showColumns).collect(Collectors.joining(", ")))
+                .append(resultColumnsList.stream().collect(Collectors.joining(", ")))
                 .append(" FROM ")
                 .append(entityType.getName())
                 .append(" WHERE ")
@@ -80,9 +87,9 @@ public class EntityService {
         List resultList = query.getResultList();
         resultList = (List) resultList.stream().map(objs -> {
             Object[] arr = (Object[]) objs;
-            Map<String, Object> map = new HashMap<>();
-            for (int i = 0; i < showColumns.length; i++) {
-                map.put(showColumns[i], arr[i]);
+            Map<String, Object> map = new HashMap<>(resultColumnsList.size());
+            for (int i = 0; i < resultColumnsList.size(); i++) {
+                map.put(resultColumnsList.get(i), arr[i]);
             }
             return map;
         }).collect(Collectors.toList());

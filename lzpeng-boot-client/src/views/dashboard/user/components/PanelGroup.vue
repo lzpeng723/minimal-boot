@@ -1,47 +1,21 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
-        <div class="card-panel-icon-wrapper icon-people">
-          <svg-icon icon-class="peoples" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            用户
-          </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('notices')">
-        <div class="card-panel-icon-wrapper icon-message">
+      <div class="card-panel" @click="handleClickPanel('notices')">
+        <div class="card-panel-icon-wrapper icon-notice">
           <svg-icon icon-class="message" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
             通知
           </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+          <count-to :start-val="notice.startVal" :end-val="notice.endVal" :duration="notice.duration" class="card-panel-num" />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('purchases')">
-        <div class="card-panel-icon-wrapper icon-money">
-          <svg-icon icon-class="total-request" class-name="card-panel-icon" />
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            请求
-          </div>
-          <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
-        </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
-        <div class="card-panel-icon-wrapper icon-shopping">
+      <div class="card-panel" @click="handleClickPanel('todoList')">
+        <div class="card-panel-icon-wrapper icon-todo-list">
           <svg-icon icon-class="list" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
@@ -57,15 +31,42 @@
 
 <script>
 import CountTo from 'vue-count-to'
+import { count, noticeList } from '@/api/home/dashboard' // 首页api
 
 export default {
   name: 'PanelGroup',
   components: {
     CountTo
   },
+  data() {
+    return {
+      // 通知计数
+      notice: {
+        startVal: 0,
+        endVal: 0,
+        duration: 3600
+      },
+      // 待办计数
+      todoList: {
+        startVal: 0,
+        endVal: 0,
+        duration: 3600
+      }
+    }
+  },
+  created() {
+    count().then(res => {
+      if (res.noticeCount !== 0) {
+        this.notice.endVal = res.noticeCount
+      }
+      if (res.todoListCount !== 0) {
+        this.todoList.endVal = res.todoListCount
+      }
+    })
+  },
   methods: {
-    handleSetLineChartData(type) {
-      this.$emit('handleSetLineChartData', type)
+    handleClickPanel(type) {
+      this.$emit('handleClickPanel', type)
     }
   }
 }
@@ -95,37 +96,20 @@ export default {
         color: #fff;
       }
 
-      .icon-people {
-        background: #40c9c6;
-      }
-
-      .icon-message {
+      .icon-notice {
         background: #36a3f7;
       }
 
-      .icon-money {
-        background: #f4516c;
+      .icon-todo-list {
+        background: #34bfa3;
       }
-
-      .icon-shopping {
-        background: #34bfa3
-      }
-    }
-
-    .icon-people {
-      color: #40c9c6;
     }
 
     .icon-message {
       color: #36a3f7;
     }
-
-    .icon-money {
-      color: #f4516c;
-    }
-
-    .icon-shopping {
-      color: #34bfa3
+    .icon-todo-list {
+      color: #34bfa3;
     }
 
     .card-panel-icon-wrapper {

@@ -10,7 +10,7 @@ import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import com.lzpeng.framework.domain.TreeEntity;
-import com.lzpeng.project.base.service.FileInfoService;
+import com.lzpeng.framework.web.service.FileInfoService;
 import com.lzpeng.project.tool.domain.Gen;
 import com.lzpeng.project.tool.utils.EntityClassUtil;
 import com.lzpeng.project.tool.vo.GenInfo;
