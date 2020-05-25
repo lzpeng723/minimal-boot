@@ -15,7 +15,7 @@ import store from './store'
 import router from './router'
 
 import i18n from './lang' // 国际化
-import './icons' // 图标
+import '@/assets/icons' // 图标
 import './permission' // 权限控制
 import './utils/error-log' // 错误日志收集
 import { deepClone, formatTime, parseTime } from './utils'

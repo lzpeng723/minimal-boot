@@ -70,15 +70,18 @@ module.exports = {
 
     // 将 vue 文件路径注入到 vue 实例 可以通过 this.$options.__source 调用
     VueFilenameInjector(config)
+    // @link https://juejin.im/post/59bb864b5188257e7a427c09
     // set svg-sprite-loader
+    // url-loaer只处理除 src/assets/icons 文件夹之外的所以 svg
     config.module
       .rule('svg')
-      .exclude.add(resolve('src/icon'))
+      .exclude.add(resolve('src/assets/icons'))
       .end()
+    // svg-sprite-loader只处理 src/assets/icons 文件夹下面的 svg
     config.module
       .rule('icons')
       .test(/\.svg$/)
-      .include.add(resolve('src/icon'))
+      .include.add(resolve('src/assets/icons'))
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')

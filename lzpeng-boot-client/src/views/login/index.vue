@@ -54,39 +54,24 @@
 
       <div style="position:relative">
         <div class="tips">
-          <span>{{ $t('login.username') }} : administrator</span>
+          <span>管理员{{ $t('login.username') }} : administrator</span>
           <span>{{ $t('login.password') }} : 123456</span>
         </div>
         <div class="tips">
-          <span style="margin-right:18px;">
-            {{ $t('login.username') }} : user
-          </span>
+          <span>普通用户{{ $t('login.username') }} : user</span>
           <span>{{ $t('login.password') }} : 123456</span>
         </div>
-
-        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          {{ $t('login.thirdparty') }}
-        </el-button>
       </div>
     </el-form>
-
-    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
-      {{ $t('login.thirdpartyTips') }}
-      <br>
-      <br>
-      <br>
-      <social-sign />
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import LangSelect from '@/components/LangSelect'
-import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
-  components: { LangSelect, SocialSign },
+  components: { LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!value || value.length === 0) {
@@ -114,7 +99,6 @@ export default {
       passwordType: 'password',
       capsTooltip: false,
       loading: false,
-      showDialog: false,
       redirect: undefined,
       otherQuery: {}
     }
@@ -194,24 +178,6 @@ export default {
         return acc
       }, {})
     }
-    // afterQRScan() {
-    //   if (e.key === 'x-admin-oauth-code') {
-    //     const code = getQueryObject(e.newValue)
-    //     const codeMap = {
-    //       wechat: 'code',
-    //       tencent: 'code'
-    //     }
-    //     const type = codeMap[this.auth_type]
-    //     const codeName = code[type]
-    //     if (codeName) {
-    //       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-    //         this.$router.push({ path: this.redirect || '/' })
-    //       })
-    //     } else {
-    //       alert('第三方登录失败')
-    //     }
-    //   }
-    // }
   }
 }
 </script>
@@ -221,8 +187,9 @@ export default {
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
-$light_gray:#fff;
-$cursor: #fff;
+$dark_gray:#889aa4;
+$word_gray:#707070;
+$cursor: #707070;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
@@ -243,13 +210,15 @@ $cursor: #fff;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: $word_gray;
       height: 47px;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
+        /*自动完成背景颜色*/
+        box-shadow: 0 0 0px 1000px #e5e5e5 inset !important;
+        /*自动完成文字颜色*/
+        -webkit-text-fill-color: $word_gray !important;
       }
     }
   }
@@ -266,26 +235,30 @@ $cursor: #fff;
 <style lang="scss" scoped>
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
-$light_gray:#eee;
+$word_gray:#707070;
 
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-image: url('../../assets/login/bg.jpg');
+  background-size: 100% 100%;
   overflow: hidden;
 
   .login-form {
-    position: relative;
-    width: 520px;
+    width: 400px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
+    padding: 20px;
+    background-color: white;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .tips {
     font-size: 14px;
-    color: #fff;
+    color: $word_gray;
     margin-bottom: 10px;
 
     span {
@@ -307,8 +280,7 @@ $light_gray:#eee;
     position: relative;
 
     .title {
-      font-size: 26px;
-      color: $light_gray;
+      color: $word_gray;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;

@@ -288,7 +288,8 @@
 				"number": "sys:config:list",
 				"type": 1,
 				"title": "参数设置",
-				"icon": "edit"
+				"icon": "edit",
+				"hidden": true
 			},
 			{
 				"name": "Notice",
@@ -595,7 +596,8 @@
 				"number": "tool:gen_abc:list",
 				"type": 1,
 				"title": "单据构建",
-				"icon": "code"
+				"icon": "code",
+				"hidden": true
 			},
 			{
 				"name": "TableInfo",
