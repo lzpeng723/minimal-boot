@@ -5,7 +5,9 @@ import com.lzpeng.project.monitor.service.RequestLogService;
 import com.lzpeng.project.sys.domain.*;
 import com.lzpeng.project.sys.service.NotificationRecordService;
 import com.lzpeng.project.sys.service.UserService;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,9 @@ public class DashboardService {
     @Autowired
     private RequestLogService requestLogService;
 
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
+
     /**
      * 返回首页数据
      * @return
@@ -69,6 +74,12 @@ public class DashboardService {
             // 接收者是当前用户的通知数
             BooleanExpression predicate = notificationRecord.receiver.id.eq(user.getId());
             return notificationRecordService.findAll(predicate);
+//            List results = jpaQueryFactory.select(notificationRecord.id, notificationRecord.notice.id, notificationRecord.notice.name, notificationRecord.sender.id, notificationRecord.sender.username, notificationRecord.createTime)
+//                    .from(notificationRecord)
+//                    .where(predicate)
+//                    .fetchResults()
+//                    .getResults();
+//            return results;
         } else if (roleSet.contains("ADMIN")) {
             return notificationRecordService.findAll();
         }

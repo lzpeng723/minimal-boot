@@ -5,8 +5,10 @@ import cn.hutool.core.util.IdUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 /**
  * @date: 2020/3/25
@@ -15,17 +17,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class BeanConfig {
-
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        // 忽略空属性
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // https://blog.csdn.net/J080624/article/details/82529082
-        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-        return mapper;
-    }
 
     @Bean
     public Snowflake snowflake(){

@@ -79,6 +79,12 @@
             <artifactId>validation-api</artifactId>
             <version>${javax.validation.version}</version>
         </dependency>
+        <!-- jackson-datatype-hibernate5 懒加载数据不传前台 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate5</artifactId>
+        </dependency>
+
 
         <!-- mongodb -->
         <!--        <dependency>-->
