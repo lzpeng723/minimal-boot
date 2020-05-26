@@ -31,7 +31,7 @@
 
 <script>
 import CountTo from 'vue-count-to'
-import { count, noticeList } from '@/api/home/dashboard' // 首页api
+import { noticeCount } from '@/api/home/dashboard' // 首页api
 
 export default {
   name: 'PanelGroup',
@@ -55,7 +55,7 @@ export default {
     }
   },
   created() {
-    count().then(res => {
+    noticeCount().then(res => {
       if (res.noticeCount !== 0) {
         this.notice.endVal = res.noticeCount
       }

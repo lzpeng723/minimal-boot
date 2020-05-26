@@ -10,10 +10,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * 通知发送记录
@@ -34,7 +31,7 @@ public class NotificationRecord extends BaseEntity {
     /**
      * 发送者
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @ApiModelProperty(value = "发送者", hidden = true)
     @JoinColumn(name = "sender_id", columnDefinition = "varchar(255) COMMENT '发送者id'")
     private User sender;
@@ -42,7 +39,7 @@ public class NotificationRecord extends BaseEntity {
     /**
      * 通知
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @ApiModelProperty(value = "通知", hidden = true)
     @JoinColumn(name = "notice_id", columnDefinition = "varchar(255) COMMENT '通知id'")
     private Notice notice;
@@ -50,7 +47,7 @@ public class NotificationRecord extends BaseEntity {
     /**
      * 接收者
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @ApiModelProperty(value = "接收者", hidden = true)
     @JoinColumn(name = "receiver_id", columnDefinition = "varchar(255) COMMENT '接收者id'")
     private User receiver;

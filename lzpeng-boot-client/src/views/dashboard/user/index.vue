@@ -1,8 +1,15 @@
 <template>
   <div class="dashboard-editor-container">
     <github-corner class="github-corner" />
-
+    <!--通知 待办-->
     <panel-group @handleClickPanel="handleClickPanel" />
+    <ul>
+      <li v-for="item in noticeList" :key="item.id">
+        <div>
+          <span>{{item.notice.name}}</span>
+        </div>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -10,6 +17,7 @@
 <script>
 import GithubCorner from '@/components/GithubCorner'
 import PanelGroup from './components/PanelGroup'
+import { noticeList } from '@/api/home/dashboard' // 首页api
 
 export default {
   name: 'DashboardUser',
@@ -17,9 +25,30 @@ export default {
     GithubCorner,
     PanelGroup
   },
+  data() {
+    return {
+      noticeList: []
+    }
+  },
   methods: {
     handleClickPanel(type) {
-      console.log(type)
+      switch (type) {
+        case 'notices':
+          if (this.noticeList.length > 0) {
+            this.noticeList = []
+          } else {
+            noticeList().then(res => {
+              this.noticeList = res
+            })
+          }
+          break
+        case 'todoList':
+          console.log(type)
+          break
+        default:
+          console.log(type)
+          break
+      }
     }
   }
 }

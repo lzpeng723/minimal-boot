@@ -1,21 +1,21 @@
 package com.lzpeng.project.home.service;
 
 import cn.hutool.json.JSONObject;
+import com.lzpeng.framework.util.PermissionUtil;
 import com.lzpeng.project.monitor.service.RequestLogService;
-import com.lzpeng.project.sys.domain.*;
+import com.lzpeng.project.sys.domain.NotificationRecord;
+import com.lzpeng.project.sys.domain.QNotificationRecord;
+import com.lzpeng.project.sys.domain.User;
 import com.lzpeng.project.sys.service.NotificationRecordService;
 import com.lzpeng.project.sys.service.UserService;
-import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 首页 Service
@@ -44,19 +44,15 @@ public class DashboardService {
     @Autowired
     private RequestLogService requestLogService;
 
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
 
     /**
      * 返回首页数据
      * @return
      */
     public Map<String, Object> index() {
-        User user = userService.getCurrentUser();
-        Set<String> roleSet = user.getRoles().stream().map(Role::getNumber).collect(Collectors.toSet());
-        if (roleSet.contains("USER")) {
-            return userIndex(user);
-        } else if (roleSet.contains("ADMIN")) {
+        if (PermissionUtil.hasRole("USER")) {
+            return userIndex();
+        } else if (PermissionUtil.hasRole("ADMIN")) {
             return adminIndex();
         }
         return null;
@@ -67,21 +63,15 @@ public class DashboardService {
      * @return
      */
     public List<NotificationRecord> notificationRecords(){
-        User user = userService.getCurrentUser();
-        Set<String> roleSet = user.getRoles().stream().map(Role::getNumber).collect(Collectors.toSet());
-        if (roleSet.contains("USER")) {
+        if (PermissionUtil.hasRole("USER")) {
             QNotificationRecord notificationRecord = QNotificationRecord.notificationRecord;
-            // 接收者是当前用户的通知数
+            // 获取当前用户的通知
+            User user = userService.getCurrentUser();
             BooleanExpression predicate = notificationRecord.receiver.id.eq(user.getId());
-            return notificationRecordService.findAll(predicate);
-//            List results = jpaQueryFactory.select(notificationRecord.id, notificationRecord.notice.id, notificationRecord.notice.name, notificationRecord.sender.id, notificationRecord.sender.username, notificationRecord.createTime)
-//                    .from(notificationRecord)
-//                    .where(predicate)
-//                    .fetchResults()
-//                    .getResults();
-//            return results;
-        } else if (roleSet.contains("ADMIN")) {
-            return notificationRecordService.findAll();
+            predicate.and(notificationRecord.view.eq(false));
+            return notificationRecordService.findAll(predicate, Sort.by(Sort.Direction.ASC, "view"));
+        } else if (PermissionUtil.hasRole("ADMIN")) {
+            return notificationRecordService.findAll(Sort.by(Sort.Direction.ASC, "view"));
         }
         return Arrays.asList();
     }
@@ -100,11 +90,11 @@ public class DashboardService {
 
     /**
      * 普通用户首页数据
-     * @param user 当前用户
      * @return
      */
-    private Map<String, Object> userIndex(User user) {
+    private Map<String, Object> userIndex() {
         JSONObject obj = new JSONObject();
+        User user = userService.getCurrentUser();
         QNotificationRecord notificationRecord = QNotificationRecord.notificationRecord;
         // 接收者是当前用户的通知数
         BooleanExpression predicate = notificationRecord.receiver.id.eq(user.getId());

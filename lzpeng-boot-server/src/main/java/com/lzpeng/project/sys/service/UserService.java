@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -117,7 +118,6 @@ public class UserService extends AbstractUserService implements UserDetailsServi
 
     /**
      * 获取当前用户
-     *
      * @return
      */
     public User getCurrentUser() {
@@ -127,6 +127,14 @@ public class UserService extends AbstractUserService implements UserDetailsServi
             return user;
         }
         return null;
+    }
+
+    /**
+     * 获取当前用户的权限
+     * @return
+     */
+    public Collection<? extends String> getCurrentUserAuthorities() {
+        return userAuditor.getCurrentUserAuthorities();
     }
 
 

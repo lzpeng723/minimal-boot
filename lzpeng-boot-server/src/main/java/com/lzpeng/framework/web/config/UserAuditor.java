@@ -5,20 +5,22 @@ import com.lzpeng.project.sys.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @date: 2020/3/6
  * @time: 19:27
  * @author:   李志鹏
  */
-//@Component("defaultUserAuditor")
-//@ConditionalOnMissingBean(name = "userAuditor")
 @Component
 public class UserAuditor implements AuditorAware<String> {
 
@@ -40,6 +42,15 @@ public class UserAuditor implements AuditorAware<String> {
         return Optional.empty();
     }
 
+    /**
+     * 获得当前用户的权限
+     */
+    public Collection<? extends String> getCurrentUserAuthorities() {
+        UserDetails userDetails = getCurrentUser();
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        Stream<String> permissionStream = authorities.stream().map(GrantedAuthority::getAuthority);
+        return permissionStream.collect(Collectors.toSet());
+    }
     /**
      * 使用 ThreadLocal 来维护各个线程的 用户
      * 不使用 ThreadLocal, 在操作菜单表每次从数据库获取用户时会抛 StackOverflowError

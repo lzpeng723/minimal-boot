@@ -253,7 +253,6 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
 
     /**
      * 复杂条件查询
-     *
      * @return
      */
     public List<Entity> findAll(Specification<Entity> specification) {
@@ -271,24 +270,50 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         Iterable<Entity> iterable = baseRepository.findAll(predicate, sort);
         return ListUtil.toList(iterable);
     }
+    /**
+     * 查询所有
+     * @param predicate query dsl 查询条件
+     * @param sort jpa 排序条件
+     * @return
+     */
+    public List<Entity> findAll(Predicate predicate, Sort sort) {
+        sort = getSortAppendCreateTime(sort);
+        Iterable<Entity> iterable = baseRepository.findAll(predicate, sort);
+        return ListUtil.toList(iterable);
+    }
 
     /**
      * 查询所有
-     *
      * @return
      */
     public List<Entity> findAll() {
         return findAll((Entity) null);
     }
+    /**
+     * 查询所有
+     * @param sort jpa 排序条件
+     * @return
+     */
+    public List<Entity> findAll(Sort sort) {
+        return findAll((Entity) null, sort);
+    }
 
     /**
      * 查询所有
-     *
-     * @param model
+     * @param model 模糊查询条件
      * @return
      */
     public List<Entity> findAll(Entity model) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        return findAll(model, null);
+    }
+    /**
+     * 查询所有
+     * @param model 模糊查询条件
+     * @param sort 排序条件
+     * @return
+     */
+    public List<Entity> findAll(Entity model, Sort sort) {
+        sort = getSortAppendCreateTime(sort);
         if (model == null) {
             // 没有传查询条件
             List<Entity> entities = baseRepository.findAll(sort);
@@ -616,4 +641,19 @@ public abstract class BaseServiceImpl<Entity extends BaseEntity> {
         page = page - 1;
         return page;
     }
+
+    /**
+     * 排序条件增加按时间降序
+     * @param sort 原排序条件
+     * @return
+     */
+    private Sort getSortAppendCreateTime(Sort sort) {
+        if (sort == null) {
+            sort = Sort.by(Sort.Direction.DESC, "createTime");
+        } else {
+            sort = sort.and(Sort.by(Sort.Direction.DESC, "createTime"));
+        }
+        return sort;
+    }
+
 }
