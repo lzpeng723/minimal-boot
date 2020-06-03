@@ -12,7 +12,7 @@
 * SpringBoot， Spring Security， Spring Security OAuth2， Spring Data JPA ...
 ### 前端
 * node v12.14.0
-* bpm 6.13.4
+* npm 6.13.4
 * WebStorm 2018.2.8
 * Vue， vue-element-admin， ElementUI， axios ...
 

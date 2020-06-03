@@ -49,9 +49,9 @@ module.exports = {
                                     collapsable: true,
                                     path: '/guide/getting-started.html',
                                 }, {
-                                    title: 'Contents',
+                                    title: 'Api Introduction',
                                     collapsable: true,
-                                    path: '/guide/directory-structure.html',
+                                    path: '/guide/api-introduction.html',
                                 }
                             ]
                         }
@@ -96,9 +96,9 @@ module.exports = {
                                     collapsable: true,
                                     path: '/zh/guide/getting-started.html',
                                 }, {
-                                    title: '目录结构',
+                                    title: 'API介绍',
                                     collapsable: true,
-                                    path: '/zh/guide/directory-structure.html',
+                                    path: '/zh/guide/api-introduction.html',
                                 }
                             ]
                         }
