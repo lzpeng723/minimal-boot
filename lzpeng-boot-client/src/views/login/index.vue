@@ -47,31 +47,30 @@
           </span>
         </el-form-item>
       </el-tooltip>
-
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
-        {{ $t('login.logIn') }}
-      </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>管理员{{ $t('login.username') }} : administrator</span>
-          <span>{{ $t('login.password') }} : 123456</span>
-        </div>
-        <div class="tips">
-          <span>普通用户{{ $t('login.username') }} : user</span>
-          <span>{{ $t('login.password') }} : 123456</span>
-        </div>
-      </div>
+      <el-row :gutter="10" class="mb8">
+        <el-col :span="12">
+          <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">
+            {{ $t('login.logIn') }}
+          </el-button>
+        </el-col>
+        <el-col :span="12">
+          <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleAccount">
+            获取体验账号
+          </el-button>
+        </el-col>
+      </el-row>
     </el-form>
+    <official-account-dialog :dialog="officialAccountDialog"/>
   </div>
 </template>
 
 <script>
 import LangSelect from '@/components/LangSelect'
+import OfficialAccountDialog from './components/OfficialAccountDialog'
 
 export default {
   name: 'Login',
-  components: { LangSelect },
+  components: { OfficialAccountDialog, LangSelect },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!value || value.length === 0) {
@@ -88,19 +87,28 @@ export default {
       }
     }
     return {
+      // 用户名 密码
       loginForm: {
-        username: 'administrator',
-        password: '123456'
+        username: 'administrator'
       },
+      // 表单校验规则
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
+      // 密码输入框类型
       passwordType: 'password',
+      // 大写提示
       capsTooltip: false,
       loading: false,
+      // 重定向地址
       redirect: undefined,
-      otherQuery: {}
+      otherQuery: {},
+      // 微信公众号弹出框
+      officialAccountDialog: {
+        title: '公众号二维码',
+        show: false
+      }
     }
   },
   watch: {
@@ -130,6 +138,11 @@ export default {
     // window.removeEventListener('storage', this.afterQRScan)
   },
   methods: {
+    /**
+     * 监听大写是否打开
+     * @param shiftKey
+     * @param key
+     */
     checkCapslock({ shiftKey, key } = {}) {
       if (key && key.length === 1) {
         if (shiftKey && (key >= 'a' && key <= 'z') || !shiftKey && (key >= 'A' && key <= 'Z')) {
@@ -142,6 +155,9 @@ export default {
         this.capsTooltip = false
       }
     },
+    /**
+     * 显示隐藏密码
+     */
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -152,6 +168,9 @@ export default {
         this.$refs.password.focus()
       })
     },
+    /**
+     * 登录
+     */
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -170,6 +189,17 @@ export default {
         }
       })
     },
+    /**
+     * 打开微信公众号对话框
+     */
+    handleAccount() {
+      this.officialAccountDialog.show = true
+    },
+    /**
+     * 得到url中其它参数
+     * @param query
+     * @return {{}}
+     */
     getOtherQuery(query) {
       return Object.keys(query).reduce((acc, cur) => {
         if (cur !== 'redirect') {
