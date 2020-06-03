@@ -66,6 +66,8 @@ public class OAuth2ExceptionTranslator extends DefaultWebResponseExceptionTransl
         } else if (errorMessage.startsWith("Access token expired:")){
             map.put("msg", "TOKEN过期");
             map.put("needReLogin", true);
+        } else {
+            map.put("msg", errorMessage);
         }
         if (oAuth2Authentication.getAdditionalInformation()!=null) {
             for (Map.Entry<String, String> entry : oAuth2Authentication.getAdditionalInformation().entrySet()) {
