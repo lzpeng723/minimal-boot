@@ -1,14 +1,24 @@
+# 说明
+[本人](https://www.github.com/lzpeng723)最近正在将此项目升级为为微服务架构,刚刚上 github 发现有人在半个月给我提了个 pull request, 很是抱歉.
+
+目前微服务的通用模块,注册中心,流控降级,链路追踪,微服务监控架子已搭建完成,目前正在搭建代码生成微服务和系统管理微服务,预计很快时间就可以发布.下次发布后[lzpeng-boot](https://www.github.com/lzpeng723/lzpeng-boot)将更名为[minimal-boot](https://www.github.com/lzpeng723/minimal-boot),微服务会新建一个仓库,名为[minimal-cloud](https://www.github.com/lzpeng723/minimal-cloud).
+
+另外,[本人](https://www.github.com/lzpeng723)的英文水平有限,英文文档与此文档未同步,期待有人可以帮我翻一下,[本人](https://www.github.com/lzpeng723)不胜感激
+
 # 介绍
 极简后台管理系统是一个后台管理系统的基础模板，定义好实体类即可自动生成其它所有前后端代码。采用前后端分离进行开发，全部使用Rest风格API进行数据传递。它的诞生初衷是为了快速开发，专注于业务代码编写。
 
-写好实体类后启动项目，即可自动建表，可在前端页面生成实体类相关的代码，生成后分别放到前后端项目里，重启项目，此实体的增删改查功能已完善，然后开始真正业务代码的编写。
+首次启动项目会自动建表,并自动创建预置用户角色和菜单,另外预置了三种不同类型的定时任务提供测试,未来将会支持更多种类的定时任务(例如定时调用RestAPI等)
+
+写好实体类后可使用单元测试自动生成 DAO 层, Service 层, Controller 层, 前端页面以及单元测试代码到项目目录下,然后将前端页面放置前端项目,增删改查,导入导出功能就已完成,然后开始真正业务代码的编写。
 
 ## 开发工具及环境
 ### 后端
-* jdk 1.8
+* jdk 1.8+
 * maven 3.6.1
-* mysql 5.5+
+* mysql 5.5+ [本人](https://www.github.com/lzpeng723)使用 mariadb, mariadb 是 mysql 的一个分支,安装包仅50多M,非常推荐
 * IDEA 2019.3.3 (安装lombok插件)
+* Redis
 * SpringBoot， Spring Security， Spring Security OAuth2， Spring Data JPA ...
 ### 前端
 * node v12.14.0
@@ -19,7 +29,7 @@
 ## 功能概览
 
 ```
-- 登录 / 注销
+- 登录 / 认证授权
 
 - 系统管理
   - 用户管理(在这里给用户分配角色)
@@ -27,6 +37,7 @@
   - 菜单管理(在这里配置菜单权限)
   - 部门管理
   - 岗位管理
+  - 通知管理
 
 - 系统监控
   - 定时任务(支持Java类任务, Rhino脚本任务, Nashorn脚本任务)
@@ -52,7 +63,7 @@
 
 ## Todo
 
-Lzpeng Boot 仍然处于开发中，这里有一些目前还不支持、但已经在计划中的特性：
+Lzpeng Boot 仍然处于开发中，这里有一些目前还不支持、但已经在计划中的功能：
 
 - 工作流
 - 报表
