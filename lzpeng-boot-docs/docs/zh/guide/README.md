@@ -3,7 +3,7 @@
 
 目前微服务的通用模块,注册中心,流控降级,链路追踪,微服务监控架子已搭建完成,目前正在搭建代码生成微服务和系统管理微服务,预计很快时间就可以发布.下次发布后[lzpeng-boot](https://www.github.com/lzpeng723/lzpeng-boot)将更名为[minimal-boot](https://www.github.com/lzpeng723/minimal-boot),微服务会新建一个仓库,名为[minimal-cloud](https://www.github.com/lzpeng723/minimal-cloud).
 
-另外,[本人](https://www.github.com/lzpeng723)的英文水平有限,英文文档与此文档未同步,期待有人可以帮我翻一下,[本人](https://www.github.com/lzpeng723)不胜感激
+另外,[本人](https://www.github.com/lzpeng723)的英文水平有限,英文文档与此文档未同步,期待有人可以帮我翻译一下,[本人](https://www.github.com/lzpeng723)不胜感激
 
 # 介绍
 极简后台管理系统是一个后台管理系统的基础模板，定义好实体类即可自动生成其它所有前后端代码。采用前后端分离进行开发，全部使用Rest风格API进行数据传递。它的诞生初衷是为了快速开发，专注于业务代码编写。

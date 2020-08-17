@@ -5,9 +5,12 @@ project:
 # https://www.xugj520.cn/archives/activiti_issues.html
 spring:
   activiti:
+    # 自动建表
     database-schema-update: true
+    # 自动部署
     check-process-definitions: true
     process-definition-location-prefix: classpath:/processes/
+    # 创建历史任务表
     history-level: full
     db-history-used: true
     db-identity-used: true

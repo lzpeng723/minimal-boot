@@ -775,8 +775,8 @@
 		]
 	},
 	{
-		"name": "https://lzpeng723.github.io/zh",
-		"path": "https://lzpeng723.github.io/zh",
+		"name": "http://lzpeng723.github.io/minimal-boot",
+		"path": "http://lzpeng723.github.io/minimal-boot",
 		"component": "@/layout/index",
 		"orderNum": 4,
 		"type": 1,
