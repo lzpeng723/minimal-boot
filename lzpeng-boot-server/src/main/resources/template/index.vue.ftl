@@ -270,11 +270,11 @@
         delete${simpleClassName},
         batchOperation<#if entityType=="LeftTreeRightTable">,
         leftTreeData</#if>
-    } from '@/api/${moduleName}/${simpleClassName?uncap_first}' // ${chineseClassName}api<#if editPageType=="dialog">
-    import ${simpleClassName}Dialog from './components/${simpleClassName}Dialog'
-
-    </#if>
+    } from '@/api/${moduleName}/${simpleClassName?uncap_first}' // ${chineseClassName}api
     import ImportDialog from '@/components/ImportDialog' // 导入文件弹出框
+    import ${simpleClassName}Dialog from './components/' // 导入<#if editPageType=="dialog">
+    ${chineseClassName}弹出框
+    </#if>
 
     export default {
         name: '${simpleClassName}List',
