@@ -40,7 +40,7 @@
           <!--顺序号-->
           <el-col :span="12">
             <el-form-item label="显示排序" prop="orderNum">
-              <el-input-number v-model="dialog.form.orderNum" controls-position="right" :min="0" disabled/>
+              <el-input-number v-model="dialog.form.orderNum" controls-position="right" :min="0" disabled />
             </el-form-item>
           </el-col>
           <!--菜单状态-->
@@ -255,12 +255,12 @@ export default {
     normalizerMenuOptions(node) {
       // {key:show} 可以选择的key 是否显示
       // 将该id是叶子节点还是分支节点存入变量
-      if (node.children && !node.children.length) {
-        // 叶子节点
+      if (node.type === 1) {
+        // 是菜单
         this.parentMenu[node.id] = { 0: false, 1: false, 2: true } // 'Leaf'
         delete node.children
-      } else {
-        // 分支节点
+      } else if (!node.type || node.type === 0) {
+        // 是目录
         this.parentMenu[node.id] = { 0: true, 1: true, 2: false }// 'Branch'
       }
       return {

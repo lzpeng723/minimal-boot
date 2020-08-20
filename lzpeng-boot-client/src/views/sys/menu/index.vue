@@ -91,6 +91,7 @@
           >修改
           </el-button>
           <el-button
+            v-if="scope.row.type !== 2 && !scope.row.frame"
             size="mini"
             type="text"
             icon="el-icon-plus"
